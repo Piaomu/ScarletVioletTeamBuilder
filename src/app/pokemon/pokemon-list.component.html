@@ -1,0 +1,218 @@
+<!-- Display as table on screens larger than tablet -->
+<div class="row">
+  <div class="h1" style="text-align: center">{{ pageTitle }}</div>
+  <hr />
+  <div class="col-md-8">
+    <h2>Search Pokemon</h2>
+    <input
+      type="text"
+      placeholder="Pikachu"
+      [(ngModel)]="listFilter"
+      style="margin-bottom: 0.5em"
+    />
+  </div>
+  <div>
+    <div class="col-md-10 type-container">
+      <img
+        class="type-icon"
+        src="assets/TypeIcons/Pokemon_Type_Icon_Bug.png"
+        [style.height.px]="iconHeight"
+        [style.width.px]="iconWidth"
+        (click)="filterByType('Bug')"
+        alt="sort Bug"
+      />
+      <img
+        class="type-icon"
+        src="assets/TypeIcons/Pokemon_Type_Icon_Dark.png"
+        [style.height.px]="iconHeight"
+        [style.width.px]="iconWidth"
+        (click)="filterByType('Dark')"
+        alt="sort Dark"
+      />
+      <img
+        class="type-icon"
+        src="assets/TypeIcons/Pokemon_Type_Icon_Dragon.png"
+        [style.height.px]="iconHeight"
+        [style.width.px]="iconWidth"
+        (click)="filterByType('Dragon')"
+        alt="sort Dragon"
+      />
+      <img
+        class="type-icon"
+        src="assets/TypeIcons/Pokemon_Type_Icon_Electric.png"
+        [style.height.px]="iconHeight"
+        [style.width.px]="iconWidth"
+        (click)="filterByType('Electric')"
+        alt="sort Electric"
+      />
+      <img
+        class="type-icon"
+        src="assets/TypeIcons/Pokemon_Type_Icon_Fairy.png"
+        [style.height.px]="iconHeight"
+        [style.width.px]="iconWidth"
+        (click)="filterByType('Fairy')"
+        alt="sort Fairy"
+      />
+      <img
+        class="type-icon"
+        src="assets/TypeIcons/Pokemon_Type_Icon_Fighting.png"
+        [style.height.px]="iconHeight"
+        [style.width.px]="iconWidth"
+        (click)="filterByType('Fighting')"
+        alt="sort Fighting"
+      />
+      <img
+        class="type-icon"
+        src="assets/TypeIcons/Pokemon_Type_Icon_Fire.png"
+        [style.height.px]="iconHeight"
+        [style.width.px]="iconWidth"
+        (click)="filterByType('Fire')"
+        alt="sort Fire"
+      />
+      <img
+        class="type-icon"
+        src="assets/TypeIcons/Pokemon_Type_Icon_Flying.png"
+        [style.height.px]="iconHeight"
+        [style.width.px]="iconWidth"
+        (click)="filterByType('Flying')"
+        alt="sort Flying"
+      />
+      <img
+        class="type-icon"
+        src="assets/TypeIcons/Pokemon_Type_Icon_Ghost.png"
+        [style.height.px]="iconHeight"
+        [style.width.px]="iconWidth"
+        (click)="filterByType('Ghost')"
+        alt="sort Ghost"
+      />
+      <img
+        class="type-icon"
+        src="assets/TypeIcons/Pokemon_Type_Icon_Grass.png"
+        [style.height.px]="iconHeight"
+        [style.width.px]="iconWidth"
+        (click)="filterByType('Grass')"
+        alt="sort Grass"
+      />
+      <img
+        class="type-icon"
+        src="assets/TypeIcons/Pokemon_Type_Icon_Ground.png"
+        [style.height.px]="iconHeight"
+        [style.width.px]="iconWidth"
+        (click)="filterByType('Ground')"
+        alt="sort Ground"
+      />
+      <img
+        class="type-icon"
+        src="assets/TypeIcons/Pokemon_Type_Icon_Ice.png"
+        [style.height.px]="iconHeight"
+        [style.width.px]="iconWidth"
+        (click)="filterByType('Ice')"
+        alt="sort Ice"
+      />
+      <img
+        class="type-icon"
+        src="assets/TypeIcons/Pokemon_Type_Icon_Normal.png"
+        [style.height.px]="iconHeight"
+        [style.width.px]="iconWidth"
+        (click)="filterByType('Normal')"
+        alt="sort Normal"
+      />
+      <img
+        class="type-icon"
+        src="assets/TypeIcons/Pokemon_Type_Icon_Poison.png"
+        [style.height.px]="iconHeight"
+        [style.width.px]="iconWidth"
+        (click)="filterByType('Poison')"
+        alt="sort Poison"
+      />
+      <img
+        class="type-icon"
+        src="assets/TypeIcons/Pokemon_Type_Icon_Psychic.png"
+        [style.height.px]="iconHeight"
+        [style.width.px]="iconWidth"
+        (click)="filterByType('Psychic')"
+        alt="sort Psychic"
+      />
+      <img
+        class="type-icon"
+        src="assets/TypeIcons/Pokemon_Type_Icon_Rock.png"
+        [style.height.px]="iconHeight"
+        [style.width.px]="iconWidth"
+        (click)="filterByType('Rock')"
+        alt="sort Rock"
+      />
+      <img
+        class="type-icon"
+        src="assets/TypeIcons/Pokemon_Type_Icon_Steel.png"
+        [style.height.px]="iconHeight"
+        [style.width.px]="iconWidth"
+        (click)="filterByType('Steel')"
+        alt="sort Steel"
+      />
+      <img
+        class="type-icon"
+        src="assets/TypeIcons/Pokemon_Type_Icon_Water.png"
+        [style.height.px]="iconHeight"
+        [style.width.px]="iconWidth"
+        (click)="filterByType('Water')"
+        alt="sort Water"
+      />
+    </div>
+  </div>
+</div>
+<div class="table-responsive d-none d-lg-block">
+  <table
+    class="table table-hover table-dark table-striped table-bordered"
+    *ngIf="pokemon.length"
+  >
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Types</th>
+        <th>Ability 1</th>
+        <th>Ability 2</th>
+        <th>Hidden Ability</th>
+        <th>HP</th>
+        <th>ATK</th>
+        <th>DEF</th>
+        <th>SPATK</th>
+        <th>SPDEF</th>
+        <th>SPD</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let onePokemon of filteredPokemon">
+        <td scope="row">{{ onePokemon.Name }}</td>
+        <td scope="row">{{ onePokemon.Types[0] }} {{ onePokemon.Types[1] }}</td>
+        <td scope="row">{{ onePokemon.Abilities[0] }}</td>
+        <td scope="row">{{ onePokemon.Abilities[1] }}</td>
+        <td scope="row">{{ onePokemon.Abilities[2] }}</td>
+        <td scope="row">{{ onePokemon.Stats.Hp }}</td>
+        <td scope="row">{{ onePokemon.Stats.Atk }}</td>
+        <td scope="row">{{ onePokemon.Stats.Def }}</td>
+        <td scope="row">{{ onePokemon.Stats.SpAtk }}</td>
+        <td scope="row">{{ onePokemon.Stats.SpDef }}</td>
+        <td scope="row">{{ onePokemon.Stats.Spd }}</td>
+        <td scope="row">{{ onePokemon.Stats.Total }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="d-lg-none">
+  <div class="card-deck" *ngFor="let onePokemon of filteredPokemon">
+    <div
+      class="card bg-dark"
+      style="margin-top: 0.25em; margin-bottom: 0.25em; height: 20em"
+    >
+      <img class="card-img-top card-img-overlay" src="" />
+      <div class="card-body">
+        <h1 class="card-title">{{ onePokemon.Name }}</h1>
+        <p class="card-text">{{ onePokemon.Abilities[0] }}</p>
+        <p class="card-text">{{ onePokemon.Abilities[1] }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script></script>
