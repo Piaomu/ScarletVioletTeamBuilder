@@ -182,7 +182,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let onePokemon of filteredPokemon">
+      <tr
+        [routerLink]="['/pokemon', onePokemon.Name]"
+        *ngFor="let onePokemon of filteredPokemon"
+      >
         <td scope="row">{{ onePokemon.Name }}</td>
         <td scope="row">{{ onePokemon.Types[0] }} {{ onePokemon.Types[1] }}</td>
         <td scope="row">{{ onePokemon.Abilities[0] }}</td>
