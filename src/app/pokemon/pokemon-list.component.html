@@ -205,6 +205,7 @@
 <div class="d-lg-none">
   <div class="card-deck" *ngFor="let onePokemon of filteredPokemon">
     <div
+      [routerLink]="['/pokemon', onePokemon.Name]"
       class="card bg-dark"
       style="margin-top: 0.25em; margin-bottom: 0.25em; height: 20em"
     >
@@ -213,6 +214,9 @@
         <h1 class="card-title">{{ onePokemon.Name }}</h1>
         <p class="card-text">{{ onePokemon.Abilities[0] }}</p>
         <p class="card-text">{{ onePokemon.Abilities[1] }}</p>
+        <button class="btn btn-secondary" (click)="addToTeam(onePokemon.Name)">
+          Add to Team
+        </button>
       </div>
     </div>
   </div>

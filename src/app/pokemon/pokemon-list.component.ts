@@ -45,6 +45,10 @@ export class PokemonListComponent implements OnInit, OnDestroy {
     );
   }
 
+  addToTeam(pokemonName: string) {
+    console.log(`added ${pokemonName} to team!`);
+  }
+
   ngOnInit(): void {
     this.sub = this.pokemonService.getPokemonList().subscribe({
       next: (pokemon) => {

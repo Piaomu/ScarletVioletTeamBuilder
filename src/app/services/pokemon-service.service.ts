@@ -16,6 +16,12 @@ export class PokemonServiceService {
     );
   }
 
+  getPokemonByName(name: string): Observable<Pokemon | undefined> {
+    return this.getPokemonList().pipe(
+      map((pokemon: Pokemon[]) => pokemon.find((p) => p.Name === name))
+    );
+  }
+
   private handleError(err: HttpErrorResponse) {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {

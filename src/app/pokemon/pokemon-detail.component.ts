@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { PokemonServiceService } from '../services/pokemon-service.service';
 import { Pokemon } from './IPokemon';
 
 @Component({
@@ -7,10 +9,28 @@ import { Pokemon } from './IPokemon';
   styleUrls: ['./pokemon-detail.component.css'],
 })
 export class PokemonDetailComponent implements OnInit {
-  constructor() {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private pokemonService: PokemonServiceService
+  ) {}
   public pageTitle = 'Pokemon Details';
   pokemon: Pokemon | undefined;
   errorMessage: string = '';
 
-  ngOnInit(): void {}
+  getPokemon(name: string): void {
+    this.pokemonService.getPokemonByName(name).subscribe({
+      next: (pokemon) => (this.pokemon = pokemon),
+      error: (err) => (this.errorMessage = err),
+    });
+  }
+  addToTeam(pokemonName: string) {
+    console.log(`added ${pokemonName} to team!`);
+  }
+  ngOnInit(): void {
+    const name = this.route.snapshot.paramMap.get('name');
+    if (name) {
+      this.getPokemon(name);
+    }
+  }
 }
