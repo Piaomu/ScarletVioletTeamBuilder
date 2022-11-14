@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PokemonServiceService } from '../services/pokemon-service.service';
-import { Pokemon } from './IPokemon';
+import { Moves, Pokemon } from './IPokemon';
 
 @Component({
   selector: 'pokemon-detail',
