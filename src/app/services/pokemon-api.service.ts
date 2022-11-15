@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { ApiPokemon } from '../pokemon/IApiPokemon';
 
 @Injectable({
@@ -10,8 +10,12 @@ export class PokemonApiService {
   private pokemonUrl = 'https://pokeapi.co/api/v2/pokemon';
   constructor(private httpClient: HttpClient) {}
 
-  getPokemonByName(name: string): Observable<ApiPokemon | undefined> {
-    return this.httpClient.get<ApiPokemon>(this.pokemonUrl);
+  getApiPokemonByName(name: string): Observable<ApiPokemon | undefined> {
+    let url = this.pokemonUrl + '/' + name;
+    return this.httpClient.get<ApiPokemon>(url + '/' + name).pipe(
+      tap((data) => console.log('Pokemon', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
   }
 
   private handleError(err: HttpErrorResponse) {
