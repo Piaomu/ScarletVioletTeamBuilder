@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Pokemon } from './IPokemon';
 import { Subscription } from 'rxjs';
 import { PokemonServiceService } from '../services/pokemon-service.service';
+import { PokemonApiService } from '../services/pokemon-api.service';
+import { ApiPokemon } from './IApiPokemon';
 
 @Component({
   selector: 'pokemon-list',
@@ -9,15 +11,21 @@ import { PokemonServiceService } from '../services/pokemon-service.service';
   styleUrls: ['./pokemon-list.component.css'],
 })
 export class PokemonListComponent implements OnInit, OnDestroy {
-  constructor(private pokemonService: PokemonServiceService) {}
+  constructor(
+    private pokemonService: PokemonServiceService,
+    private pokemonApiService: PokemonApiService
+  ) {}
 
   pageTitle = 'All Pokemon';
   iconHeight = 50;
   iconWidth = 50;
   pokemon: Pokemon[] = [];
   filteredPokemon: Pokemon[] = [];
+  apiPokemon: ApiPokemon[] = [];
+
   errorMessage: string = '';
   sub!: Subscription;
+  apiSub!: Subscription;
   private _listFilter: string = '';
   get listFilter(): string {
     return this._listFilter;
@@ -57,9 +65,17 @@ export class PokemonListComponent implements OnInit, OnDestroy {
       },
       error: (err) => (this.errorMessage = err),
     });
+
+    // this.apiSub = this.pokemonApiService.getApiPokemonList().subscribe({
+    //   next: (pokemon) => {
+    //     this.apiPokemon = pokemon;
+    //   },
+    //   error: (err) => (this.errorMessage = err),
+    // });
   }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+    // this.apiSub.unsubscribe();
   }
 }

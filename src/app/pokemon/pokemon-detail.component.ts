@@ -22,6 +22,8 @@ export class PokemonDetailComponent implements OnInit {
   apiPokemon: ApiPokemon | undefined;
   errorMessage: string = '';
   apiErrorMessage: string = '';
+  typeOneIcon: string = '';
+  typeTwoIcon: string = '';
 
   getPokemon(name: string): void {
     this.pokemonService.getPokemonByName(name).subscribe({
@@ -47,5 +49,7 @@ export class PokemonDetailComponent implements OnInit {
       this.getPokemon(name);
       this.getApiPokemon(lowerName);
     }
+    // if (this.pokemon?.Types[0] == 'Fire') {
+    // }
   }
 }

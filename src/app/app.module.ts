@@ -7,7 +7,6 @@ import { PokemonListComponent } from './pokemon/pokemon-list.component';
 import { PokemonDetailComponent } from './pokemon/pokemon-detail.component';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MainClient } from 'pokenode-ts';
 
 @NgModule({
   declarations: [AppComponent, PokemonListComponent, PokemonDetailComponent],

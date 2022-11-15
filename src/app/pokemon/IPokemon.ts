@@ -5,6 +5,7 @@ export interface Pokemon {
   Abilities: string[];
   Evolutions: Evolutions | null;
   Moves: Moves;
+  Image?: string;
 }
 
 export interface Stats {

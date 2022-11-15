@@ -1,60 +1,70 @@
-<h1>{{ pokemon?.Name }}</h1>
-<h2>{{ pokemon?.Types }}</h2>
-<h2>{{ pokemon?.Abilities }}</h2>
-<img
-  [src]="apiPokemon?.sprites?.other?.['official-artwork']?.front_default"
-  style="max-height: 40%; max-width: 40%"
-  alt=""
-/>
-<h3>This is a crap page that will get better.</h3>
-<table class="table table-dark">
-  <thead>
-    <tr>
-      <th>HP</th>
-      <th>ATK</th>
-      <th>DEF</th>
-      <th>SPATK</th>
-      <th>SPDEF</th>
-      <th>SPD</th>
-      <th>TOTAL</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td scope="row">{{ pokemon?.Stats?.Hp }}</td>
-      <td>{{ pokemon?.Stats?.Atk }}</td>
-      <td>{{ pokemon?.Stats?.Def }}</td>
-      <td>{{ pokemon?.Stats?.SpAtk }}</td>
-      <td>{{ pokemon?.Stats?.SpDef }}</td>
-      <td>{{ pokemon?.Stats?.Spd }}</td>
-      <td>{{ pokemon?.Stats?.Total }}</td>
-    </tr>
-  </tbody>
-</table>
-<div class="row">
-  <!-- TM Moves -->
-  <div class="col">
-    <br />
-    <div ngbDropdown>
-      <button class="btn btn-primary" id="gfg" ngbDropdownToggle>TMs</button>
-      <div ngbDropdownMenu="gfg">
-        <a *ngFor="let move of pokemon?.Moves?.TmMoves" ngbDropdownItem>{{
-          move
-        }}</a>
+<div class="card bg-dark align-items-center rounded p-4">
+  <hr />
+  <h1>{{ pokemon?.Name }}</h1>
+
+  <div class="">
+    <h2>{{ pokemon?.Types }}</h2>
+  </div>
+  <div class="">
+    <h2>{{ pokemon?.Abilities }}</h2>
+  </div>
+
+  <img
+    class="card-image-top"
+    [src]="apiPokemon?.sprites?.other?.['official-artwork']?.front_default"
+    style="max-height: 40%; max-width: 40%"
+    alt=""
+  />
+
+  <table class="table table-dark table-border">
+    <thead>
+      <tr>
+        <th>HP</th>
+        <th>ATK</th>
+        <th>DEF</th>
+        <th>SPATK</th>
+        <th>SPDEF</th>
+        <th>SPD</th>
+        <th>TOTAL</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td scope="row">{{ pokemon?.Stats?.Hp }}</td>
+        <td>{{ pokemon?.Stats?.Atk }}</td>
+        <td>{{ pokemon?.Stats?.Def }}</td>
+        <td>{{ pokemon?.Stats?.SpAtk }}</td>
+        <td>{{ pokemon?.Stats?.SpDef }}</td>
+        <td>{{ pokemon?.Stats?.Spd }}</td>
+        <td>{{ pokemon?.Stats?.Total }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="row">
+    <!-- TM Moves -->
+    <div class="col">
+      <br />
+      <div ngbDropdown>
+        <button class="btn btn-primary" id="gfg" ngbDropdownToggle>TMs</button>
+        <div ngbDropdownMenu="gfg">
+          <a *ngFor="let move of pokemon?.Moves?.TmMoves" ngbDropdownItem>{{
+            move
+          }}</a>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="col">
-    <br />
-    <!-- Egg Moves -->
-    <div ngbDropdown *ngIf="pokemon?.Moves?.EggMoves?.length">
-      <button class="btn btn-primary" id="gfg" ngbDropdownToggle>
-        Egg Moves
-      </button>
-      <div ngbDropdownMenu="gfg">
-        <a *ngFor="let move of pokemon?.Moves?.EggMoves" ngbDropdownItem>{{
-          move
-        }}</a>
+    <div class="col">
+      <br />
+      <!-- Egg Moves -->
+      <div ngbDropdown *ngIf="pokemon?.Moves?.EggMoves?.length">
+        <button class="btn btn-secondary" id="gfg" ngbDropdownToggle>
+          Egg Moves
+        </button>
+        <div ngbDropdownMenu="gfg">
+          <a *ngFor="let move of pokemon?.Moves?.EggMoves" ngbDropdownItem>{{
+            move
+          }}</a>
+        </div>
       </div>
     </div>
   </div>

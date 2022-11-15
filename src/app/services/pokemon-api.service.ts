@@ -10,6 +10,13 @@ export class PokemonApiService {
   private pokemonUrl = 'https://pokeapi.co/api/v2/pokemon';
   constructor(private httpClient: HttpClient) {}
 
+  getApiPokemonList(): Observable<ApiPokemon[]> {
+    return this.httpClient.get<ApiPokemon[]>(this.pokemonUrl).pipe(
+      tap((data) => console.log('All', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
   getApiPokemonByName(name: string): Observable<ApiPokemon | undefined> {
     let url = this.pokemonUrl + '/' + name;
     return this.httpClient.get<ApiPokemon>(url).pipe(
