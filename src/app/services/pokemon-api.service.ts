@@ -12,7 +12,7 @@ export class PokemonApiService {
 
   getApiPokemonByName(name: string): Observable<ApiPokemon | undefined> {
     let url = this.pokemonUrl + '/' + name;
-    return this.httpClient.get<ApiPokemon>(url + '/' + name).pipe(
+    return this.httpClient.get<ApiPokemon>(url).pipe(
       tap((data) => console.log('Pokemon', JSON.stringify(data))),
       catchError(this.handleError)
     );
