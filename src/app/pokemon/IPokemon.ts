@@ -2,6 +2,7 @@ export interface Pokemon {
   Name: string;
   Stats: Stats;
   Types: string[];
+  TypeIcons?: string[];
   Abilities: string[];
   Evolutions: Evolutions | null;
   Moves: Moves;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PokemonApiService } from '../services/pokemon-api.service';
 import { PokemonServiceService } from '../services/pokemon-service.service';
+import { UtilitiesService } from '../services/utilities.service';
 import { ApiPokemon } from './IApiPokemon';
 import { Moves, Pokemon } from './IPokemon';
 
@@ -15,15 +16,15 @@ export class PokemonDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private pokemonService: PokemonServiceService,
-    private pokemonApiService: PokemonApiService
+    private pokemonApiService: PokemonApiService,
+    private utilitiesService: UtilitiesService
   ) {}
   public pageTitle = 'Pokemon Details';
   pokemon: Pokemon | undefined;
   apiPokemon: ApiPokemon | undefined;
   errorMessage: string = '';
   apiErrorMessage: string = '';
-  typeOneIcon: string = '';
-  typeTwoIcon: string = '';
+  typeIcons: string[] = [];
 
   getPokemon(name: string): void {
     this.pokemonService.getPokemonByName(name).subscribe({
@@ -49,7 +50,10 @@ export class PokemonDetailComponent implements OnInit {
       this.getPokemon(name);
       this.getApiPokemon(lowerName);
     }
-    // if (this.pokemon?.Types[0] == 'Fire') {
-    // }
+    let types: string[] | undefined = this.pokemon?.Types;
+
+    const fire: string[] = ['Fire', 'Water', 'Grass'];
+
+    this.typeIcons = this.utilitiesService.getTypeIcon(types);
   }
 }

@@ -6,7 +6,9 @@
     <h2>{{ pokemon?.Types }}</h2>
   </div>
   <div class="">
-    <h2>{{ pokemon?.Abilities }}</h2>
+    <div class="badge" *ngFor="let ability of pokemon?.Abilities">
+      <span class="">{{ ability }}</span>
+    </div>
   </div>
 
   <img
@@ -15,6 +17,9 @@
     style="max-height: 40%; max-width: 40%"
     alt=""
   />
+  <div *ngFor="let typeIcon of typeIcons">
+    <img [src]="typeIcon" />
+  </div>
 
   <table class="table table-dark table-border">
     <thead>
