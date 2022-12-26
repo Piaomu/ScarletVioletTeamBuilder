@@ -5,9 +5,13 @@ export interface Team {
 
 export interface TeamPokemon {
   name: string;
-  ability: string;
-  evs: string;
-  nature: string;
-  moves: string;
+  gender?: string;
   item?: string;
+  ability: string;
+  level?: string;
+  teraType: string;
+  evs?: string;
+  nature: string;
+  ivs?: string;
+  moves: string;
 }

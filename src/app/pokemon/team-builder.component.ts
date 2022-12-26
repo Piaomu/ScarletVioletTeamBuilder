@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Team, TeamPokemon } from './Iteam';
 
 @Component({
@@ -7,6 +7,8 @@ import { Team, TeamPokemon } from './Iteam';
   styleUrls: ['./team-builder.component.css'],
 })
 export class TeamBuilderComponent implements OnInit {
+  @ViewChild('textarea') textarea: ElementRef<HTMLTextAreaElement> | undefined;
+
   constructor() {}
 
   @Input() pokepaste: string = '';
@@ -16,17 +18,24 @@ export class TeamBuilderComponent implements OnInit {
     name: 'Pikachu',
     ability: 'Static',
     evs: '252 SpA / 4 SpD / 252 Spe',
+    teraType: 'Grass',
     nature: 'Timid',
     moves: 'Thunderbolt, Volt Tackle, Hidden Power [Ice], Substitute',
   };
-  team!: Team;
+  team!: Team | null;
+
+  onSubmit(pokepaste: string) {
+    this.team = this.parsePokepaste(pokepaste);
+    localStorage.setItem('team', JSON.stringify(this.team));
+    console.log(localStorage.getItem('team'));
+  }
 
   parsePokepaste(pokepaste: string): { name: string; pokemon: TeamPokemon[] } {
     const lines = pokepaste.split('\n');
     const name = lines[0];
     const pokemon = [];
 
-    let i = 1;
+    let i = 0;
     while (i < lines.length) {
       const line = lines[i];
       if (!line) {
@@ -51,28 +60,44 @@ export class TeamBuilderComponent implements OnInit {
     const lines = pokepaste.split('\n');
     const nameLine = lines[0];
     const abilityLine = lines[1];
-    const evLine = lines[2];
-    const natureLine = lines[3];
-    const moves = lines.slice(4);
+    const levelLine = lines[2];
+    const typeLine = lines[3];
+    const evLine = lines[4];
+    const natureLine = lines[5];
+    const ivLine = lines[6];
+    const moves = lines.slice(7);
 
     const [name, item] = nameLine.split(' @ ');
     const ability = abilityLine.split(': ')[1];
+    const level = levelLine.split(': ')[1];
+    const teraType = typeLine.split(': ')[1];
     const [, evs] = evLine.split(': ');
     const [nature] = natureLine.split(' Nature');
+    const [, ivs] = ivLine.split(': ');
     const moveList = moves.join(', ');
 
     return {
       name,
       ability,
+      level,
+      teraType,
       evs,
       nature,
       moves: moveList,
+      ivs,
       item,
     };
   }
 
   ngOnInit() {
-    // this.team = this.parsePokepaste(this.pokepaste);
+    if (localStorage.getItem('team') != null) {
+      let teamString = localStorage.getItem('team');
+      if (teamString === null) {
+        this.team = null;
+      } else {
+        this.team = JSON.parse(teamString) as Team;
+      }
+    }
     this.proxyTeam.pokemon.push(this.pokemon1);
   }
 

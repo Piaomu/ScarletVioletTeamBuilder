@@ -1,15 +1,42 @@
-<p>team-builder works!</p>
+<p>Paste a pokepaste here.</p>
 
-<div>
-  <textarea #pasteInput></textarea>
-  <button (click)="parsePokepaste(pasteInput.value)">Submit</button>
-  <div *ngFor="let pokemon of proxyTeam.pokemon">
-    <h4>{{ pokemon.name }}</h4>
-    <p>Ability: {{ pokemon.ability }}</p>
-    <p>EVs: {{ pokemon.evs }}</p>
-    <p>Nature: {{ pokemon.nature }}</p>
-    <p>Moves: {{ pokemon.moves }}</p>
+<form (submit)="onSubmit(input.value)">
+  <div class="row justify-content-center">
+    <textarea #input class="form-control" rows="5"></textarea>
+    <button type="submit" class="btn btn-primary btn-lg btn-block mt-3">
+      Submit
+    </button>
+  </div>
+</form>
+
+<div class="row">
+  <div
+    class="col-lg-4 col-sm-6 col-xs-12"
+    *ngFor="let pokemon of team?.pokemon"
+  >
+    <div class="card">
+      <h4 class="card-header">{{ pokemon.name }}</h4>
+      <div class="card-body">
+        <p class="card-text">Ability: {{ pokemon.ability }}</p>
+        <p class="card-text">Tera Type: {{ pokemon.teraType }}</p>
+        <p class="card-text">EVs: {{ pokemon.evs }}</p>
+        <p class="card-text">IVs: {{ pokemon.ivs }}</p>
+        <p class="card-text">Nature: {{ pokemon.nature }}</p>
+        <p class="card-text">Moves: {{ pokemon.moves }}</p>
+      </div>
+    </div>
   </div>
 </div>
 
-<button (click)="save()">Save</button>
+<!-- <div>
+      <h1>{{ proxyTeam.name }}</h1>
+    </div>
+    <div *ngFor="let pokemon of proxyTeam.pokemon">
+      <h4>{{ pokemon.name }}</h4>
+      <p>Ability: {{ pokemon.ability }}</p>
+      <p>EVs: {{ pokemon.evs }}</p>
+      <p>Nature: {{ pokemon.nature }}</p>
+      <p>Moves: {{ pokemon.moves }}</p>
+    </div>
+
+    <button (click)="save()">Save</button> -->
