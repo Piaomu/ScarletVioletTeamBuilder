@@ -1,1 +1,15 @@
 <p>team-builder works!</p>
+
+<div>
+  <textarea #pasteInput></textarea>
+  <button (click)="parsePokepaste(pasteInput.value)">Submit</button>
+  <div *ngFor="let pokemon of proxyTeam.pokemon">
+    <h4>{{ pokemon.name }}</h4>
+    <p>Ability: {{ pokemon.ability }}</p>
+    <p>EVs: {{ pokemon.evs }}</p>
+    <p>Nature: {{ pokemon.nature }}</p>
+    <p>Moves: {{ pokemon.moves }}</p>
+  </div>
+</div>
+
+<button (click)="save()">Save</button>
