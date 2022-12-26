@@ -7,9 +7,15 @@ import { PokemonListComponent } from './pokemon/pokemon-list.component';
 import { PokemonDetailComponent } from './pokemon/pokemon-detail.component';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TeamBuilderComponent } from './pokemon/team-builder.component';
 
 @NgModule({
-  declarations: [AppComponent, PokemonListComponent, PokemonDetailComponent],
+  declarations: [
+    AppComponent,
+    PokemonListComponent,
+    PokemonDetailComponent,
+    TeamBuilderComponent,
+  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -17,6 +23,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     RouterModule.forRoot([
       { path: 'pokemon', component: PokemonListComponent },
       { path: 'pokemon/:name', component: PokemonDetailComponent },
+      { path: 'team-builder', component: TeamBuilderComponent },
       { path: '', redirectTo: 'pokemon', pathMatch: 'full' },
     ]),
     NgbModule,
