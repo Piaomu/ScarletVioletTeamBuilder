@@ -14,4 +14,5 @@ export interface TeamPokemon {
   nature: string;
   ivs?: string;
   moves: string;
+  photoUrl?: string;
 }

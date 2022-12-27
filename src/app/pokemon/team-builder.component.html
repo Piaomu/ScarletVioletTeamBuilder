@@ -14,7 +14,7 @@
     class="col-lg-4 col-sm-6 col-xs-12"
     *ngFor="let pokemon of team?.pokemon"
   >
-    <div class="card">
+    <!-- <div class="card">
       <h4 class="card-header">{{ pokemon.name }}</h4>
       <div class="card-body">
         <p class="card-text">Ability: {{ pokemon.ability }}</p>
@@ -24,11 +24,42 @@
         <p class="card-text">Nature: {{ pokemon.nature }}</p>
         <p class="card-text">Moves: {{ pokemon.moves }}</p>
       </div>
+    </div> -->
+    <div class="card">
+      <div class="row no-gutters">
+        <div class="col-md-2">
+          <img
+            src="{{ pokemon.photoUrl }}"
+            class="card-img"
+            alt="{{ pokemon.name }}"
+          />
+        </div>
+        <div class="col-md-10">
+          <div class="card-header">
+            {{ pokemon.name }}
+          </div>
+          <div class="card-body">
+            <p class="card-text">Ability: {{ pokemon.ability }}</p>
+            <p class="card-text">Tera Type: {{ pokemon.teraType }}</p>
+            <p class="card-text">EVs: {{ pokemon.evs }}</p>
+            <p class="card-text">IVs: {{ pokemon.ivs }}</p>
+            <p class="card-text">Nature: {{ pokemon.nature }}</p>
+            <p class="card-text">Moves: {{ pokemon.moves }}</p>
+          </div>
+          <div class="card-footer">
+            <button
+              class="btn btn-secondary btn-block"
+              style="width: 100%"
+              (click)="editPokemon(pokemon)"
+            >
+              Edit
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<!-- <div>
+    <!-- <div>
       <h1>{{ proxyTeam.name }}</h1>
     </div>
     <div *ngFor="let pokemon of proxyTeam.pokemon">
@@ -40,3 +71,5 @@
     </div>
 
     <button (click)="save()">Save</button> -->
+  </div>
+</div>

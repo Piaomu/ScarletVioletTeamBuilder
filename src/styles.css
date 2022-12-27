@@ -11707,3 +11707,8 @@ body {
 .type-icon.active {
     opacity: 1;
 }
+
+.type-container {
+  align-items: center;
+  align-content: center;
+}

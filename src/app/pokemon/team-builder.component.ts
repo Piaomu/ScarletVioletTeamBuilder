@@ -1,5 +1,8 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Team, TeamPokemon } from './Iteam';
+import { ApiPokemon } from './IApiPokemon';
+import { PokemonApiService } from '../services/pokemon-api.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-team-builder',
@@ -9,7 +12,11 @@ import { Team, TeamPokemon } from './Iteam';
 export class TeamBuilderComponent implements OnInit {
   @ViewChild('textarea') textarea: ElementRef<HTMLTextAreaElement> | undefined;
 
-  constructor() {}
+  constructor(
+    private pokemonApiService: PokemonApiService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   @Input() pokepaste: string = '';
 
@@ -28,6 +35,10 @@ export class TeamBuilderComponent implements OnInit {
     this.team = this.parsePokepaste(pokepaste);
     localStorage.setItem('team', JSON.stringify(this.team));
     console.log(localStorage.getItem('team'));
+  }
+
+  editPokemon(_t13: TeamPokemon) {
+    throw new Error('Method not implemented.');
   }
 
   parsePokepaste(pokepaste: string): { name: string; pokemon: TeamPokemon[] } {
@@ -89,6 +100,12 @@ export class TeamBuilderComponent implements OnInit {
     };
   }
 
+  generatePhotoUrl(name: string): void {
+    let apiPokemon = this.pokemonApiService.getApiPokemonByName(
+      name.toLowerCase()
+    );
+  }
+
   ngOnInit() {
     if (localStorage.getItem('team') != null) {
       let teamString = localStorage.getItem('team');
@@ -98,6 +115,10 @@ export class TeamBuilderComponent implements OnInit {
         this.team = JSON.parse(teamString) as Team;
       }
     }
+
+    this.team?.pokemon.forEach((pokemon) =>
+      this.generatePhotoUrl(pokemon.name)
+    );
     this.proxyTeam.pokemon.push(this.pokemon1);
   }
 
