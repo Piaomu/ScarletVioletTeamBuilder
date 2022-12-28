@@ -1,14 +1,106 @@
-<p>Paste a pokepaste here.</p>
+<div class="accordion" id="newTeamAccordion">
+  <div class="card bg-dark">
+    <div class="card-header" id="headingOne">
+      <h2 class="mb-0">
+        <button
+          class="btn btn-link"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#newTeamToggle"
+          aria-expanded="true"
+          aria-controls="newTeamToggle"
+        >
+          Create a New Team
+        </button>
+      </h2>
+    </div>
 
-<form (submit)="onSubmit(input.value)">
-  <div class="row justify-content-center">
-    <textarea #input class="form-control" rows="5"></textarea>
-    <button type="submit" class="btn btn-primary btn-lg btn-block mt-3">
-      Submit
-    </button>
+    <div
+      id="newTeamToggle"
+      class="collapse show"
+      aria-labelledby="headingOne"
+      data-parent="#newTeamAccordion"
+    >
+      <div class="card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
+        terry richardson ad squid. 3 wolf moon officia aute, non cupidatat
+        skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+        Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid
+        single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh
+        helvetica, craft beer labore wes anderson cred nesciunt sapiente ea
+        proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft
+        beer farm-to-table, raw denim aesthetic synth nesciunt you probably
+        haven't heard of them accusamus labore sustainable VHS.
+      </div>
+    </div>
   </div>
-</form>
-
+  <div class="card bg-dark">
+    <div class="card-header" id="headingTwo">
+      <h2 class="mb-0">
+        <button
+          class="btn btn-link collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#importPokePaste"
+          aria-expanded="false"
+          aria-controls="importPokePaste"
+        >
+          Import Team From PokePaste
+        </button>
+      </h2>
+    </div>
+    <div
+      id="importPokePaste"
+      class="collapse"
+      aria-labelledby="headingTwo"
+      data-parent="#newTeamAccordion"
+    >
+      <div class="card-body">
+        <form (submit)="onSubmit(input.value)">
+          <div class="row justify-content-center">
+            <textarea
+              #input
+              style="color: white"
+              class="form-control bg-dark"
+              rows="5"
+            ></textarea>
+            <button type="submit" class="btn btn-primary btn-lg btn-block mt-3">
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="card bg-dark" *ngIf="!localStorageIsEmpty()">
+    <div class="card-header" id="headingThree">
+      <h2 class="mb-0">
+        <button
+          class="btn btn-link collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#editTeam"
+          aria-expanded="false"
+          aria-controls="importPokePaste"
+        >
+          Edit Team
+        </button>
+      </h2>
+    </div>
+    <div
+      id="editTeam"
+      class="collapse"
+      aria-labelledby="headingThree"
+      data-parent="#newTeamAccordion"
+    >
+      <div class="card-body">
+        <button class="btn btn-primary" (click)="clearTeam()">
+          Delete Saved Team
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div
     class="col-lg-4 col-sm-6 col-xs-12"

@@ -61,7 +61,10 @@ export class TeamBuilderComponent implements OnInit {
       }
 
       const pokemonPaste = pokemonLines.join('\n');
-      pokemon.push(this.parsePokemon(pokemonPaste));
+      const parsedPokemon = this.parsePokemon(pokemonPaste);
+
+      this.generatePhotoUrl(parsedPokemon);
+      pokemon.push(parsedPokemon);
     }
 
     return { name, pokemon };
@@ -100,13 +103,17 @@ export class TeamBuilderComponent implements OnInit {
     };
   }
 
-  generatePhotoUrl(name: string): void {
-    let apiPokemon = this.pokemonApiService.getApiPokemonByName(
-      name.toLowerCase()
-    );
+  generatePhotoUrl(pokemon: TeamPokemon): void {
+    this.pokemonApiService
+      .getApiPokemonByName(pokemon.name.toLowerCase())
+      .subscribe((apiPokemon) => {
+        pokemon.photoUrl =
+          apiPokemon?.sprites?.other?.['official-artwork']?.front_default;
+      });
   }
 
   ngOnInit() {
+    // retrieve team from local storage if it exists
     if (localStorage.getItem('team') != null) {
       let teamString = localStorage.getItem('team');
       if (teamString === null) {
@@ -116,14 +123,28 @@ export class TeamBuilderComponent implements OnInit {
       }
     }
 
-    this.team?.pokemon.forEach((pokemon) =>
-      this.generatePhotoUrl(pokemon.name)
-    );
+    // generate photos for each pokemon on team
+    this.team?.pokemon.forEach((pokemon) => this.generatePhotoUrl(pokemon));
+
     this.proxyTeam.pokemon.push(this.pokemon1);
+  }
+
+  // Local storage methods
+  localStorageIsEmpty(): boolean {
+    if (localStorage.length > 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   save() {
     // save the team object to local storage here
     localStorage.setItem('team', JSON.stringify(this.team));
+  }
+
+  clearTeam() {
+    localStorage.clear();
+    this.team = null;
   }
 }
