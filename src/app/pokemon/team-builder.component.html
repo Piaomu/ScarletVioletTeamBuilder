@@ -1,4 +1,6 @@
+<!-- New Team Accordian -->
 <div class="accordion" id="newTeamAccordion">
+  <!-- Create New Team -->
   <div class="card bg-dark">
     <div class="card-header" id="headingOne">
       <h2 class="mb-0">
@@ -26,41 +28,89 @@
           <div class="row">
             <div class="col-md-4 my-1">
               <div class="card text-center">
-                <button class="btn btn-primary btn-lg">+</button>
+                <button
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#pokemon1"
+                  class="btn btn-primary btn-lg"
+                >
+                  +
+                </button>
               </div>
             </div>
             <div class="col-md-4 my-1">
               <div class="card text-center">
-                <button class="btn btn-primary btn-lg">+</button>
+                <button
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#pokemon2"
+                  class="btn btn-primary btn-lg"
+                >
+                  +
+                </button>
               </div>
             </div>
             <div class="col-md-4 my-1">
               <div class="card text-center">
-                <button class="btn btn-primary btn-lg">+</button>
+                <button
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#pokemon3"
+                  class="btn btn-primary btn-lg"
+                >
+                  +
+                </button>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-4 my-1">
               <div class="card text-center">
-                <button class="btn btn-primary btn-lg">+</button>
+                <button
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#pokemon4"
+                  class="btn btn-primary btn-lg"
+                >
+                  +
+                </button>
               </div>
             </div>
             <div class="col-md-4 my-1">
               <div class="card text-center">
-                <button class="btn btn-primary btn-lg">+</button>
+                <button
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#pokemon5"
+                  class="btn btn-primary btn-lg"
+                >
+                  +
+                </button>
               </div>
             </div>
             <div class="col-md-4 my-1">
               <div class="card text-center">
-                <button class="btn btn-primary btn-lg">+</button>
+                <button
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#pokemon6"
+                  class="btn btn-primary btn-lg"
+                >
+                  +
+                </button>
               </div>
             </div>
           </div>
         </div>
+        <div class="row mt-2">
+          <button class="btn btn-primary">Submit</button>
+        </div>
       </div>
     </div>
   </div>
+  <!-- ./Create New Team -->
+
+  <!-- Import Pokepaste -->
   <div class="card bg-dark">
     <div class="card-header" id="headingTwo">
       <h2 class="mb-0">
@@ -99,6 +149,9 @@
       </div>
     </div>
   </div>
+  <!-- ./ Import Pokepaste -->
+
+  <!-- Edit Team -->
   <div class="card bg-dark" *ngIf="!localStorageIsEmpty()">
     <div class="card-header" id="headingThree">
       <h2 class="mb-0">
@@ -127,7 +180,11 @@
       </div>
     </div>
   </div>
+  <!-- ./Edit Team -->
 </div>
+<!-- ./New Team Accordian -->
+
+<!-- Display Team -->
 <div class="row">
   <div
     class="col-lg-4 col-sm-6 col-xs-12"
@@ -192,3 +249,754 @@
     <button (click)="save()">Save</button> -->
   </div>
 </div>
+<!-- ./Display Team -->
+
+<!-- Pokemon 1 Modal -->
+<div class="modal fade" id="pokemon1" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pokemon 1</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="pokemon1Name">Pokemon</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon1Name"
+              placeholder="Choose a Pokemon"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pokemon1Ability">Ability</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon1Ability"
+              placeholder="Choose Ability"
+            />
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon1Level">Level</label>
+                <select
+                  id="pokemon1Level"
+                  class="form-control"
+                  style="width: 60px"
+                  [(ngModel)]="pokemonLevel"
+                >
+                  <option *ngFor="let level of levels" [value]="level">
+                    {{ level }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon1TeraType">Tera Type</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon1TeraType"
+                  placeholder="Enter Tera Type"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pokemon1Evs">EVs</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon1Evs"
+              placeholder="Enter EVs"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pokemon1Ivs">IVs</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon1Ivs"
+              placeholder="Enter IVs"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pokemon1Moves">Moves</label>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon1Move1"
+                  placeholder="Move 1"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon1Move2"
+                  placeholder="Move 2"
+                />
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon1Move3"
+                  placeholder="Move 3"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon1Move4"
+                  placeholder="Move 4"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ./ Pokemon 1 Modal -->
+
+<!-- Pokemon 2 Modal -->
+<div class="modal fade" id="pokemon2" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pokemon 2</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="pokemon2Name">Pokemon</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon2Name"
+              placeholder="Choose a Pokemon"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pokemon2Ability">Ability</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon2Ability"
+              placeholder="Choose Ability"
+            />
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon2Level">Level</label>
+                <select
+                  id="pokemon2Level"
+                  class="form-control"
+                  style="width: 60px"
+                  [(ngModel)]="pokemonLevel"
+                >
+                  <option *ngFor="let level of levels" [value]="level">
+                    {{ level }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon2TeraType">Tera Type</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon2TeraType"
+                  placeholder="Enter Tera Type"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pokemon2Evs">EVs</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon2Evs"
+              placeholder="Enter EVs"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pokemon2Ivs">IVs</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon2Ivs"
+              placeholder="Enter IVs"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pokemon2Moves">Moves</label>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon2Move1"
+                  placeholder="Move 1"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon2Move2"
+                  placeholder="Move 2"
+                />
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon2Move3"
+                  placeholder="Move 3"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon2Move4"
+                  placeholder="Move 4"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ./ Pokemon 2 Modal -->
+
+<!-- Pokemon 3 Modal -->
+<div class="modal fade" id="pokemon3" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pokemon 3</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="pokemon3Name">Pokemon</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon3Name"
+              placeholder="Choose a Pokemon"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pokemon3Ability">Ability</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon3Ability"
+              placeholder="Choose Ability"
+            />
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon3Level">Level</label>
+                <select
+                  id="pokemon3Level"
+                  class="form-control"
+                  style="width: 60px"
+                  [(ngModel)]="pokemonLevel"
+                >
+                  <option *ngFor="let level of levels" [value]="level">
+                    {{ level }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon3TeraType">Tera Type</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon3TeraType"
+                  placeholder="Enter Tera Type"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pokemon3Evs">EVs</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon3Evs"
+              placeholder="Enter EVs"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pokemon3Ivs">IVs</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon3Ivs"
+              placeholder="Enter IVs"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pokemon3Moves">Moves</label>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon3Move1"
+                  placeholder="Move 1"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon3Move2"
+                  placeholder="Move 2"
+                />
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon3Move3"
+                  placeholder="Move 3"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon3Move4"
+                  placeholder="Move 4"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ./ Pokemon 3 Modal -->
+
+<!-- Pokemon 4 Modal -->
+<div class="modal fade" id="pokemon4" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pokemon 4</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="pokemon4Name">Pokemon</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon4Name"
+              placeholder="Choose a Pokemon"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pokemon4Ability">Ability</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon4Ability"
+              placeholder="Choose Ability"
+            />
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon4Level">Level</label>
+                <select
+                  id="pokemon4Level"
+                  class="form-control"
+                  style="width: 60px"
+                  [(ngModel)]="pokemonLevel"
+                >
+                  <option *ngFor="let level of levels" [value]="level">
+                    {{ level }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon4TeraType">Tera Type</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon4TeraType"
+                  placeholder="Enter Tera Type"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pokemon4Evs">EVs</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon4Evs"
+              placeholder="Enter EVs"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pokemon4Ivs">IVs</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon4Ivs"
+              placeholder="Enter IVs"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pokemon4Moves">Moves</label>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon4Move1"
+                  placeholder="Move 1"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon4Move2"
+                  placeholder="Move 2"
+                />
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon4Move3"
+                  placeholder="Move 3"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon4Move4"
+                  placeholder="Move 4"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ./ Pokemon 4 Modal -->
+
+<!-- Pokemon 5 Modal -->
+<div class="modal fade" id="pokemon5" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pokemon 5</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="pokemon5Name">Pokemon</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon5Name"
+              placeholder="Choose a Pokemon"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pokemon5Ability">Ability</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon5Ability"
+              placeholder="Choose Ability"
+            />
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon5Level">Level</label>
+                <select
+                  id="pokemon5Level"
+                  class="form-control"
+                  style="width: 60px"
+                  [(ngModel)]="pokemonLevel"
+                >
+                  <option *ngFor="let level of levels" [value]="level">
+                    {{ level }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon5TeraType">Tera Type</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon5TeraType"
+                  placeholder="Enter Tera Type"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pokemon5Evs">EVs</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon5Evs"
+              placeholder="Enter EVs"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pokemon5Ivs">IVs</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon5Ivs"
+              placeholder="Enter IVs"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pokemon5Moves">Moves</label>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon5Move1"
+                  placeholder="Move 1"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon5Move2"
+                  placeholder="Move 2"
+                />
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon5Move3"
+                  placeholder="Move 3"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon5Move4"
+                  placeholder="Move 4"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ./ Pokemon 5 Modal -->
+
+<!-- Pokemon 6 Modal -->
+<div class="modal fade" id="pokemon6" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Pokemon 6</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="pokemon6Name">Pokemon</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon6Name"
+              placeholder="Choose a Pokemon"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pokemon6Ability">Ability</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon6Ability"
+              placeholder="Choose Ability"
+            />
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon6Level">Level</label>
+                <select
+                  id="pokemon6Level"
+                  class="form-control"
+                  style="width: 60px"
+                  [(ngModel)]="pokemonLevel"
+                >
+                  <option *ngFor="let level of levels" [value]="level">
+                    {{ level }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon6TeraType">Tera Type</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon6TeraType"
+                  placeholder="Enter Tera Type"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pokemon6Evs">EVs</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon6Evs"
+              placeholder="Enter EVs"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pokemon6Ivs">IVs</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pokemon6Ivs"
+              placeholder="Enter IVs"
+            />
+          </div>
+          <div class="form-group">
+            <label for="pokemon6Moves">Moves</label>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon6Move1"
+                  placeholder="Move 1"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon6Move2"
+                  placeholder="Move 2"
+                />
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon6Move3"
+                  placeholder="Move 3"
+                />
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon6Move4"
+                  placeholder="Move 4"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ./ Pokemon 6 Modal -->

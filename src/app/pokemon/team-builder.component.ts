@@ -20,6 +20,11 @@ export class TeamBuilderComponent implements OnInit {
 
   @Input() pokepaste: string = '';
 
+  levels = Array(100)
+    .fill(0)
+    .map((x, i) => i + 1);
+
+  pokemonLevel: number = 50;
   proxyTeam: Team = { name: 'My Team', pokemon: [] };
   pokemon1: TeamPokemon = {
     name: 'Pikachu',
