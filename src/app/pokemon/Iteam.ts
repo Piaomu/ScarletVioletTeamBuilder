@@ -13,6 +13,6 @@ export interface TeamPokemon {
   evs?: string;
   nature: string;
   ivs?: string;
-  moves: string;
+  moves?: string[];
   photoUrl?: string;
 }

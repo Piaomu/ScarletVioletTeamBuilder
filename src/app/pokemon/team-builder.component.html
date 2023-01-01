@@ -220,7 +220,10 @@
             <p class="card-text">EVs: {{ pokemon.evs }}</p>
             <p class="card-text">IVs: {{ pokemon.ivs }}</p>
             <p class="card-text">Nature: {{ pokemon.nature }}</p>
-            <p class="card-text">Moves: {{ pokemon.moves }}</p>
+            <p class="card-text">Moves:</p>
+            <ul>
+              <li *ngFor="let move of pokemon.moves">{{ move }}</li>
+            </ul>
           </div>
           <div class="card-footer">
             <button
@@ -252,20 +255,20 @@
 <!-- ./Display Team -->
 
 <!-- Pokemon 1 Modal -->
-<div class="modal fade" id="pokemon1" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Pokemon 1</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form>
+<form [formGroup]="pokemon1Form" (ngSubmit)="savePokemon1()">
+  <div class="modal fade" id="pokemon1" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Pokemon 1</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
           <div class="form-group">
             <label for="pokemon1Name">Pokemon</label>
             <input
@@ -273,16 +276,34 @@
               class="form-control"
               id="pokemon1Name"
               placeholder="Choose a Pokemon"
+              formControlName="name"
             />
           </div>
-          <div class="form-group">
-            <label for="pokemon1Ability">Ability</label>
-            <input
-              type="text"
-              class="form-control"
-              id="pokemon1Ability"
-              placeholder="Choose Ability"
-            />
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon1Ability">Ability</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon1Ability"
+                  placeholder="Choose Ability"
+                  formControlName="ability"
+                />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon1Nature">Nature</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon1Nature"
+                  placeholder="Choose Nature"
+                  formControlName="nature"
+                />
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col">
@@ -291,13 +312,24 @@
                 <select
                   id="pokemon1Level"
                   class="form-control"
-                  style="width: 60px"
-                  [(ngModel)]="pokemonLevel"
+                  formControlName="level"
                 >
                   <option *ngFor="let level of levels" [value]="level">
                     {{ level }}
                   </option>
                 </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon1TeraType">Item</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon1Item"
+                  placeholder="Enter Item"
+                  formControlName="item"
+                />
               </div>
             </div>
             <div class="col">
@@ -308,6 +340,7 @@
                   class="form-control"
                   id="pokemon1TeraType"
                   placeholder="Enter Tera Type"
+                  formControlName="teraType"
                 />
               </div>
             </div>
@@ -319,6 +352,7 @@
               class="form-control"
               id="pokemon1Evs"
               placeholder="Enter EVs"
+              formControlName="evs"
             />
           </div>
           <div class="form-group">
@@ -328,23 +362,26 @@
               class="form-control"
               id="pokemon1Ivs"
               placeholder="Enter IVs"
+              formControlName="ivs"
             />
           </div>
           <div class="form-group">
             <label for="pokemon1Moves">Moves</label>
-            <div class="row">
+            <div class="row" formGroupName="moves">
               <div class="col-md-6 col-sm-12">
                 <input
                   type="text"
                   class="form-control"
                   id="pokemon1Move1"
                   placeholder="Move 1"
+                  formControlName="move1"
                 />
                 <input
                   type="text"
                   class="form-control"
                   id="pokemon1Move2"
                   placeholder="Move 2"
+                  formControlName="move2"
                 />
               </div>
               <div class="col-md-6 col-sm-12">
@@ -353,27 +390,33 @@
                   class="form-control"
                   id="pokemon1Move3"
                   placeholder="Move 3"
+                  formControlName="move3"
                 />
                 <input
                   type="text"
                   class="form-control"
                   id="pokemon1Move4"
                   placeholder="Move 4"
+                  formControlName="move4"
                 />
               </div>
             </div>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</form>
 <!-- ./ Pokemon 1 Modal -->
 
 <!-- Pokemon 2 Modal -->

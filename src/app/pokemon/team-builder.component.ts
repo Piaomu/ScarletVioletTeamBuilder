@@ -3,6 +3,7 @@ import { Team, TeamPokemon } from './Iteam';
 import { ApiPokemon } from './IApiPokemon';
 import { PokemonApiService } from '../services/pokemon-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-team-builder',
@@ -11,6 +12,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class TeamBuilderComponent implements OnInit {
   @ViewChild('textarea') textarea: ElementRef<HTMLTextAreaElement> | undefined;
+  pokemon1Form!: FormGroup; //Template will bind to this property to associate the HTML element with this FormGroup instance.
+  pokemon2Form!: FormGroup;
+  pokemon3Form!: FormGroup;
+  pokemon4Form!: FormGroup;
+  pokemon5Form!: FormGroup;
+  pokemon6Form!: FormGroup;
+
+  pokemon1!: TeamPokemon;
+  pokemon2!: TeamPokemon;
+  pokemon3!: TeamPokemon;
+  pokemon4!: TeamPokemon;
+  pokemon5!: TeamPokemon;
+  pokemon6!: TeamPokemon;
 
   constructor(
     private pokemonApiService: PokemonApiService,
@@ -26,13 +40,13 @@ export class TeamBuilderComponent implements OnInit {
 
   pokemonLevel: number = 50;
   proxyTeam: Team = { name: 'My Team', pokemon: [] };
-  pokemon1: TeamPokemon = {
+  pokemon1proxy: TeamPokemon = {
     name: 'Pikachu',
     ability: 'Static',
     evs: '252 SpA / 4 SpD / 252 Spe',
     teraType: 'Grass',
     nature: 'Timid',
-    moves: 'Thunderbolt, Volt Tackle, Hidden Power [Ice], Substitute',
+    moves: ['Thunderbolt', 'Volt Tackle', 'Hidden Power [Ice]', 'Substitute'],
   };
   team!: Team | null;
 
@@ -93,7 +107,7 @@ export class TeamBuilderComponent implements OnInit {
     const [, evs] = evLine.split(': ');
     const [nature] = natureLine.split(' Nature');
     const [, ivs] = ivLine.split(': ');
-    const moveList = moves.join(', ');
+    const moveList = moves.map((move: string) => move.trim());
 
     return {
       name,
@@ -117,7 +131,134 @@ export class TeamBuilderComponent implements OnInit {
       });
   }
 
+  savePokemon1() {
+    console.log(this.pokemon1Form);
+    console.log('Saved: ' + JSON.stringify(this.pokemon1Form.value));
+
+    this.pokemon1.name = this.pokemon1Form.get('name')?.value;
+    console.log('Pokemon1 name is ' + this.pokemon1.name);
+  }
+
+  savePokemon2() {
+    console.log(this.pokemon2Form);
+    console.log('Saved: ' + JSON.stringify(this.pokemon2Form.value));
+  }
+
   ngOnInit() {
+    this.pokemon1Form = new FormGroup({
+      name: new FormControl(),
+      gender: new FormControl(),
+      item: new FormControl(),
+      ability: new FormControl(),
+      level: new FormControl('50'),
+      teraType: new FormControl(),
+      evs: new FormControl(),
+      nature: new FormControl(),
+      ivs: new FormControl(),
+      moves: new FormGroup({
+        move1: new FormControl(),
+        move2: new FormControl(),
+        move3: new FormControl(),
+        move4: new FormControl(),
+      }),
+      photoUrl: new FormControl(),
+    });
+
+    this.pokemon2Form = new FormGroup({
+      name: new FormControl(),
+      gender: new FormControl(),
+      item: new FormControl(),
+      ability: new FormControl(),
+      level: new FormControl('50'),
+      teraType: new FormControl(),
+      evs: new FormControl(),
+      nature: new FormControl(),
+      ivs: new FormControl(),
+      moves: new FormGroup({
+        move1: new FormControl(),
+        move2: new FormControl(),
+        move3: new FormControl(),
+        move4: new FormControl(),
+      }),
+      photoUrl: new FormControl(),
+    });
+
+    this.pokemon3Form = new FormGroup({
+      name: new FormControl(),
+      gender: new FormControl(),
+      item: new FormControl(),
+      ability: new FormControl(),
+      level: new FormControl('50'),
+      teraType: new FormControl(),
+      evs: new FormControl(),
+      nature: new FormControl(),
+      ivs: new FormControl(),
+      moves: new FormGroup({
+        move1: new FormControl(),
+        move2: new FormControl(),
+        move3: new FormControl(),
+        move4: new FormControl(),
+      }),
+      photoUrl: new FormControl(),
+    });
+
+    this.pokemon4Form = new FormGroup({
+      name: new FormControl(),
+      gender: new FormControl(),
+      item: new FormControl(),
+      ability: new FormControl(),
+      level: new FormControl('50'),
+      teraType: new FormControl(),
+      evs: new FormControl(),
+      nature: new FormControl(),
+      ivs: new FormControl(),
+      moves: new FormGroup({
+        move1: new FormControl(),
+        move2: new FormControl(),
+        move3: new FormControl(),
+        move4: new FormControl(),
+      }),
+      photoUrl: new FormControl(),
+    });
+
+    this.pokemon5Form = new FormGroup({
+      name: new FormControl(),
+      gender: new FormControl(),
+      item: new FormControl(),
+      ability: new FormControl(),
+      level: new FormControl('50'),
+      teraType: new FormControl(),
+      evs: new FormControl(),
+      nature: new FormControl(),
+      ivs: new FormControl(),
+      moves: new FormGroup({
+        move1: new FormControl(),
+        move2: new FormControl(),
+        move3: new FormControl(),
+        move4: new FormControl(),
+      }),
+      photoUrl: new FormControl(),
+    });
+
+    this.pokemon6Form = new FormGroup({
+      name: new FormControl(),
+      gender: new FormControl(),
+      item: new FormControl(),
+      ability: new FormControl(),
+      level: new FormControl('50'),
+      teraType: new FormControl(),
+      evs: new FormControl(),
+      nature: new FormControl(),
+      ivs: new FormControl(),
+      moves: new FormGroup({
+        move1: new FormControl(),
+        move2: new FormControl(),
+        move3: new FormControl(),
+        move4: new FormControl(),
+      }),
+      photoUrl: new FormControl(),
+    });
+
     // retrieve team from local storage if it exists
     if (localStorage.getItem('team') != null) {
       let teamString = localStorage.getItem('team');
