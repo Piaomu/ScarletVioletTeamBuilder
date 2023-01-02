@@ -278,6 +278,7 @@
               id="pokemon1Name"
               placeholder="Choose a Pokemon"
               formControlName="name"
+              (focusout)="properCaseInput('name')"
               [ngClass]="{
                 'is-invalid':
                   (pokemon1Form.get('name')?.touched ||
@@ -296,6 +297,7 @@
                   id="pokemon1Ability"
                   placeholder="Choose Ability"
                   formControlName="ability"
+                  (focusout)="properCaseInput('ability')"
                   [ngClass]="{
                     'is-invalid':
                       (pokemon1Form.get('ability')?.touched ||
@@ -321,6 +323,7 @@
                   id="pokemon1Nature"
                   placeholder="Choose Nature"
                   formControlName="nature"
+                  (focusout)="properCaseInput('nature')"
                   [ngClass]="{
                     'is-invalid':
                       (pokemon1Form.get('nature')?.touched ||
@@ -336,7 +339,7 @@
                   "
                   class="invalid-feedback"
                 >
-                  Please input a valid nature.
+                  Please enter a valid nature.
                 </div>
               </div>
             </div>
@@ -365,6 +368,7 @@
                   id="pokemon1Item"
                   placeholder="Enter Item"
                   formControlName="item"
+                  (focusout)="properCaseInput('item')"
                 />
               </div>
             </div>
@@ -383,7 +387,18 @@
                         pokemon1Form.get('teraType')?.dirty) &&
                       !pokemon1Form.get('teraType')?.valid
                   }"
+                  (focusout)="properCaseInput('teraType')"
                 />
+                <div
+                  *ngIf="
+                    pokemon1Form.get('teraType')?.hasError('invalidTeraType') &&
+                    (pokemon1Form.get('teraType')?.dirty ||
+                      pokemon1Form.get('teraType')?.touched)
+                  "
+                  class="invalid-feedback"
+                >
+                  Please enter a valid Tera Type.
+                </div>
               </div>
             </div>
           </div>
@@ -417,6 +432,7 @@
                   id="pokemon1Move1"
                   placeholder="Move 1"
                   formControlName="move1"
+                  (focusout)="properCaseInput('moves.move1')"
                 />
                 <input
                   type="text"
@@ -424,6 +440,7 @@
                   id="pokemon1Move2"
                   placeholder="Move 2"
                   formControlName="move2"
+                  (focusout)="properCaseInput('moves.move2')"
                 />
               </div>
               <div class="col-md-6 col-sm-12">
@@ -433,6 +450,7 @@
                   id="pokemon1Move3"
                   placeholder="Move 3"
                   formControlName="move3"
+                  (focusout)="properCaseInput('moves.move3')"
                 />
                 <input
                   type="text"
@@ -440,6 +458,7 @@
                   id="pokemon1Move4"
                   placeholder="Move 4"
                   formControlName="move4"
+                  (focusout)="properCaseInput('moves.move4')"
                 />
               </div>
             </div>

@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { Nature, Team, TeamPokemon } from './Iteam';
+import { Nature, Team, TeamPokemon, TeraType } from './Iteam';
 import { ApiPokemon } from './IApiPokemon';
 import { PokemonApiService } from '../services/pokemon-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,6 +9,7 @@ import {
   FormBuilder,
   Validators,
 } from '@angular/forms';
+import { UtilitiesService } from '../services/utilities.service';
 
 function natureValidator(control: FormControl): { [key: string]: any } | null {
   // Normalize the user's input
@@ -24,6 +25,19 @@ function natureValidator(control: FormControl): { [key: string]: any } | null {
 
   // If the input does not match any of the nature enum values, return an object to indicate that the input is invalid
   return { invalidNature: true };
+}
+
+function teraTypeValidator(
+  control: FormControl
+): { [key: string]: any } | null {
+  const input = control.value.toLowerCase();
+
+  for (const teraType of Object.values(TeraType)) {
+    if (teraType.toLowerCase() === input) {
+      return null;
+    }
+  }
+  return { invalidTeraType: true };
 }
 
 @Component({
@@ -51,7 +65,8 @@ export class TeamBuilderComponent implements OnInit {
     private pokemonApiService: PokemonApiService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private utilityService: UtilitiesService
   ) {}
 
   @Input() pokepaste: string = '';
@@ -66,7 +81,7 @@ export class TeamBuilderComponent implements OnInit {
     name: 'Pikachu',
     ability: 'Static',
     evs: '252 SpA / 4 SpD / 252 Spe',
-    teraType: 'Grass',
+    teraType: TeraType.Grass,
     nature: Nature.Timid,
     moves: ['Thunderbolt', 'Volt Tackle', 'Hidden Power [Ice]', 'Substitute'],
   };
@@ -125,13 +140,14 @@ export class TeamBuilderComponent implements OnInit {
     const [name, item] = nameLine.split(' @ ');
     const ability = abilityLine.split(': ')[1];
     const level = levelLine.split(': ')[1];
-    const teraType = typeLine.split(': ')[1];
+    let teraType: TeraType = typeLine.split(': ')[1] as TeraType;
     const [, evs] = evLine.split(': ');
     let nature: Nature = natureLine.split(' Nature')[0] as Nature;
     const [, ivs] = ivLine.split(': ');
     const moveList = moves.map((move: string) => move.trim());
 
-    nature = nature.toLowerCase() as Nature;
+    nature = nature as Nature;
+    teraType = teraType as TeraType;
 
     return {
       name,
@@ -168,6 +184,7 @@ export class TeamBuilderComponent implements OnInit {
     console.log('Saved: ' + JSON.stringify(this.pokemon2Form.value));
   }
 
+  // OnInit
   ngOnInit() {
     this.pokemon1Form = this.fb.group({
       name: ['', Validators.required],
@@ -175,7 +192,10 @@ export class TeamBuilderComponent implements OnInit {
       item: [''],
       ability: ['', Validators.required],
       level: ['50', Validators.required],
-      teraType: ['', Validators.required],
+      teraType: [
+        '',
+        Validators.compose([Validators.required, teraTypeValidator]),
+      ],
       evs: [''],
       nature: ['', Validators.compose([Validators.required, natureValidator])],
       ivs: [''],
@@ -297,6 +317,14 @@ export class TeamBuilderComponent implements OnInit {
     this.team?.pokemon.forEach((pokemon) => this.generatePhotoUrl(pokemon));
 
     this.proxyTeam.pokemon.push(this.pokemon1);
+  }
+  // END OnInit
+
+  properCaseInput(formControlName: string) {
+    const input = this.pokemon1Form.get(formControlName)?.value;
+    this.pokemon1Form
+      .get(formControlName)
+      ?.setValue(this.utilityService.toProperCase(input));
   }
 
   // Local storage methods

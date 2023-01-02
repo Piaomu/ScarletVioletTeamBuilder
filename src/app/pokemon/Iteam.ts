@@ -9,12 +9,33 @@ export interface TeamPokemon {
   item?: string;
   ability: string;
   level?: string;
-  teraType: string;
+  teraType: TeraType;
   evs?: string;
   nature: Nature;
   ivs?: string;
   moves?: string[];
   photoUrl?: string;
+}
+
+export enum TeraType {
+  Normal = 'Normal',
+  Fighting = 'Fighting',
+  Flying = 'Flying',
+  Poison = 'Poison',
+  Ground = 'Ground',
+  Rock = 'Rock',
+  Bug = 'Bug',
+  Ghost = 'Ghost',
+  Steel = 'Steel',
+  Fire = 'Fire',
+  Water = 'Water',
+  Grass = 'Grass',
+  Electric = 'Electric',
+  Psychic = 'Psychic',
+  Ice = 'Ice',
+  Dragon = 'Dragon',
+  Dark = 'Dark',
+  Fairy = 'Fairy',
 }
 
 export enum Nature {
