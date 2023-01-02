@@ -7,6 +7,14 @@ import { Pokemon } from '../pokemon/IPokemon';
 export class UtilitiesService {
   constructor() {}
 
+  toProperCase(input: string): string {
+    return input
+      .toLowerCase()
+      .split(' ')
+      .map((word) => word[0].toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+
   getTypeIcon(types: string[] | undefined): string[] {
     let typeIcons: string[] = [];
     if (types != undefined) {
