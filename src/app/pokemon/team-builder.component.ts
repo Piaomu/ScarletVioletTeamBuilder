@@ -10,6 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { UtilitiesService } from '../services/utilities.service';
+import { generate } from 'rxjs';
 
 function natureValidator(control: FormControl): { [key: string]: any } | null {
   // Normalize the user's input
@@ -87,10 +88,31 @@ export class TeamBuilderComponent implements OnInit {
   };
   team!: Team | null;
 
-  onSubmit(pokepaste: string) {
+  onSubmitPokePaste(pokepaste: string) {
     this.team = this.parsePokepaste(pokepaste);
     localStorage.setItem('team', JSON.stringify(this.team));
     console.log(localStorage.getItem('team'));
+  }
+
+  onSubmitPokemon1() {
+    this.pokemon1.name = this.pokemon1Form.get('name')?.value;
+    this.pokemon1.gender = this.pokemon1Form.get('gender')?.value;
+    this.pokemon1.item = this.pokemon1Form.get('item')?.value;
+    this.pokemon1.ability = this.pokemon1Form.get('ability')?.value;
+    this.pokemon1.level = this.pokemon1Form.get('level')?.value;
+    this.pokemon1.teraType = this.pokemon1Form.get('teraType')?.value;
+    this.pokemon1.evs = this.pokemon1Form.get('evs')?.value;
+    this.pokemon1.nature = this.pokemon1Form.get('nature')?.value;
+    this.pokemon1.ivs = this.pokemon1Form.get('ivs')?.value;
+    this.pokemon1.moves = [
+      this.pokemon1Form.get('moves.move1')?.value,
+      this.pokemon1Form.get('moves.move2')?.value,
+      this.pokemon1Form.get('moves.move3')?.value,
+      this.pokemon1Form.get('moves.move4')?.value,
+    ];
+    this.pokemon1.photoUrl = this.pokemon1Form.get('photoUrl')?.value;
+
+    localStorage.setItem('pokemon1', JSON.stringify(this.pokemon1));
   }
 
   editPokemon(_t13: TeamPokemon) {
@@ -172,11 +194,25 @@ export class TeamBuilderComponent implements OnInit {
   }
 
   savePokemon1() {
+    this.pokemon1.name = this.pokemon1Form.get('name')?.value;
+    this.pokemon1.gender = this.pokemon1Form.get('gender')?.value;
+    this.pokemon1.item = this.pokemon1Form.get('item')?.value;
+    this.pokemon1.ability = this.pokemon1Form.get('ability')?.value;
+    this.pokemon1.level = this.pokemon1Form.get('level')?.value;
+    this.pokemon1.teraType = this.pokemon1Form.get('teraType')?.value;
+    this.pokemon1.evs = this.pokemon1Form.get('evs')?.value;
+    this.pokemon1.nature = this.pokemon1Form.get('nature')?.value;
+    this.pokemon1.ivs = this.pokemon1Form.get('ivs')?.value;
+    this.pokemon1.moves = [
+      this.pokemon1Form.get('moves.move1')?.value,
+      this.pokemon1Form.get('moves.move2')?.value,
+      this.pokemon1Form.get('moves.move3')?.value,
+      this.pokemon1Form.get('moves.move4')?.value,
+    ];
+
+    localStorage.setItem('pokemon1', JSON.stringify(this.pokemon1));
     console.log(this.pokemon1Form);
     console.log('Saved: ' + JSON.stringify(this.pokemon1Form.value));
-
-    this.pokemon1.name = this.pokemon1Form.get('name')?.value;
-    console.log('Pokemon1 name is ' + this.pokemon1.name);
   }
 
   savePokemon2() {
@@ -186,6 +222,13 @@ export class TeamBuilderComponent implements OnInit {
 
   // OnInit
   ngOnInit() {
+    this.pokemon1 = {} as TeamPokemon;
+    this.pokemon2 = {} as TeamPokemon;
+    this.pokemon3 = {} as TeamPokemon;
+    this.pokemon4 = {} as TeamPokemon;
+    this.pokemon5 = {} as TeamPokemon;
+    this.pokemon6 = {} as TeamPokemon;
+
     this.pokemon1Form = this.fb.group({
       name: ['', Validators.required],
       gender: [''],
@@ -208,99 +251,114 @@ export class TeamBuilderComponent implements OnInit {
       photoUrl: [''],
     });
 
-    this.pokemon2Form = new FormGroup({
-      name: new FormControl(),
-      gender: new FormControl(),
-      item: new FormControl(),
-      ability: new FormControl(),
-      level: new FormControl('50'),
-      teraType: new FormControl(),
-      evs: new FormControl(),
-      nature: new FormControl(),
-      ivs: new FormControl(),
-      moves: new FormGroup({
-        move1: new FormControl(),
-        move2: new FormControl(),
-        move3: new FormControl(),
-        move4: new FormControl(),
+    this.pokemon2Form = this.fb.group({
+      name: ['', Validators.required],
+      gender: [''],
+      item: [''],
+      ability: ['', Validators.required],
+      level: ['50', Validators.required],
+      teraType: [
+        '',
+        Validators.compose([Validators.required, teraTypeValidator]),
+      ],
+      evs: [''],
+      nature: ['', Validators.compose([Validators.required, natureValidator])],
+      ivs: [''],
+      moves: this.fb.group({
+        move1: [''],
+        move2: [''],
+        move3: [''],
+        move4: [''],
       }),
-      photoUrl: new FormControl(),
+      photoUrl: [''],
     });
 
-    this.pokemon3Form = new FormGroup({
-      name: new FormControl(),
-      gender: new FormControl(),
-      item: new FormControl(),
-      ability: new FormControl(),
-      level: new FormControl('50'),
-      teraType: new FormControl(),
-      evs: new FormControl(),
-      nature: new FormControl(),
-      ivs: new FormControl(),
-      moves: new FormGroup({
-        move1: new FormControl(),
-        move2: new FormControl(),
-        move3: new FormControl(),
-        move4: new FormControl(),
+    this.pokemon3Form = this.fb.group({
+      name: ['', Validators.required],
+      gender: [''],
+      item: [''],
+      ability: ['', Validators.required],
+      level: ['50', Validators.required],
+      teraType: [
+        '',
+        Validators.compose([Validators.required, teraTypeValidator]),
+      ],
+      evs: [''],
+      nature: ['', Validators.compose([Validators.required, natureValidator])],
+      ivs: [''],
+      moves: this.fb.group({
+        move1: [''],
+        move2: [''],
+        move3: [''],
+        move4: [''],
       }),
-      photoUrl: new FormControl(),
+      photoUrl: [''],
     });
 
-    this.pokemon4Form = new FormGroup({
-      name: new FormControl(),
-      gender: new FormControl(),
-      item: new FormControl(),
-      ability: new FormControl(),
-      level: new FormControl('50'),
-      teraType: new FormControl(),
-      evs: new FormControl(),
-      nature: new FormControl(),
-      ivs: new FormControl(),
-      moves: new FormGroup({
-        move1: new FormControl(),
-        move2: new FormControl(),
-        move3: new FormControl(),
-        move4: new FormControl(),
+    this.pokemon4Form = this.fb.group({
+      name: ['', Validators.required],
+      gender: [''],
+      item: [''],
+      ability: ['', Validators.required],
+      level: ['50', Validators.required],
+      teraType: [
+        '',
+        Validators.compose([Validators.required, teraTypeValidator]),
+      ],
+      evs: [''],
+      nature: ['', Validators.compose([Validators.required, natureValidator])],
+      ivs: [''],
+      moves: this.fb.group({
+        move1: [''],
+        move2: [''],
+        move3: [''],
+        move4: [''],
       }),
-      photoUrl: new FormControl(),
+      photoUrl: [''],
     });
 
-    this.pokemon5Form = new FormGroup({
-      name: new FormControl(),
-      gender: new FormControl(),
-      item: new FormControl(),
-      ability: new FormControl(),
-      level: new FormControl('50'),
-      teraType: new FormControl(),
-      evs: new FormControl(),
-      nature: new FormControl(),
-      ivs: new FormControl(),
-      moves: new FormGroup({
-        move1: new FormControl(),
-        move2: new FormControl(),
-        move3: new FormControl(),
-        move4: new FormControl(),
+    this.pokemon5Form = this.fb.group({
+      name: ['', Validators.required],
+      gender: [''],
+      item: [''],
+      ability: ['', Validators.required],
+      level: ['50', Validators.required],
+      teraType: [
+        '',
+        Validators.compose([Validators.required, teraTypeValidator]),
+      ],
+      evs: [''],
+      nature: ['', Validators.compose([Validators.required, natureValidator])],
+      ivs: [''],
+      moves: this.fb.group({
+        move1: [''],
+        move2: [''],
+        move3: [''],
+        move4: [''],
       }),
-      photoUrl: new FormControl(),
+      photoUrl: [''],
     });
 
-    this.pokemon6Form = new FormGroup({
-      name: new FormControl(),
-      gender: new FormControl(),
-      item: new FormControl(),
-      ability: new FormControl(),
-      level: new FormControl('50'),
-      teraType: new FormControl(),
-      evs: new FormControl(),
-      nature: new FormControl(),
-      ivs: new FormControl(),
-      moves: new FormGroup({
-        move1: new FormControl(),
-        move2: new FormControl(),
-        move3: new FormControl(),
-        move4: new FormControl(),
+    this.pokemon6Form = this.fb.group({
+      name: ['', Validators.required],
+      gender: [''],
+      item: [''],
+      ability: ['', Validators.required],
+      level: ['50', Validators.required],
+      teraType: [
+        '',
+        Validators.compose([Validators.required, teraTypeValidator]),
+      ],
+      evs: [''],
+      nature: ['', Validators.compose([Validators.required, natureValidator])],
+      ivs: [''],
+      moves: this.fb.group({
+        move1: [''],
+        move2: [''],
+        move3: [''],
+        move4: [''],
       }),
-      photoUrl: new FormControl(),
+      photoUrl: [''],
     });
 
     // retrieve team from local storage if it exists
