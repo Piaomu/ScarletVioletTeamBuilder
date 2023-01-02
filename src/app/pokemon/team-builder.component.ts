@@ -1,9 +1,30 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { Team, TeamPokemon } from './Iteam';
+import { Nature, Team, TeamPokemon } from './Iteam';
 import { ApiPokemon } from './IApiPokemon';
 import { PokemonApiService } from '../services/pokemon-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormControl } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
+
+function natureValidator(control: FormControl): { [key: string]: any } | null {
+  // Normalize the user's input
+  const input = control.value.toLowerCase();
+
+  // Iterate through the nature enum values and check if the normalized input matches any of them
+  for (const nature of Object.values(Nature)) {
+    if (nature.toLowerCase() === input) {
+      // If the input matches a nature enum value, return null to indicate that the input is valid
+      return null;
+    }
+  }
+
+  // If the input does not match any of the nature enum values, return an object to indicate that the input is invalid
+  return { invalidNature: true };
+}
 
 @Component({
   selector: 'app-team-builder',
@@ -29,7 +50,8 @@ export class TeamBuilderComponent implements OnInit {
   constructor(
     private pokemonApiService: PokemonApiService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) {}
 
   @Input() pokepaste: string = '';
@@ -45,7 +67,7 @@ export class TeamBuilderComponent implements OnInit {
     ability: 'Static',
     evs: '252 SpA / 4 SpD / 252 Spe',
     teraType: 'Grass',
-    nature: 'Timid',
+    nature: Nature.Timid,
     moves: ['Thunderbolt', 'Volt Tackle', 'Hidden Power [Ice]', 'Substitute'],
   };
   team!: Team | null;
@@ -105,9 +127,11 @@ export class TeamBuilderComponent implements OnInit {
     const level = levelLine.split(': ')[1];
     const teraType = typeLine.split(': ')[1];
     const [, evs] = evLine.split(': ');
-    const [nature] = natureLine.split(' Nature');
+    let nature: Nature = natureLine.split(' Nature')[0] as Nature;
     const [, ivs] = ivLine.split(': ');
     const moveList = moves.map((move: string) => move.trim());
+
+    nature = nature.toLowerCase() as Nature;
 
     return {
       name,
@@ -145,23 +169,23 @@ export class TeamBuilderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.pokemon1Form = new FormGroup({
-      name: new FormControl(),
-      gender: new FormControl(),
-      item: new FormControl(),
-      ability: new FormControl(),
-      level: new FormControl('50'),
-      teraType: new FormControl(),
-      evs: new FormControl(),
-      nature: new FormControl(),
-      ivs: new FormControl(),
-      moves: new FormGroup({
-        move1: new FormControl(),
-        move2: new FormControl(),
-        move3: new FormControl(),
-        move4: new FormControl(),
+    this.pokemon1Form = this.fb.group({
+      name: ['', Validators.required],
+      gender: [''],
+      item: [''],
+      ability: ['', Validators.required],
+      level: ['50', Validators.required],
+      teraType: ['', Validators.required],
+      evs: [''],
+      nature: ['', Validators.compose([Validators.required, natureValidator])],
+      ivs: [''],
+      moves: this.fb.group({
+        move1: [''],
+        move2: [''],
+        move3: [''],
+        move4: [''],
       }),
-      photoUrl: new FormControl(),
+      photoUrl: [''],
     });
 
     this.pokemon2Form = new FormGroup({
