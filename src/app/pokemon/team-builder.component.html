@@ -263,23 +263,40 @@
           ></button>
         </div>
         <div class="modal-body">
-          <div class="form-group">
-            <label for="pokemon1Name">Pokemon</label>
-            <input
-              name="name"
-              type="text"
-              class="form-control"
-              id="pokemon1Name"
-              placeholder="Choose a Pokemon"
-              formControlName="name"
-              (focusout)="properCaseInput('name')"
-              [ngClass]="{
-                'is-invalid':
-                  (pokemon1Form.get('name')?.touched ||
-                    pokemon1Form.get('name')?.dirty) &&
-                  !pokemon1Form.get('name')?.valid
-              }"
-            />
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon1Name">Pokemon</label>
+                <input
+                  name="name"
+                  type="text"
+                  class="form-control"
+                  id="pokemon1Name"
+                  placeholder="Choose a Pokemon"
+                  formControlName="name"
+                  (focusout)="properCaseInput('name')"
+                  [ngClass]="{
+                    'is-invalid':
+                      (pokemon1Form.get('name')?.touched ||
+                        pokemon1Form.get('name')?.dirty) &&
+                      !pokemon1Form.get('name')?.valid
+                  }"
+                />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon1TeraType">Item</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon1Item"
+                  placeholder="Enter Item"
+                  formControlName="item"
+                  (focusout)="properCaseInput('item')"
+                />
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col">
@@ -299,6 +316,51 @@
                       !pokemon1Form.get('ability')?.valid
                   }"
                 />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon1Level">Level</label>
+                <select
+                  id="pokemon1Level"
+                  class="form-control"
+                  formControlName="level"
+                >
+                  <option *ngFor="let level of levels" [value]="level">
+                    {{ level }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon1TeraType">Tera Type</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon1TeraType"
+                  placeholder="Enter Tera Type"
+                  formControlName="teraType"
+                  [ngClass]="{
+                    'is-invalid':
+                      (pokemon1Form.get('teraType')?.touched ||
+                        pokemon1Form.get('teraType')?.dirty) &&
+                      !pokemon1Form.get('teraType')?.valid
+                  }"
+                  (focusout)="properCaseInput('teraType')"
+                />
+                <div
+                  *ngIf="
+                    pokemon1Form.get('teraType')?.hasError('invalidTeraType') &&
+                    (pokemon1Form.get('teraType')?.dirty ||
+                      pokemon1Form.get('teraType')?.touched)
+                  "
+                  class="invalid-feedback"
+                >
+                  Please enter a valid Tera Type.
+                </div>
               </div>
             </div>
             <div class="col">
@@ -334,64 +396,6 @@
                   class="invalid-feedback"
                 >
                   Please enter a valid nature.
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label for="pokemon1Level">Level</label>
-                <select
-                  id="pokemon1Level"
-                  class="form-control"
-                  formControlName="level"
-                >
-                  <option *ngFor="let level of levels" [value]="level">
-                    {{ level }}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="pokemon1TeraType">Item</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="pokemon1Item"
-                  placeholder="Enter Item"
-                  formControlName="item"
-                  (focusout)="properCaseInput('item')"
-                />
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label for="pokemon1TeraType">Tera Type</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="pokemon1TeraType"
-                  placeholder="Enter Tera Type"
-                  formControlName="teraType"
-                  [ngClass]="{
-                    'is-invalid':
-                      (pokemon1Form.get('teraType')?.touched ||
-                        pokemon1Form.get('teraType')?.dirty) &&
-                      !pokemon1Form.get('teraType')?.valid
-                  }"
-                  (focusout)="properCaseInput('teraType')"
-                />
-                <div
-                  *ngIf="
-                    pokemon1Form.get('teraType')?.hasError('invalidTeraType') &&
-                    (pokemon1Form.get('teraType')?.dirty ||
-                      pokemon1Form.get('teraType')?.touched)
-                  "
-                  class="invalid-feedback"
-                >
-                  Please enter a valid Tera Type.
                 </div>
               </div>
             </div>

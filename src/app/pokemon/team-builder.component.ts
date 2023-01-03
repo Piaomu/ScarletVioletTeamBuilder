@@ -62,6 +62,13 @@ export class TeamBuilderComponent implements OnInit {
   pokemon5!: TeamPokemon;
   pokemon6!: TeamPokemon;
 
+  apiPokemon1!: ApiPokemon;
+  apiPokemon2!: ApiPokemon;
+  apiPokemon3!: ApiPokemon;
+  apiPokemon4!: ApiPokemon;
+  apiPokemon5!: ApiPokemon;
+  apiPokemon6!: ApiPokemon;
+
   constructor(
     private pokemonApiService: PokemonApiService,
     private route: ActivatedRoute,
@@ -228,6 +235,13 @@ export class TeamBuilderComponent implements OnInit {
     this.pokemon4 = {} as TeamPokemon;
     this.pokemon5 = {} as TeamPokemon;
     this.pokemon6 = {} as TeamPokemon;
+
+    this.apiPokemon1 = {} as ApiPokemon;
+    this.apiPokemon2 = {} as ApiPokemon;
+    this.apiPokemon3 = {} as ApiPokemon;
+    this.apiPokemon4 = {} as ApiPokemon;
+    this.apiPokemon5 = {} as ApiPokemon;
+    this.apiPokemon6 = {} as ApiPokemon;
 
     this.pokemon1Form = this.fb.group({
       name: ['', Validators.required],
