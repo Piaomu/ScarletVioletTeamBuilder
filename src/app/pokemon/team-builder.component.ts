@@ -62,12 +62,12 @@ export class TeamBuilderComponent implements OnInit {
   pokemon5!: TeamPokemon;
   pokemon6!: TeamPokemon;
 
-  apiPokemon1!: ApiPokemon;
-  apiPokemon2!: ApiPokemon;
-  apiPokemon3!: ApiPokemon;
-  apiPokemon4!: ApiPokemon;
-  apiPokemon5!: ApiPokemon;
-  apiPokemon6!: ApiPokemon;
+  apiPokemon1!: ApiPokemon | undefined;
+  apiPokemon2!: ApiPokemon | undefined;
+  apiPokemon3!: ApiPokemon | undefined;
+  apiPokemon4!: ApiPokemon | undefined;
+  apiPokemon5!: ApiPokemon | undefined;
+  apiPokemon6!: ApiPokemon | undefined;
 
   constructor(
     private pokemonApiService: PokemonApiService,
@@ -84,42 +84,12 @@ export class TeamBuilderComponent implements OnInit {
     .map((x, i) => i + 1);
 
   pokemonLevel: number = 50;
-  proxyTeam: Team = { name: 'My Team', pokemon: [] };
-  pokemon1proxy: TeamPokemon = {
-    name: 'Pikachu',
-    ability: 'Static',
-    evs: '252 SpA / 4 SpD / 252 Spe',
-    teraType: TeraType.Grass,
-    nature: Nature.Timid,
-    moves: ['Thunderbolt', 'Volt Tackle', 'Hidden Power [Ice]', 'Substitute'],
-  };
   team!: Team | null;
 
   onSubmitPokePaste(pokepaste: string) {
     this.team = this.parsePokepaste(pokepaste);
     localStorage.setItem('team', JSON.stringify(this.team));
     console.log(localStorage.getItem('team'));
-  }
-
-  onSubmitPokemon1() {
-    this.pokemon1.name = this.pokemon1Form.get('name')?.value;
-    this.pokemon1.gender = this.pokemon1Form.get('gender')?.value;
-    this.pokemon1.item = this.pokemon1Form.get('item')?.value;
-    this.pokemon1.ability = this.pokemon1Form.get('ability')?.value;
-    this.pokemon1.level = this.pokemon1Form.get('level')?.value;
-    this.pokemon1.teraType = this.pokemon1Form.get('teraType')?.value;
-    this.pokemon1.evs = this.pokemon1Form.get('evs')?.value;
-    this.pokemon1.nature = this.pokemon1Form.get('nature')?.value;
-    this.pokemon1.ivs = this.pokemon1Form.get('ivs')?.value;
-    this.pokemon1.moves = [
-      this.pokemon1Form.get('moves.move1')?.value,
-      this.pokemon1Form.get('moves.move2')?.value,
-      this.pokemon1Form.get('moves.move3')?.value,
-      this.pokemon1Form.get('moves.move4')?.value,
-    ];
-    this.pokemon1.photoUrl = this.pokemon1Form.get('photoUrl')?.value;
-
-    localStorage.setItem('pokemon1', JSON.stringify(this.pokemon1));
   }
 
   editPokemon(_t13: TeamPokemon) {
@@ -223,8 +193,113 @@ export class TeamBuilderComponent implements OnInit {
   }
 
   savePokemon2() {
+    this.pokemon2.name = this.pokemon2Form.get('name')?.value;
+    this.pokemon2.gender = this.pokemon2Form.get('gender')?.value;
+    this.pokemon2.item = this.pokemon2Form.get('item')?.value;
+    this.pokemon2.ability = this.pokemon2Form.get('ability')?.value;
+    this.pokemon2.level = this.pokemon2Form.get('level')?.value;
+    this.pokemon2.teraType = this.pokemon2Form.get('teraType')?.value;
+    this.pokemon2.evs = this.pokemon2Form.get('evs')?.value;
+    this.pokemon2.nature = this.pokemon2Form.get('nature')?.value;
+    this.pokemon2.ivs = this.pokemon2Form.get('ivs')?.value;
+    this.pokemon2.moves = [
+      this.pokemon2Form.get('moves.move1')?.value,
+      this.pokemon2Form.get('moves.move2')?.value,
+      this.pokemon2Form.get('moves.move3')?.value,
+      this.pokemon2Form.get('moves.move4')?.value,
+    ];
+
+    localStorage.setItem('pokemon2', JSON.stringify(this.pokemon2));
     console.log(this.pokemon2Form);
     console.log('Saved: ' + JSON.stringify(this.pokemon2Form.value));
+  }
+
+  savePokemon3() {
+    this.pokemon3.name = this.pokemon3Form.get('name')?.value;
+    this.pokemon3.gender = this.pokemon3Form.get('gender')?.value;
+    this.pokemon3.item = this.pokemon3Form.get('item')?.value;
+    this.pokemon3.ability = this.pokemon3Form.get('ability')?.value;
+    this.pokemon3.level = this.pokemon3Form.get('level')?.value;
+    this.pokemon3.teraType = this.pokemon3Form.get('teraType')?.value;
+    this.pokemon3.evs = this.pokemon3Form.get('evs')?.value;
+    this.pokemon3.nature = this.pokemon3Form.get('nature')?.value;
+    this.pokemon3.ivs = this.pokemon3Form.get('ivs')?.value;
+    this.pokemon3.moves = [
+      this.pokemon3Form.get('moves.move1')?.value,
+      this.pokemon3Form.get('moves.move2')?.value,
+      this.pokemon3Form.get('moves.move3')?.value,
+      this.pokemon3Form.get('moves.move4')?.value,
+    ];
+
+    localStorage.setItem('pokemon3', JSON.stringify(this.pokemon3));
+    console.log(this.pokemon3Form);
+    console.log('Saved: ' + JSON.stringify(this.pokemon3Form.value));
+  }
+
+  savePokemon4() {
+    this.pokemon4.name = this.pokemon4Form.get('name')?.value;
+    this.pokemon4.gender = this.pokemon4Form.get('gender')?.value;
+    this.pokemon4.item = this.pokemon4Form.get('item')?.value;
+    this.pokemon4.ability = this.pokemon4Form.get('ability')?.value;
+    this.pokemon4.level = this.pokemon4Form.get('level')?.value;
+    this.pokemon4.teraType = this.pokemon4Form.get('teraType')?.value;
+    this.pokemon4.evs = this.pokemon4Form.get('evs')?.value;
+    this.pokemon4.nature = this.pokemon4Form.get('nature')?.value;
+    this.pokemon4.ivs = this.pokemon4Form.get('ivs')?.value;
+    this.pokemon4.moves = [
+      this.pokemon4Form.get('moves.move1')?.value,
+      this.pokemon4Form.get('moves.move2')?.value,
+      this.pokemon4Form.get('moves.move3')?.value,
+      this.pokemon4Form.get('moves.move4')?.value,
+    ];
+
+    localStorage.setItem('pokemon4', JSON.stringify(this.pokemon4));
+    console.log(this.pokemon4Form);
+    console.log('Saved: ' + JSON.stringify(this.pokemon4Form.value));
+  }
+
+  savePokemon5() {
+    this.pokemon5.name = this.pokemon5Form.get('name')?.value;
+    this.pokemon5.gender = this.pokemon5Form.get('gender')?.value;
+    this.pokemon5.item = this.pokemon5Form.get('item')?.value;
+    this.pokemon5.ability = this.pokemon5Form.get('ability')?.value;
+    this.pokemon5.level = this.pokemon5Form.get('level')?.value;
+    this.pokemon5.teraType = this.pokemon5Form.get('teraType')?.value;
+    this.pokemon5.evs = this.pokemon5Form.get('evs')?.value;
+    this.pokemon5.nature = this.pokemon5Form.get('nature')?.value;
+    this.pokemon5.ivs = this.pokemon5Form.get('ivs')?.value;
+    this.pokemon5.moves = [
+      this.pokemon5Form.get('moves.move1')?.value,
+      this.pokemon5Form.get('moves.move2')?.value,
+      this.pokemon5Form.get('moves.move3')?.value,
+      this.pokemon5Form.get('moves.move4')?.value,
+    ];
+
+    localStorage.setItem('pokemon5', JSON.stringify(this.pokemon5));
+    console.log(this.pokemon5Form);
+    console.log('Saved: ' + JSON.stringify(this.pokemon5Form.value));
+  }
+
+  savePokemon6() {
+    this.pokemon6.name = this.pokemon6Form.get('name')?.value;
+    this.pokemon6.gender = this.pokemon6Form.get('gender')?.value;
+    this.pokemon6.item = this.pokemon6Form.get('item')?.value;
+    this.pokemon6.ability = this.pokemon6Form.get('ability')?.value;
+    this.pokemon6.level = this.pokemon6Form.get('level')?.value;
+    this.pokemon6.teraType = this.pokemon6Form.get('teraType')?.value;
+    this.pokemon6.evs = this.pokemon6Form.get('evs')?.value;
+    this.pokemon6.nature = this.pokemon6Form.get('nature')?.value;
+    this.pokemon6.ivs = this.pokemon6Form.get('ivs')?.value;
+    this.pokemon6.moves = [
+      this.pokemon6Form.get('moves.move1')?.value,
+      this.pokemon6Form.get('moves.move2')?.value,
+      this.pokemon6Form.get('moves.move3')?.value,
+      this.pokemon6Form.get('moves.move4')?.value,
+    ];
+
+    localStorage.setItem('pokemon6', JSON.stringify(this.pokemon6));
+    console.log(this.pokemon6Form);
+    console.log('Saved: ' + JSON.stringify(this.pokemon6Form.value));
   }
 
   // OnInit
@@ -387,8 +462,6 @@ export class TeamBuilderComponent implements OnInit {
 
     // generate photos for each pokemon on team
     this.team?.pokemon.forEach((pokemon) => this.generatePhotoUrl(pokemon));
-
-    this.proxyTeam.pokemon.push(this.pokemon1);
   }
   // END OnInit
 
@@ -397,6 +470,53 @@ export class TeamBuilderComponent implements OnInit {
     this.pokemon1Form
       .get(formControlName)
       ?.setValue(this.utilityService.toProperCase(input));
+  }
+
+  setApiPokemon1(name?: string): void {
+    this.apiPokemon1 = {} as ApiPokemon;
+    if (name != null) {
+      this.pokemonApiService.getApiPokemonByName(name.toLowerCase()).subscribe({
+        next: (pokemon) => (this.apiPokemon1 = pokemon),
+      });
+      console.log(
+        this.apiPokemon1?.sprites.other?.['official-artwork']?.front_default
+      );
+    } else {
+      this.apiPokemon1 = {} as ApiPokemon;
+    }
+  }
+
+  setApiPokemon2(name?: string): void {
+    this.apiPokemon2 = {} as ApiPokemon;
+    if (name != null) {
+      this.pokemonApiService.getApiPokemonByName(name.toLowerCase()).subscribe({
+        next: (pokemon) => (this.apiPokemon2 = pokemon),
+      });
+      console.log(
+        this.apiPokemon2?.sprites.other?.['official-artwork']?.front_default
+      );
+    } else {
+      this.apiPokemon2 = {} as ApiPokemon;
+    }
+  }
+
+  // pairs the user's input with a pokemon model from PokeApi
+  getApiPokemon(name: string): ApiPokemon | undefined {
+    let apiPokemon: ApiPokemon | undefined;
+
+    this.pokemonApiService.getApiPokemonByName(name).subscribe({
+      next: (pokemon) => {
+        if (pokemon) {
+          apiPokemon = pokemon;
+        }
+      },
+      error: (err) => {
+        console.error(err);
+        apiPokemon = undefined;
+      },
+    });
+
+    return apiPokemon;
   }
 
   // Local storage methods

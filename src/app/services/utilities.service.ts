@@ -11,7 +11,7 @@ export class UtilitiesService {
     return input
       .toLowerCase()
       .split(' ')
-      .map((word) => word[0].toUpperCase() + word.slice(1))
+      .map((word) => word[0].toLocaleUpperCase() + word.slice(1))
       .join(' ');
   }
 

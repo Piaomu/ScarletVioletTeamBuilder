@@ -252,6 +252,14 @@
           <h5 class="modal-title" *ngIf="!pokemon1Form.get('name')?.valid">
             Pokemon 1
           </h5>
+          <ng-template
+            [ngIf]="apiPokemon1?.sprites?.other?.['official-artwork']?.front_default"
+          >
+            <img
+              style="height: 50px; width: 50px"
+              [src]="apiPokemon1?.sprites?.other?.['official-artwork']?.front_default"
+            />
+          </ng-template>
           <h5 class="modal-title" *ngIf="pokemon1Form.get('name')?.valid">
             {{ pokemon1Form.get("name")?.value }}
           </h5>
@@ -275,6 +283,7 @@
                   placeholder="Choose a Pokemon"
                   formControlName="name"
                   (focusout)="properCaseInput('name')"
+                  (focusout)="setApiPokemon1(pokemon1Form.get('name')?.value)"
                   [ngClass]="{
                     'is-invalid':
                       (pokemon1Form.get('name')?.touched ||
@@ -286,7 +295,7 @@
             </div>
             <div class="col">
               <div class="form-group">
-                <label for="pokemon1TeraType">Item</label>
+                <label for="pokemon1Item">Item</label>
                 <input
                   type="text"
                   class="form-control"
@@ -490,48 +499,96 @@
 <!-- ./ Pokemon 1 Modal -->
 
 <!-- Pokemon 2 Modal -->
-<div class="modal fade" id="pokemon2" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Pokemon 2</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="pokemon2Name">Pokemon</label>
-            <input
-              type="text"
-              class="form-control"
-              id="pokemon2Name"
-              placeholder="Choose a Pokemon"
+<form [formGroup]="pokemon2Form" novalidate (ngSubmit)="savePokemon2()">
+  <div class="modal fade" id="pokemon2" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" *ngIf="!pokemon2Form.get('name')?.valid">
+            Pokemon 2
+          </h5>
+          <ng-template
+            [ngIf]="apiPokemon2?.sprites?.other?.['official-artwork']?.front_default"
+          >
+            <img
+              style="height: 50px; width: 50px"
+              [src]="apiPokemon2?.sprites?.other?.['official-artwork']?.front_default"
             />
-          </div>
-          <div class="form-group">
-            <label for="pokemon2Ability">Ability</label>
-            <input
-              type="text"
-              class="form-control"
-              id="pokemon2Ability"
-              placeholder="Choose Ability"
-            />
+          </ng-template>
+          <h5 class="modal-title" *ngIf="pokemon2Form.get('name')?.valid">
+            {{ pokemon2Form.get("name")?.value }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon2Name">Pokemon</label>
+                <input
+                  name="name"
+                  type="text"
+                  class="form-control"
+                  id="pokemon1Name"
+                  placeholder="Choose a Pokemon"
+                  formControlName="name"
+                  (focusout)="properCaseInput('name')"
+                  (focusout)="setApiPokemon2(pokemon2Form.get('name')?.value)"
+                  [ngClass]="{
+                    'is-invalid':
+                      (pokemon2Form.get('name')?.touched ||
+                        pokemon2Form.get('name')?.dirty) &&
+                      !pokemon2Form.get('name')?.valid
+                  }"
+                />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon1TeraType">Item</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon2Item"
+                  placeholder="Enter Item"
+                  formControlName="item"
+                  (focusout)="properCaseInput('item')"
+                />
+              </div>
+            </div>
           </div>
           <div class="row">
             <div class="col">
               <div class="form-group">
-                <label for="pokemon2Level">Level</label>
+                <label for="pokemon2Ability">Ability</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon2Ability"
+                  placeholder="Choose Ability"
+                  formControlName="ability"
+                  (focusout)="properCaseInput('ability')"
+                  [ngClass]="{
+                    'is-invalid':
+                      (pokemon2Form.get('ability')?.touched ||
+                        pokemon2Form.get('ability')?.dirty) &&
+                      !pokemon2Form.get('ability')?.valid
+                  }"
+                />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon1Level">Level</label>
                 <select
                   id="pokemon2Level"
                   class="form-control"
-                  style="width: 60px"
-                  [(ngModel)]="pokemonLevel"
-                  name="level"
+                  formControlName="level"
                 >
                   <option *ngFor="let level of levels" [value]="level">
                     {{ level }}
@@ -539,6 +596,8 @@
                 </select>
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col">
               <div class="form-group">
                 <label for="pokemon2TeraType">Tera Type</label>
@@ -547,7 +606,61 @@
                   class="form-control"
                   id="pokemon2TeraType"
                   placeholder="Enter Tera Type"
+                  formControlName="teraType"
+                  [ngClass]="{
+                    'is-invalid':
+                      (pokemon2Form.get('teraType')?.touched ||
+                        pokemon2Form.get('teraType')?.dirty) &&
+                      !pokemon2Form.get('teraType')?.valid
+                  }"
+                  (focusout)="properCaseInput('teraType')"
                 />
+                <div
+                  *ngIf="
+                    pokemon2Form.get('teraType')?.hasError('invalidTeraType') &&
+                    (pokemon2Form.get('teraType')?.dirty ||
+                      pokemon2Form.get('teraType')?.touched)
+                  "
+                  class="invalid-feedback"
+                >
+                  Please enter a valid Tera Type.
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div
+                class="form-group"
+                [class.has-error]="
+                  pokemon2Form.get('nature')?.invalid &&
+                  (pokemon2Form.get('nature')?.dirty ||
+                    pokemon2Form.get('nature')?.touched)
+                "
+              >
+                <label for="pokemon2Nature">Nature</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon2Nature"
+                  placeholder="Choose Nature"
+                  formControlName="nature"
+                  (focusout)="properCaseInput('nature')"
+                  [ngClass]="{
+                    'is-invalid':
+                      (pokemon2Form.get('nature')?.touched ||
+                        pokemon2Form.get('nature')?.dirty) &&
+                      !pokemon2Form.get('nature')?.valid
+                  }"
+                />
+                <div
+                  *ngIf="
+                    pokemon2Form.get('nature')?.hasError('invalidNature') &&
+                    (pokemon2Form.get('nature')?.dirty ||
+                      pokemon2Form.get('nature')?.touched)
+                  "
+                  class="invalid-feedback"
+                >
+                  Please enter a valid nature.
+                </div>
               </div>
             </div>
           </div>
@@ -558,6 +671,7 @@
               class="form-control"
               id="pokemon2Evs"
               placeholder="Enter EVs"
+              formControlName="evs"
             />
           </div>
           <div class="form-group">
@@ -567,23 +681,28 @@
               class="form-control"
               id="pokemon2Ivs"
               placeholder="Enter IVs"
+              formControlName="ivs"
             />
           </div>
           <div class="form-group">
             <label for="pokemon2Moves">Moves</label>
-            <div class="row">
+            <div class="row" formGroupName="moves">
               <div class="col-md-6 col-sm-12">
                 <input
                   type="text"
                   class="form-control"
                   id="pokemon2Move1"
                   placeholder="Move 1"
+                  formControlName="move1"
+                  (focusout)="properCaseInput('moves.move1')"
                 />
                 <input
                   type="text"
                   class="form-control"
                   id="pokemon2Move2"
                   placeholder="Move 2"
+                  formControlName="move2"
+                  (focusout)="properCaseInput('moves.move2')"
                 />
               </div>
               <div class="col-md-6 col-sm-12">
@@ -592,27 +711,46 @@
                   class="form-control"
                   id="pokemon2Move3"
                   placeholder="Move 3"
+                  formControlName="move3"
+                  (focusout)="properCaseInput('moves.move3')"
                 />
                 <input
                   type="text"
                   class="form-control"
                   id="pokemon2Move4"
                   placeholder="Move 4"
+                  formControlName="move4"
+                  (focusout)="properCaseInput('moves.move4')"
                 />
               </div>
             </div>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!pokemon2Form.valid"
+            [title]="
+              pokemon2Form.valid
+                ? 'Save first pokemon.'
+                : 'Enter all required fields.'
+            "
+          >
+            Save
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</form>
 <!-- ./ Pokemon 2 Modal -->
 
 <!-- Pokemon 3 Modal -->
