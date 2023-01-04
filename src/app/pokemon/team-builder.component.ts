@@ -8,6 +8,7 @@ import {
   FormControl,
   FormBuilder,
   Validators,
+  ValidationErrors,
 } from '@angular/forms';
 import { UtilitiesService } from '../services/utilities.service';
 import { generate } from 'rxjs';
@@ -497,6 +498,20 @@ export class TeamBuilderComponent implements OnInit {
       );
     } else {
       this.apiPokemon2 = {} as ApiPokemon;
+    }
+  }
+
+  setApiPokemon3(name?: string): void {
+    this.apiPokemon3 = {} as ApiPokemon;
+    if (name != null) {
+      this.pokemonApiService.getApiPokemonByName(name.toLowerCase()).subscribe({
+        next: (pokemon) => (this.apiPokemon3 = pokemon),
+      });
+      console.log(
+        this.apiPokemon3?.sprites.other?.['official-artwork']?.front_default
+      );
+    } else {
+      this.apiPokemon3 = {} as ApiPokemon;
     }
   }
 
