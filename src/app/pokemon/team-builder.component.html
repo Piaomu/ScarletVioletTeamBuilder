@@ -282,7 +282,7 @@
                   id="pokemon1Name"
                   placeholder="Choose a Pokemon"
                   formControlName="name"
-                  (focusout)="properCaseInput('name')"
+                  (focusout)="properCaseInput(pokemon1Form, 'name')"
                   (focusout)="setApiPokemon1(pokemon1Form.get('name')?.value)"
                   [ngClass]="{
                     'is-invalid':
@@ -302,7 +302,7 @@
                   id="pokemon1Item"
                   placeholder="Enter Item"
                   formControlName="item"
-                  (focusout)="properCaseInput('item')"
+                  (focusout)="properCaseInput(pokemon1Form, 'item')"
                 />
               </div>
             </div>
@@ -317,7 +317,7 @@
                   id="pokemon1Ability"
                   placeholder="Choose Ability"
                   formControlName="ability"
-                  (focusout)="properCaseInput('ability')"
+                  (focusout)="properCaseInput(pokemon1Form, 'ability')"
                   [ngClass]="{
                     'is-invalid':
                       (pokemon1Form.get('ability')?.touched ||
@@ -358,7 +358,7 @@
                         pokemon1Form.get('teraType')?.dirty) &&
                       !pokemon1Form.get('teraType')?.valid
                   }"
-                  (focusout)="properCaseInput('teraType')"
+                  (focusout)="properCaseInput(pokemon1Form, 'teraType')"
                 />
                 <div
                   *ngIf="
@@ -388,7 +388,7 @@
                   id="pokemon1Nature"
                   placeholder="Choose Nature"
                   formControlName="nature"
-                  (focusout)="properCaseInput('nature')"
+                  (focusout)="properCaseInput(pokemon1Form, 'nature')"
                   [ngClass]="{
                     'is-invalid':
                       (pokemon1Form.get('nature')?.touched ||
@@ -439,7 +439,7 @@
                   id="pokemon1Move1"
                   placeholder="Move 1"
                   formControlName="move1"
-                  (focusout)="properCaseInput('moves.move1')"
+                  (focusout)="properCaseInput(pokemon1Form, 'moves.move1')"
                 />
                 <input
                   type="text"
@@ -447,7 +447,7 @@
                   id="pokemon1Move2"
                   placeholder="Move 2"
                   formControlName="move2"
-                  (focusout)="properCaseInput('moves.move2')"
+                  (focusout)="properCaseInput(pokemon1Form, 'moves.move2')"
                 />
               </div>
               <div class="col-md-6 col-sm-12">
@@ -457,7 +457,7 @@
                   id="pokemon1Move3"
                   placeholder="Move 3"
                   formControlName="move3"
-                  (focusout)="properCaseInput('moves.move3')"
+                  (focusout)="properCaseInput(pokemon1Form, 'moves.move3')"
                 />
                 <input
                   type="text"
@@ -465,7 +465,7 @@
                   id="pokemon1Move4"
                   placeholder="Move 4"
                   formControlName="move4"
-                  (focusout)="properCaseInput('moves.move4')"
+                  (focusout)="properCaseInput(pokemon1Form, 'moves.move4')"
                 />
               </div>
             </div>
@@ -537,7 +537,7 @@
                   id="pokemon1Name"
                   placeholder="Choose a Pokemon"
                   formControlName="name"
-                  (focusout)="properCaseInput('name')"
+                  (focusout)="properCaseInput(pokemon2Form, 'name')"
                   (focusout)="setApiPokemon2(pokemon2Form.get('name')?.value)"
                   [ngClass]="{
                     'is-invalid':
@@ -557,7 +557,7 @@
                   id="pokemon2Item"
                   placeholder="Enter Item"
                   formControlName="item"
-                  (focusout)="properCaseInput('item')"
+                  (focusout)="properCaseInput(pokemon2Form, 'item')"
                 />
               </div>
             </div>
@@ -572,7 +572,7 @@
                   id="pokemon2Ability"
                   placeholder="Choose Ability"
                   formControlName="ability"
-                  (focusout)="properCaseInput('ability')"
+                  (focusout)="properCaseInput(pokemon2Form, 'ability')"
                   [ngClass]="{
                     'is-invalid':
                       (pokemon2Form.get('ability')?.touched ||
@@ -613,7 +613,7 @@
                         pokemon2Form.get('teraType')?.dirty) &&
                       !pokemon2Form.get('teraType')?.valid
                   }"
-                  (focusout)="properCaseInput('teraType')"
+                  (focusout)="properCaseInput(pokemon2Form, 'teraType')"
                 />
                 <div
                   *ngIf="
@@ -643,7 +643,7 @@
                   id="pokemon2Nature"
                   placeholder="Choose Nature"
                   formControlName="nature"
-                  (focusout)="properCaseInput('nature')"
+                  (focusout)="properCaseInput(pokemon2Form, 'nature')"
                   [ngClass]="{
                     'is-invalid':
                       (pokemon2Form.get('nature')?.touched ||
@@ -694,7 +694,7 @@
                   id="pokemon2Move1"
                   placeholder="Move 1"
                   formControlName="move1"
-                  (focusout)="properCaseInput('moves.move1')"
+                  (focusout)="properCaseInput(pokemon2Form, 'moves.move1')"
                 />
                 <input
                   type="text"
@@ -702,7 +702,7 @@
                   id="pokemon2Move2"
                   placeholder="Move 2"
                   formControlName="move2"
-                  (focusout)="properCaseInput('moves.move2')"
+                  (focusout)="properCaseInput(pokemon2Form, 'moves.move2')"
                 />
               </div>
               <div class="col-md-6 col-sm-12">
@@ -712,7 +712,7 @@
                   id="pokemon2Move3"
                   placeholder="Move 3"
                   formControlName="move3"
-                  (focusout)="properCaseInput('moves.move3')"
+                  (focusout)="properCaseInput(pokemon2Form, 'moves.move3')"
                 />
                 <input
                   type="text"
@@ -720,7 +720,7 @@
                   id="pokemon2Move4"
                   placeholder="Move 4"
                   formControlName="move4"
-                  (focusout)="properCaseInput('moves.move4')"
+                  (focusout)="properCaseInput(pokemon2Form, 'moves.move4')"
                 />
               </div>
             </div>

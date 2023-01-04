@@ -465,9 +465,9 @@ export class TeamBuilderComponent implements OnInit {
   }
   // END OnInit
 
-  properCaseInput(formControlName: string) {
-    const input = this.pokemon1Form.get(formControlName)?.value;
-    this.pokemon1Form
+  properCaseInput(form: FormGroup, formControlName: string) {
+    const input = form.get(formControlName)?.value;
+    form
       .get(formControlName)
       ?.setValue(this.utilityService.toProperCase(input));
   }
