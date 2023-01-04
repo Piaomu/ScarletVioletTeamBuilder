@@ -515,6 +515,20 @@ export class TeamBuilderComponent implements OnInit {
     }
   }
 
+  setApiPokemon4(name?: string): void {
+    this.apiPokemon4 = {} as ApiPokemon;
+    if (name != null) {
+      this.pokemonApiService.getApiPokemonByName(name.toLowerCase()).subscribe({
+        next: (pokemon) => (this.apiPokemon4 = pokemon),
+      });
+      console.log(
+        this.apiPokemon4?.sprites.other?.['official-artwork']?.front_default
+      );
+    } else {
+      this.apiPokemon4 = {} as ApiPokemon;
+    }
+  }
+
   // pairs the user's input with a pokemon model from PokeApi
   getApiPokemon(name: string): ApiPokemon | undefined {
     let apiPokemon: ApiPokemon | undefined;
