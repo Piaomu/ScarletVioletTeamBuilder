@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Pokemon } from '../pokemon/IPokemon';
+import { Nature, TeamPokemon, TeraType } from '../pokemon/Iteam';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,56 @@ export class UtilitiesService {
       .split(' ')
       .map((word) => word[0].toLocaleUpperCase() + word.slice(1))
       .join(' ');
+  }
+
+  getPokepaste(teamPokemon: TeamPokemon): string {
+    let pokepaste = '';
+
+    pokepaste += `${teamPokemon.name} @ ${teamPokemon.item}\n`;
+    pokepaste += `Ability: ${teamPokemon.ability}\n`;
+    pokepaste += `Level: ${teamPokemon.level}\n`;
+    pokepaste += `Tera Type: ${teamPokemon.teraType}\n`;
+    pokepaste += `EVs: ${teamPokemon.evs}\n`;
+    pokepaste += `${teamPokemon.nature} Nature\n`;
+    pokepaste += '- ' + teamPokemon.moves?.join('\n- ');
+
+    return pokepaste;
+  }
+
+  parsePokemon(pokepaste: string): TeamPokemon {
+    const lines = pokepaste.split('\n');
+    const nameLine = lines[0];
+    const abilityLine = lines[1];
+    const levelLine = lines[2];
+    const typeLine = lines[3];
+    const evLine = lines[4];
+    const natureLine = lines[5];
+    const ivLine = lines[6];
+    const moves = lines.slice(7);
+
+    const [name, item] = nameLine.split(' @ ');
+    const ability = abilityLine.split(': ')[1];
+    const level = levelLine.split(': ')[1];
+    let teraType: TeraType = typeLine.split(': ')[1] as TeraType;
+    const [, evs] = evLine.split(': ');
+    let nature: Nature = natureLine.split(' Nature')[0] as Nature;
+    const [, ivs] = ivLine.split(': ');
+    const moveList = moves.map((move: string) => move.trim());
+
+    nature = nature as Nature;
+    teraType = teraType as TeraType;
+
+    return {
+      name,
+      ability,
+      level,
+      teraType,
+      evs,
+      nature,
+      moves: moveList,
+      ivs,
+      item,
+    };
   }
 
   getTypeIcon(types: string[] | undefined): string[] {
