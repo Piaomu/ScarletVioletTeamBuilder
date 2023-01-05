@@ -103,7 +103,9 @@
           </div>
         </div>
         <div class="row mt-2">
-          <button class="btn btn-primary">Submit</button>
+          <button (click)="onCreateTeam()" class="btn btn-primary">
+            Submit
+          </button>
         </div>
       </div>
     </div>
@@ -996,7 +998,7 @@
 <!-- ./ Pokemon 3 Modal -->
 
 <!-- Pokemon 4 Modal -->
-<form [formGroup]="pokemon4Form" novalidate (ngSubmit)="savePokemon1()">
+<form [formGroup]="pokemon4Form" novalidate (ngSubmit)="savePokemon4()">
   <div class="modal fade" id="pokemon4" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">

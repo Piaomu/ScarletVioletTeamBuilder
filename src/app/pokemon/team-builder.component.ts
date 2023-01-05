@@ -70,6 +70,8 @@ export class TeamBuilderComponent implements OnInit {
   apiPokemon5!: ApiPokemon | undefined;
   apiPokemon6!: ApiPokemon | undefined;
 
+  myPokepaste!: string | null;
+
   constructor(
     private pokemonApiService: PokemonApiService,
     private route: ActivatedRoute,
@@ -86,6 +88,25 @@ export class TeamBuilderComponent implements OnInit {
 
   pokemonLevel: number = 50;
   team!: Team | null;
+
+  onCreateTeam() {
+    this.team = this.createTeam();
+    console.log(this.team);
+  }
+
+  createTeam(): { name: string; pokemon: TeamPokemon[] } {
+    this.team = { name: '', pokemon: [] };
+    let pokemon: TeamPokemon[] = [];
+    let name: string = 'myTeam';
+    pokemon.push(this.pokemon1);
+    pokemon.push(this.pokemon2);
+    pokemon.push(this.pokemon3);
+    pokemon.push(this.pokemon4);
+    pokemon.push(this.pokemon5);
+    pokemon.push(this.pokemon6);
+
+    return { name, pokemon };
+  }
 
   onSubmitPokePaste(pokepaste: string) {
     this.team = this.parsePokepaste(pokepaste);
@@ -161,6 +182,8 @@ export class TeamBuilderComponent implements OnInit {
       item,
     };
   }
+
+  addPokemonToTeam(pokemon: TeamPokemon): void {}
 
   generatePhotoUrl(pokemon: TeamPokemon): void {
     this.pokemonApiService
@@ -305,6 +328,8 @@ export class TeamBuilderComponent implements OnInit {
 
   // OnInit
   ngOnInit() {
+    this.team = null;
+    this.myPokepaste = null;
     this.pokemon1 = {} as TeamPokemon;
     this.pokemon2 = {} as TeamPokemon;
     this.pokemon3 = {} as TeamPokemon;
