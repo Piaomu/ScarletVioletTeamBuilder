@@ -1133,7 +1133,7 @@
                     pokemon4Form.get('nature')?.touched)
                 "
               >
-                <label for="pokemon1Nature">Nature</label>
+                <label for="pokemon4Nature">Nature</label>
                 <input
                   type="text"
                   class="form-control"
@@ -1251,48 +1251,96 @@
 <!-- ./ Pokemon 4 Modal -->
 
 <!-- Pokemon 5 Modal -->
-<div class="modal fade" id="pokemon5" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Pokemon 5</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="pokemon5Name">Pokemon</label>
-            <input
-              type="text"
-              class="form-control"
-              id="pokemon5Name"
-              placeholder="Choose a Pokemon"
+<form [formGroup]="pokemon5Form" novalidate (ngSubmit)="savePokemon5()">
+  <div class="modal fade" id="pokemon5" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" *ngIf="!pokemon5Form.get('name')?.valid">
+            Pokemon 5
+          </h5>
+          <ng-template
+            [ngIf]="apiPokemon5?.sprites?.other?.['official-artwork']?.front_default"
+          >
+            <img
+              style="height: 50px; width: 50px"
+              [src]="apiPokemon5?.sprites?.other?.['official-artwork']?.front_default"
             />
-          </div>
-          <div class="form-group">
-            <label for="pokemon5Ability">Ability</label>
-            <input
-              type="text"
-              class="form-control"
-              id="pokemon5Ability"
-              placeholder="Choose Ability"
-            />
+          </ng-template>
+          <h5 class="modal-title" *ngIf="pokemon5Form.get('name')?.valid">
+            {{ pokemon5Form.get("name")?.value }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon5Name">Pokemon</label>
+                <input
+                  name="name"
+                  type="text"
+                  class="form-control"
+                  id="pokemon5Name"
+                  placeholder="Choose a Pokemon"
+                  formControlName="name"
+                  (focusout)="properCaseInput(pokemon5Form, 'name')"
+                  (focusout)="setApiPokemon5(pokemon5Form.get('name')?.value)"
+                  [ngClass]="{
+                    'is-invalid':
+                      (pokemon5Form.get('name')?.touched ||
+                        pokemon5Form.get('name')?.dirty) &&
+                      !pokemon5Form.get('name')?.valid
+                  }"
+                />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon5Item">Item</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon5Item"
+                  placeholder="Enter Item"
+                  formControlName="item"
+                  (focusout)="properCaseInput(pokemon5Form, 'item')"
+                />
+              </div>
+            </div>
           </div>
           <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon5Ability">Ability</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon5Ability"
+                  placeholder="Choose Ability"
+                  formControlName="ability"
+                  (focusout)="properCaseInput(pokemon5Form, 'ability')"
+                  [ngClass]="{
+                    'is-invalid':
+                      (pokemon5Form.get('ability')?.touched ||
+                        pokemon5Form.get('ability')?.dirty) &&
+                      !pokemon5Form.get('ability')?.valid
+                  }"
+                />
+              </div>
+            </div>
             <div class="col">
               <div class="form-group">
                 <label for="pokemon5Level">Level</label>
                 <select
                   id="pokemon5Level"
                   class="form-control"
-                  style="width: 60px"
-                  [(ngModel)]="pokemonLevel"
-                  name="level"
+                  formControlName="level"
                 >
                   <option *ngFor="let level of levels" [value]="level">
                     {{ level }}
@@ -1300,6 +1348,8 @@
                 </select>
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col">
               <div class="form-group">
                 <label for="pokemon5TeraType">Tera Type</label>
@@ -1308,7 +1358,61 @@
                   class="form-control"
                   id="pokemon5TeraType"
                   placeholder="Enter Tera Type"
+                  formControlName="teraType"
+                  [ngClass]="{
+                    'is-invalid':
+                      (pokemon5Form.get('teraType')?.touched ||
+                        pokemon5Form.get('teraType')?.dirty) &&
+                      !pokemon5Form.get('teraType')?.valid
+                  }"
+                  (focusout)="properCaseInput(pokemon5Form, 'teraType')"
                 />
+                <div
+                  *ngIf="
+                    pokemon5Form.get('teraType')?.hasError('invalidTeraType') &&
+                    (pokemon5Form.get('teraType')?.dirty ||
+                      pokemon5Form.get('teraType')?.touched)
+                  "
+                  class="invalid-feedback"
+                >
+                  Please enter a valid Tera Type.
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div
+                class="form-group"
+                [class.has-error]="
+                  pokemon5Form.get('nature')?.invalid &&
+                  (pokemon5Form.get('nature')?.dirty ||
+                    pokemon5Form.get('nature')?.touched)
+                "
+              >
+                <label for="pokemon5Nature">Nature</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon5Nature"
+                  placeholder="Choose Nature"
+                  formControlName="nature"
+                  (focusout)="properCaseInput(pokemon5Form, 'nature')"
+                  [ngClass]="{
+                    'is-invalid':
+                      (pokemon5Form.get('nature')?.touched ||
+                        pokemon5Form.get('nature')?.dirty) &&
+                      !pokemon5Form.get('nature')?.valid
+                  }"
+                />
+                <div
+                  *ngIf="
+                    pokemon5Form.get('nature')?.hasError('invalidNature') &&
+                    (pokemon5Form.get('nature')?.dirty ||
+                      pokemon5Form.get('nature')?.touched)
+                  "
+                  class="invalid-feedback"
+                >
+                  Please enter a valid nature.
+                </div>
               </div>
             </div>
           </div>
@@ -1319,6 +1423,7 @@
               class="form-control"
               id="pokemon5Evs"
               placeholder="Enter EVs"
+              formControlName="evs"
             />
           </div>
           <div class="form-group">
@@ -1328,23 +1433,28 @@
               class="form-control"
               id="pokemon5Ivs"
               placeholder="Enter IVs"
+              formControlName="ivs"
             />
           </div>
           <div class="form-group">
             <label for="pokemon5Moves">Moves</label>
-            <div class="row">
+            <div class="row" formGroupName="moves">
               <div class="col-md-6 col-sm-12">
                 <input
                   type="text"
                   class="form-control"
                   id="pokemon5Move1"
                   placeholder="Move 1"
+                  formControlName="move1"
+                  (focusout)="properCaseInput(pokemon5Form, 'moves.move1')"
                 />
                 <input
                   type="text"
                   class="form-control"
                   id="pokemon5Move2"
                   placeholder="Move 2"
+                  formControlName="move2"
+                  (focusout)="properCaseInput(pokemon5Form, 'moves.move2')"
                 />
               </div>
               <div class="col-md-6 col-sm-12">
@@ -1353,72 +1463,139 @@
                   class="form-control"
                   id="pokemon5Move3"
                   placeholder="Move 3"
+                  formControlName="move3"
+                  (focusout)="properCaseInput(pokemon5Form, 'moves.move3')"
                 />
                 <input
                   type="text"
                   class="form-control"
                   id="pokemon5Move4"
                   placeholder="Move 4"
+                  formControlName="move4"
+                  (focusout)="properCaseInput(pokemon5Form, 'moves.move4')"
                 />
               </div>
             </div>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!pokemon5Form.valid"
+            [title]="
+              pokemon5Form.valid
+                ? 'Save fifth pokemon.'
+                : 'Enter all required fields.'
+            "
+          >
+            Save
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</form>
 <!-- ./ Pokemon 5 Modal -->
 
 <!-- Pokemon 6 Modal -->
-<div class="modal fade" id="pokemon6" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Pokemon 6</h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="pokemon6Name">Pokemon</label>
-            <input
-              type="text"
-              class="form-control"
-              id="pokemon6Name"
-              placeholder="Choose a Pokemon"
+<form [formGroup]="pokemon6Form" novalidate (ngSubmit)="savePokemon6()">
+  <div class="modal fade" id="pokemon6" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" *ngIf="!pokemon6Form.get('name')?.valid">
+            Pokemon 6
+          </h5>
+          <ng-template
+            [ngIf]="apiPokemon6?.sprites?.other?.['official-artwork']?.front_default"
+          >
+            <img
+              style="height: 50px; width: 50px"
+              [src]="apiPokemon6?.sprites?.other?.['official-artwork']?.front_default"
             />
-          </div>
-          <div class="form-group">
-            <label for="pokemon6Ability">Ability</label>
-            <input
-              type="text"
-              class="form-control"
-              id="pokemon6Ability"
-              placeholder="Choose Ability"
-            />
+          </ng-template>
+          <h5 class="modal-title" *ngIf="pokemon6Form.get('name')?.valid">
+            {{ pokemon6Form.get("name")?.value }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon6Name">Pokemon</label>
+                <input
+                  name="name"
+                  type="text"
+                  class="form-control"
+                  id="pokemon6Name"
+                  placeholder="Choose a Pokemon"
+                  formControlName="name"
+                  (focusout)="properCaseInput(pokemon6Form, 'name')"
+                  (focusout)="setApiPokemon6(pokemon6Form.get('name')?.value)"
+                  [ngClass]="{
+                    'is-invalid':
+                      (pokemon6Form.get('name')?.touched ||
+                        pokemon6Form.get('name')?.dirty) &&
+                      !pokemon6Form.get('name')?.valid
+                  }"
+                />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon6Item">Item</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon6Item"
+                  placeholder="Enter Item"
+                  formControlName="item"
+                  (focusout)="properCaseInput(pokemon6Form, 'item')"
+                />
+              </div>
+            </div>
           </div>
           <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="pokemon6Ability">Ability</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon6Ability"
+                  placeholder="Choose Ability"
+                  formControlName="ability"
+                  (focusout)="properCaseInput(pokemon6Form, 'ability')"
+                  [ngClass]="{
+                    'is-invalid':
+                      (pokemon6Form.get('ability')?.touched ||
+                        pokemon6Form.get('ability')?.dirty) &&
+                      !pokemon6Form.get('ability')?.valid
+                  }"
+                />
+              </div>
+            </div>
             <div class="col">
               <div class="form-group">
                 <label for="pokemon6Level">Level</label>
                 <select
                   id="pokemon6Level"
                   class="form-control"
-                  style="width: 60px"
-                  [(ngModel)]="pokemonLevel"
-                  name="level"
+                  formControlName="level"
                 >
                   <option *ngFor="let level of levels" [value]="level">
                     {{ level }}
@@ -1426,6 +1603,8 @@
                 </select>
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col">
               <div class="form-group">
                 <label for="pokemon6TeraType">Tera Type</label>
@@ -1434,7 +1613,61 @@
                   class="form-control"
                   id="pokemon6TeraType"
                   placeholder="Enter Tera Type"
+                  formControlName="teraType"
+                  [ngClass]="{
+                    'is-invalid':
+                      (pokemon6Form.get('teraType')?.touched ||
+                        pokemon6Form.get('teraType')?.dirty) &&
+                      !pokemon6Form.get('teraType')?.valid
+                  }"
+                  (focusout)="properCaseInput(pokemon6Form, 'teraType')"
                 />
+                <div
+                  *ngIf="
+                    pokemon6Form.get('teraType')?.hasError('invalidTeraType') &&
+                    (pokemon6Form.get('teraType')?.dirty ||
+                      pokemon6Form.get('teraType')?.touched)
+                  "
+                  class="invalid-feedback"
+                >
+                  Please enter a valid Tera Type.
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div
+                class="form-group"
+                [class.has-error]="
+                  pokemon6Form.get('nature')?.invalid &&
+                  (pokemon6Form.get('nature')?.dirty ||
+                    pokemon6Form.get('nature')?.touched)
+                "
+              >
+                <label for="pokemon6Nature">Nature</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="pokemon6Nature"
+                  placeholder="Choose Nature"
+                  formControlName="nature"
+                  (focusout)="properCaseInput(pokemon6Form, 'nature')"
+                  [ngClass]="{
+                    'is-invalid':
+                      (pokemon6Form.get('nature')?.touched ||
+                        pokemon6Form.get('nature')?.dirty) &&
+                      !pokemon6Form.get('nature')?.valid
+                  }"
+                />
+                <div
+                  *ngIf="
+                    pokemon6Form.get('nature')?.hasError('invalidNature') &&
+                    (pokemon6Form.get('nature')?.dirty ||
+                      pokemon6Form.get('nature')?.touched)
+                  "
+                  class="invalid-feedback"
+                >
+                  Please enter a valid nature.
+                </div>
               </div>
             </div>
           </div>
@@ -1445,6 +1678,7 @@
               class="form-control"
               id="pokemon6Evs"
               placeholder="Enter EVs"
+              formControlName="evs"
             />
           </div>
           <div class="form-group">
@@ -1454,23 +1688,28 @@
               class="form-control"
               id="pokemon6Ivs"
               placeholder="Enter IVs"
+              formControlName="ivs"
             />
           </div>
           <div class="form-group">
             <label for="pokemon6Moves">Moves</label>
-            <div class="row">
+            <div class="row" formGroupName="moves">
               <div class="col-md-6 col-sm-12">
                 <input
                   type="text"
                   class="form-control"
                   id="pokemon6Move1"
                   placeholder="Move 1"
+                  formControlName="move1"
+                  (focusout)="properCaseInput(pokemon6Form, 'moves.move1')"
                 />
                 <input
                   type="text"
                   class="form-control"
                   id="pokemon6Move2"
                   placeholder="Move 2"
+                  formControlName="move2"
+                  (focusout)="properCaseInput(pokemon6Form, 'moves.move2')"
                 />
               </div>
               <div class="col-md-6 col-sm-12">
@@ -1479,25 +1718,44 @@
                   class="form-control"
                   id="pokemon6Move3"
                   placeholder="Move 3"
+                  formControlName="move3"
+                  (focusout)="properCaseInput(pokemon6Form, 'moves.move3')"
                 />
                 <input
                   type="text"
                   class="form-control"
                   id="pokemon6Move4"
                   placeholder="Move 4"
+                  formControlName="move4"
+                  (focusout)="properCaseInput(pokemon6Form, 'moves.move4')"
                 />
               </div>
             </div>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!pokemon6Form.valid"
+            [title]="
+              pokemon6Form.valid
+                ? 'Save sixth pokemon.'
+                : 'Enter all required fields.'
+            "
+          >
+            Save
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</form>
 <!-- ./ Pokemon 6 Modal -->
