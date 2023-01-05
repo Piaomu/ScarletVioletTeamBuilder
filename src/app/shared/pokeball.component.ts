@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-pokeball',
+  selector: 'pokeball',
   templateUrl: './pokeball.component.html',
-  styleUrls: ['./pokeball.component.css']
+  styleUrls: ['./pokeball.component.css'],
 })
 export class PokeballComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
