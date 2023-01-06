@@ -98,12 +98,39 @@ export class TeamBuilderComponent implements OnInit {
     this.team = { name: '', pokemon: [] };
     let pokemon: TeamPokemon[] = [];
     let name: string = 'myTeam';
+
+    this.pokemon1.photoUrl =
+      this.apiPokemon1?.sprites?.other?.['official-artwork']?.front_default ||
+      undefined;
+
+    this.pokemon2.photoUrl =
+      this.apiPokemon2?.sprites?.other?.['official-artwork']?.front_default ||
+      undefined;
+
+    this.pokemon3.photoUrl =
+      this.apiPokemon3?.sprites?.other?.['official-artwork']?.front_default ||
+      undefined;
+
+    this.pokemon4.photoUrl =
+      this.apiPokemon4?.sprites?.other?.['official-artwork']?.front_default ||
+      undefined;
+
+    this.pokemon5.photoUrl =
+      this.apiPokemon5?.sprites?.other?.['official-artwork']?.front_default ||
+      undefined;
+
+    this.pokemon6.photoUrl =
+      this.apiPokemon6?.sprites?.other?.['official-artwork']?.front_default ||
+      undefined;
+
     pokemon.push(this.pokemon1);
     pokemon.push(this.pokemon2);
     pokemon.push(this.pokemon3);
     pokemon.push(this.pokemon4);
     pokemon.push(this.pokemon5);
     pokemon.push(this.pokemon6);
+
+    localStorage.setItem('team', JSON.stringify(this.team));
 
     return { name, pokemon };
   }
@@ -328,7 +355,31 @@ export class TeamBuilderComponent implements OnInit {
 
   // OnInit
   ngOnInit() {
-    this.team = null;
+    // retrieve team from local storage if it exists
+    const team: TeamPokemon[] = [];
+    let allItemsExist = true;
+    for (let i = 1; i <= 6; i++) {
+      const item = localStorage.getItem(`pokemon${i}`);
+      if (item) {
+        team.push(JSON.parse(item));
+      } else {
+        allItemsExist = false;
+        break;
+      }
+    }
+
+    if (allItemsExist) {
+      this.team = { name: 'team', pokemon: team };
+    } else {
+      const teamString = localStorage.getItem('team');
+      if (teamString) {
+        this.team = JSON.parse(teamString) as Team;
+      } else {
+        this.team = null;
+      }
+    }
+    // generate photos for each pokemon on team
+    this.team?.pokemon.forEach((pokemon) => this.generatePhotoUrl(pokemon));
     this.myPokepaste = null;
     this.pokemon1 = {} as TeamPokemon;
     this.pokemon2 = {} as TeamPokemon;
@@ -475,19 +526,6 @@ export class TeamBuilderComponent implements OnInit {
       }),
       photoUrl: [''],
     });
-
-    // retrieve team from local storage if it exists
-    if (localStorage.getItem('team') != null) {
-      let teamString = localStorage.getItem('team');
-      if (teamString === null) {
-        this.team = null;
-      } else {
-        this.team = JSON.parse(teamString) as Team;
-      }
-    }
-
-    // generate photos for each pokemon on team
-    this.team?.pokemon.forEach((pokemon) => this.generatePhotoUrl(pokemon));
   }
   // END OnInit
 
