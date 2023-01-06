@@ -640,11 +640,11 @@ export class TeamBuilderComponent implements OnInit {
   }
 
   // Local storage methods
-  localStorageIsEmpty(): boolean {
-    if (localStorage.length > 0) {
-      return false;
-    } else {
+  TeamIsInLocalStorage(): boolean {
+    if (localStorage.getItem('team')) {
       return true;
+    } else {
+      return false;
     }
   }
 
