@@ -42,6 +42,10 @@ function teraTypeValidator(
   return { invalidTeraType: true };
 }
 
+function validateSixPokemon(control: FormControl) {
+  return { sixPokemon: true };
+}
+
 @Component({
   selector: 'app-team-builder',
   templateUrl: './team-builder.component.html',
@@ -55,6 +59,8 @@ export class TeamBuilderComponent implements OnInit {
   pokemon4Form!: FormGroup;
   pokemon5Form!: FormGroup;
   pokemon6Form!: FormGroup;
+
+  submitSixControl = new FormControl('', [Validators.required]);
 
   pokemon1!: TeamPokemon;
   pokemon2!: TeamPokemon;
@@ -90,8 +96,29 @@ export class TeamBuilderComponent implements OnInit {
   team!: Team | null;
 
   onCreateTeam() {
-    this.team = this.createTeam();
-    console.log(this.team);
+    let allItemsExist = true;
+    let team: TeamPokemon[] = [];
+
+    for (let i = 1; i <= 6; i++) {
+      const item = localStorage.getItem(`pokemon${i}`);
+      if (item) {
+        team.push(JSON.parse(item));
+      } else {
+        allItemsExist = false;
+        break;
+      }
+    }
+
+    if (allItemsExist) {
+      this.team = this.createTeam();
+      console.log(this.team);
+    } else {
+      this.submitSixControl.setValidators([
+        Validators.required,
+        validateSixPokemon,
+      ]);
+      this.submitSixControl.updateValueAndValidity();
+    }
   }
 
   createTeam(): { name: string; pokemon: TeamPokemon[] } {

@@ -106,6 +106,9 @@
           <button (click)="onCreateTeam()" class="btn btn-primary">
             Submit
           </button>
+          <div *ngIf="submitSixControl.hasError('sixPokemon')">
+            Please add six pokemon to your team before submitting
+          </div>
         </div>
       </div>
     </div>
