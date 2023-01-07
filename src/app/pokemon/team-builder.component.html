@@ -16,7 +16,6 @@
         </button>
       </h2>
     </div>
-
     <div
       id="newTeamToggle"
       class="collapse show"
@@ -27,7 +26,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-4 my-1">
-              <div class="card text-center">
+              <div class="card" style="overflow: hidden">
                 <button
                   type="button"
                   data-bs-toggle="modal"
@@ -36,10 +35,17 @@
                 >
                   +
                 </button>
+                <pokeball
+                  *ngIf="pokemonInLocalStorage(1)"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#pokemon1"
+                  class=""
+                ></pokeball>
               </div>
             </div>
             <div class="col-md-4 my-1">
-              <div class="card text-center">
+              <div class="card" style="overflow: hidden">
                 <button
                   type="button"
                   data-bs-toggle="modal"
@@ -48,10 +54,17 @@
                 >
                   +
                 </button>
+                <pokeball
+                  *ngIf="pokemonInLocalStorage(2)"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#pokemon2"
+                  class=""
+                ></pokeball>
               </div>
             </div>
             <div class="col-md-4 my-1">
-              <div class="card text-center">
+              <div class="card" style="overflow: hidden">
                 <button
                   type="button"
                   data-bs-toggle="modal"
@@ -60,12 +73,19 @@
                 >
                   +
                 </button>
+                <pokeball
+                  *ngIf="pokemonInLocalStorage(3)"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#pokemon3"
+                  class=""
+                ></pokeball>
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-4 my-1">
-              <div class="card text-center">
+              <div class="card" style="overflow: hidden">
                 <button
                   type="button"
                   data-bs-toggle="modal"
@@ -74,10 +94,17 @@
                 >
                   +
                 </button>
+                <pokeball
+                  *ngIf="pokemonInLocalStorage(4)"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#pokemon4"
+                  class=""
+                ></pokeball>
               </div>
             </div>
             <div class="col-md-4 my-1">
-              <div class="card text-center">
+              <div class="card" style="overflow: hidden">
                 <button
                   type="button"
                   data-bs-toggle="modal"
@@ -86,10 +113,17 @@
                 >
                   +
                 </button>
+                <pokeball
+                  *ngIf="pokemonInLocalStorage(5)"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#pokemon5"
+                  class=""
+                ></pokeball>
               </div>
             </div>
             <div class="col-md-4 my-1">
-              <div class="card text-center">
+              <div class="card" style="overflow: hidden">
                 <button
                   type="button"
                   data-bs-toggle="modal"
@@ -98,6 +132,13 @@
                 >
                   +
                 </button>
+                <pokeball
+                  *ngIf="pokemonInLocalStorage(6)"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#pokemon6"
+                  class=""
+                ></pokeball>
               </div>
             </div>
           </div>

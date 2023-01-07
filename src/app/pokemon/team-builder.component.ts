@@ -675,6 +675,14 @@ export class TeamBuilderComponent implements OnInit {
     }
   }
 
+  pokemonInLocalStorage(number: number): boolean {
+    if (localStorage.getItem('pokemon' + number)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   save() {
     // save the team object to local storage here
     localStorage.setItem('team', JSON.stringify(this.team));
@@ -682,6 +690,7 @@ export class TeamBuilderComponent implements OnInit {
 
   clearTeam() {
     localStorage.clear();
+
     this.team = null;
   }
 }
