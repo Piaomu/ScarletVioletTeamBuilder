@@ -12,6 +12,13 @@ body {
   left: 50%;
   transform: translate(-50%,-50%);
 }
+.center-image {
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+  position: relative;
+
+}
 /* Poké Styles */
 .pokeball {
   position: relative;
@@ -23,8 +30,19 @@ body {
   overflow: hidden;
   box-shadow: inset -10px 10px 0 10px #ccc;
   animation: fall .25s ease-in-out,
-             shake 1.25s cubic-bezier(.36,.07,.19,.97) 3;
+             shake 1s cubic-bezier(.36,.07,.19,.97) 2;
 }
+.pokeball img {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+max-width: 40%;
+max-height: auto;
+opacity: 0;
+animation: fade-in .7s forwards 2s;
+}
+
 .pokeball::before,
 .pokeball::after {
   content:"";
@@ -50,9 +68,9 @@ body {
   background: #7f8c8d;
   border: 10px solid #fff;
   border-radius: 50%;
-  z-index: 10;
+  z-index: 1;
   box-shadow: 0 0 0 10px black;
-  animation: blink .5s alternate 7;
+  animation: blink .3s alternate 5;
 }
 /* Animation */
 @keyframes blink {
@@ -84,4 +102,13 @@ body {
   60% { top: 0 }
   80% { top: -20px }
   100% { top: 0 }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
