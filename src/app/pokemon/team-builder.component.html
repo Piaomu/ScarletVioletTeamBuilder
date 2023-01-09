@@ -260,8 +260,10 @@
         margin-top: 0.5%;
         margin-bottom: 0.5%;
       "
+      (click)="copyPokepasteToClipboard()"
     >
-      Copy to Clipboard
+      <span *ngIf="!pokepasteCopied">Copy to Clipboard</span>
+      <span *ngIf="pokepasteCopied">Copied!</span>
     </button>
   </div>
   <pre *ngIf="myPokepaste">

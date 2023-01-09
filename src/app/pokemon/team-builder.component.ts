@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { UtilitiesService } from '../services/utilities.service';
 import { generate } from 'rxjs';
+import * as clipboard from 'clipboard';
 
 function natureValidator(control: FormControl): { [key: string]: any } | null {
   // Normalize the user's input
@@ -77,6 +78,7 @@ export class TeamBuilderComponent implements OnInit {
   apiPokemon6!: ApiPokemon | undefined;
 
   myPokepaste!: string | null;
+  pokepasteCopied: boolean = false;
 
   constructor(
     private pokemonApiService: PokemonApiService,
@@ -244,6 +246,22 @@ export class TeamBuilderComponent implements OnInit {
       this.myPokepaste = pokepaste;
     } else {
       this.myPokepaste = null;
+    }
+  }
+
+  copyPokepasteToClipboard() {
+    console.log('clicked me!');
+    console.log('your pokepaste is: ' + this.myPokepaste);
+
+    if (this.myPokepaste != null) {
+      let copytext = clipboard.copy(this.myPokepaste);
+      if (copytext != null) {
+        this.pokepasteCopied = true;
+        console.log('your copied text is:' + copytext);
+      } else {
+        this.pokepasteCopied = false;
+        console.log("we didn't even get there, partner");
+      }
     }
   }
 
