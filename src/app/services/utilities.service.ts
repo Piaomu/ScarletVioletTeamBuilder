@@ -47,6 +47,14 @@ export class UtilitiesService {
     return pokepaste;
   }
 
+  displayPokepaste(team: TeamPokemon[]): string {
+    let pokepaste = '';
+    for (const pokemon of team) {
+      pokepaste += `${this.getPokepaste(pokemon)}\n\n`;
+    }
+    return pokepaste;
+  }
+
   parsePokemon(pokepaste: string): TeamPokemon {
     const lines = pokepaste.split('\n');
     const nameLine = lines[0];
