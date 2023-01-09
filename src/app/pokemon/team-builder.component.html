@@ -241,6 +241,7 @@
 <div class="row">
   <div class="buttons" *ngIf="team">
     <button
+      (click)="setPokepaste(team.pokemon)"
       class="btn btn-secondary btn-block"
       style="
         width: 49.5%;
@@ -263,6 +264,9 @@
       Copy to Clipboard
     </button>
   </div>
+  <pre *ngIf="myPokepaste">
+    {{ myPokepaste }}
+  </pre>
   <div
     class="col-lg-4 col-sm-6 col-xs-12"
     *ngFor="let pokemon of team?.pokemon"

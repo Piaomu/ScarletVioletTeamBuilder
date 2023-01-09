@@ -237,6 +237,16 @@ export class TeamBuilderComponent implements OnInit {
     };
   }
 
+  setPokepaste(team: TeamPokemon[]) {
+    let pokepaste = this.utilityService.displayPokepaste(team);
+
+    if (pokepaste) {
+      this.myPokepaste = pokepaste;
+    } else {
+      this.myPokepaste = null;
+    }
+  }
+
   addPokemonToTeam(pokemon: TeamPokemon): void {}
 
   generatePhotoUrl(pokemon: TeamPokemon): void {
