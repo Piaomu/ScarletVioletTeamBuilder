@@ -19,13 +19,30 @@ export class UtilitiesService {
   getPokepaste(teamPokemon: TeamPokemon): string {
     let pokepaste = '';
 
-    pokepaste += `${teamPokemon.name} @ ${teamPokemon.item}\n`;
-    pokepaste += `Ability: ${teamPokemon.ability}\n`;
-    pokepaste += `Level: ${teamPokemon.level}\n`;
-    pokepaste += `Tera Type: ${teamPokemon.teraType}\n`;
-    pokepaste += `EVs: ${teamPokemon.evs}\n`;
-    pokepaste += `${teamPokemon.nature} Nature\n`;
-    pokepaste += '- ' + teamPokemon.moves?.join('\n- ');
+    if (teamPokemon.name) {
+      pokepaste += `${teamPokemon.name} @ `;
+    }
+    if (teamPokemon.item) {
+      pokepaste += `${teamPokemon.item}\n`;
+    }
+    if (teamPokemon.ability) {
+      pokepaste += `Ability: ${teamPokemon.ability}\n`;
+    }
+    if (teamPokemon.level) {
+      pokepaste += `Level: ${teamPokemon.level}\n`;
+    }
+    if (teamPokemon.teraType) {
+      pokepaste += `Tera Type: ${teamPokemon.teraType}\n`;
+    }
+    if (teamPokemon.evs) {
+      pokepaste += `EVs: ${teamPokemon.evs}\n`;
+    }
+    if (teamPokemon.nature) {
+      pokepaste += `${teamPokemon.nature} Nature\n`;
+    }
+    if (teamPokemon.moves) {
+      pokepaste += '- ' + teamPokemon.moves.join('\n- ');
+    }
 
     return pokepaste;
   }

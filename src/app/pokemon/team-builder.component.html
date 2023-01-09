@@ -239,6 +239,30 @@
 
 <!-- Display Team -->
 <div class="row">
+  <div class="buttons" *ngIf="team">
+    <button
+      class="btn btn-secondary btn-block"
+      style="
+        width: 49.5%;
+        margin-right: 0.5%;
+        margin-top: 0.5%;
+        margin-bottom: 0.5%;
+      "
+    >
+      Display as PokePaste
+    </button>
+    <button
+      class="btn btn-secondary btn-block"
+      style="
+        width: 49.5%;
+        margin-left: 0.5%;
+        margin-top: 0.5%;
+        margin-bottom: 0.5%;
+      "
+    >
+      Copy to Clipboard
+    </button>
+  </div>
   <div
     class="col-lg-4 col-sm-6 col-xs-12"
     *ngFor="let pokemon of team?.pokemon"
