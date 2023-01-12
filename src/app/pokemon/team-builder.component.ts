@@ -79,6 +79,7 @@ export class TeamBuilderComponent implements OnInit {
 
   myPokepaste!: string | null;
   pokepasteCopied: boolean = false;
+  displayToggle: boolean = false;
 
   constructor(
     private pokemonApiService: PokemonApiService,
@@ -159,7 +160,7 @@ export class TeamBuilderComponent implements OnInit {
     pokemon.push(this.pokemon5);
     pokemon.push(this.pokemon6);
 
-    localStorage.setItem('team', JSON.stringify(this.team));
+    localStorage.setItem('team', JSON.stringify(pokemon));
 
     return { name, pokemon };
   }
@@ -711,6 +712,21 @@ export class TeamBuilderComponent implements OnInit {
     }
   }
 
+  anyPokemonInLocalStorage(): boolean {
+    if (
+      this.pokemonInLocalStorage(1) ||
+      this.pokemonInLocalStorage(2) ||
+      this.pokemonInLocalStorage(3) ||
+      this.pokemonInLocalStorage(4) ||
+      this.pokemonInLocalStorage(5) ||
+      this.pokemonInLocalStorage(6)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   save() {
     // save the team object to local storage here
     localStorage.setItem('team', JSON.stringify(this.team));
@@ -721,4 +737,26 @@ export class TeamBuilderComponent implements OnInit {
 
     this.team = null;
   }
+  clearPokeballs() {
+    const pokeballKeys = [
+      'pokemon1',
+      'pokemon2',
+      'pokemon3',
+      'pokemon4',
+      'pokemon5',
+      'pokemon6',
+    ];
+    pokeballKeys.forEach((key) => {
+      localStorage.removeItem(key);
+    });
+  }
+
+  clearPokePaste() {
+    this.myPokepaste = null;
+  }
+
+  // clearAllDisplayData() {
+  //   this.clearTeam();
+  //   this.clearPokePaste();
+  // }
 }

@@ -14,6 +14,13 @@
         >
           Create a New Team
         </button>
+        <button
+          *ngIf="this.anyPokemonInLocalStorage()"
+          (click)="clearPokeballs()"
+          class="btn btn-primary"
+        >
+          Clear Pokeballs
+        </button>
       </h2>
     </div>
     <div
