@@ -7,7 +7,7 @@
     <input
       type="text"
       placeholder="Pikachu"
-      [(ngModel)]="listFilter"
+      [(ngModel)]="listApiPokemonFilter"
       style="margin-bottom: 0.5em"
     />
   </div>
@@ -185,21 +185,21 @@
     </thead>
     <tbody>
       <tr
-        [routerLink]="['/pokemon', onePokemon.Name]"
-        *ngFor="let onePokemon of filteredPokemon"
+        [routerLink]="['/pokemon', onePokemon.name]"
+        *ngFor="let onePokemon of filteredApiPokemon"
       >
-        <td scope="row">{{ onePokemon.Name }}</td>
-        <td scope="row">{{ onePokemon.Types[0] }} {{ onePokemon.Types[1] }}</td>
-        <td scope="row">{{ onePokemon.Abilities[0] }}</td>
-        <td scope="row">{{ onePokemon.Abilities[1] }}</td>
-        <td scope="row">{{ onePokemon.Abilities[2] }}</td>
-        <td scope="row">{{ onePokemon.Stats.Hp }}</td>
+        <td scope="row">{{ onePokemon.name }}</td>
+        <td scope="row">{{ onePokemon.types[0] }} {{ onePokemon.types[1] }}</td>
+        <td scope="row">{{ onePokemon.abilities[0].ability }}</td>
+        <td scope="row">{{ onePokemon.abilities[1].ability }}</td>
+        <td scope="row">{{ onePokemon.abilities[2].ability }}</td>
+        <!-- <td scope="row">{{ onePokemon.Stats.Hp }}</td>
         <td scope="row">{{ onePokemon.Stats.Atk }}</td>
         <td scope="row">{{ onePokemon.Stats.Def }}</td>
         <td scope="row">{{ onePokemon.Stats.SpAtk }}</td>
         <td scope="row">{{ onePokemon.Stats.SpDef }}</td>
         <td scope="row">{{ onePokemon.Stats.Spd }}</td>
-        <td scope="row">{{ onePokemon.Stats.Total }}</td>
+        <td scope="row">{{ onePokemon.Stats.Total }}</td> -->
       </tr>
     </tbody>
   </table>

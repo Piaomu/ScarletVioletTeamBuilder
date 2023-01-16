@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TeamBuilderComponent } from './pokemon/team-builder.component';
 import { PokeballComponent } from './shared/pokeball.component';
+import { MainClient } from 'pokenode-ts';
 
 @NgModule({
   declarations: [
