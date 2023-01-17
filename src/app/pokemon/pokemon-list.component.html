@@ -287,7 +287,15 @@
   <div class="card-deck" *ngFor="let onePokemon of filteredApiPokemon">
     <div
       [routerLink]="['/pokemon', onePokemon.name]"
-      class="card bg-dark"
+      class="card"
+      [ngStyle]="{
+        background: onePokemon.types[1]
+          ? 'linear-gradient(45deg,' +
+            getColor(onePokemon.types[0].type.name) +
+            ',' +
+            getColor(onePokemon.types[1].type.name)
+          : getColor(onePokemon.types[0].type.name)
+      }"
       style="margin-top: 0.25em; margin-bottom: 0.25em; height: 20em"
     >
       <img

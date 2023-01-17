@@ -91,6 +91,49 @@ export class UtilitiesService {
     };
   }
 
+  getColorByType(type: string): string {
+    switch (type) {
+      case 'grass':
+        return '#63bb5b';
+      case 'poison':
+        return '#ab6ac8';
+      case 'fire':
+        return '#ff9c54';
+      case 'water':
+        return '#5a8ea1';
+      case 'flying':
+        return '#92aade';
+      case 'normal':
+        return 'beige';
+      case 'electric':
+        return '#f3d23b';
+      case 'ice':
+        return '#74cec0';
+      case 'fighting':
+        return '#ce4069';
+      case 'ground':
+        return '#d97746';
+      case 'psychic':
+        return '#f97176';
+      case 'rock':
+        return '#c7b78b';
+      case 'bug':
+        return '#90c12c';
+      case 'dragon':
+        return '#096dc4';
+      case 'ghost':
+        return '#5269ac';
+      case 'dark':
+        return '#5a5366';
+      case 'steel':
+        return '#5a8ea1';
+      case 'fairy':
+        return '#ec8fe6';
+      default:
+        return 'gray';
+    }
+  }
+
   getTypeIcon(types: string[] | undefined): string[] {
     let typeIcons: string[] = [];
     if (types != undefined) {

@@ -5,6 +5,7 @@ import { PokemonServiceService } from '../services/pokemon-service.service';
 import { PokemonApiService } from '../services/pokemon-api.service';
 import { ApiPokemon } from './IApiPokemon';
 import { saveAs } from 'file-saver';
+import { UtilitiesService } from '../services/utilities.service';
 
 @Component({
   selector: 'pokemon-list',
@@ -14,7 +15,8 @@ import { saveAs } from 'file-saver';
 export class PokemonListComponent implements OnInit, OnDestroy {
   constructor(
     private pokemonService: PokemonServiceService,
-    private pokemonApiService: PokemonApiService
+    private pokemonApiService: PokemonApiService,
+    private utilityService: UtilitiesService
   ) {}
 
   pageTitle = 'All Pokemon';
@@ -77,6 +79,12 @@ export class PokemonListComponent implements OnInit, OnDestroy {
 
   addToTeam(pokemonName: string) {
     console.log(`added ${pokemonName} to team!`);
+  }
+
+  getColor(type: string) {
+    let color = this.utilityService.getColorByType(type);
+
+    return color;
   }
 
   saveToJsonFile() {
