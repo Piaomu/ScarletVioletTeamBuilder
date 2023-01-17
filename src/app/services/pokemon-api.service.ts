@@ -1,6 +1,15 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, forkJoin, map, Observable, tap, throwError } from 'rxjs';
+import {
+  catchError,
+  forkJoin,
+  map,
+  Observable,
+  shareReplay,
+  tap,
+  throwError,
+  timer,
+} from 'rxjs';
 import { ApiPokemon } from '../pokemon/IApiPokemon';
 
 @Injectable({
@@ -8,14 +17,9 @@ import { ApiPokemon } from '../pokemon/IApiPokemon';
 })
 export class PokemonApiService {
   private pokemonUrl = 'https://pokeapi.co/api/v2/pokemon';
-  constructor(private httpClient: HttpClient) {}
+  private apiPokemon$!: Observable<ApiPokemon[]> | null;
 
-  // getApiPokemonList(): Observable<ApiPokemon[]> {
-  //   return this.httpClient.get<ApiPokemon[]>(this.pokemonUrl).pipe(
-  //     tap((data) => console.log('All', JSON.stringify(data))),
-  //     catchError(this.handleError)
-  //   );
-  // }
+  constructor(private httpClient: HttpClient) {}
 
   getApiPokemonByName(name: string): Observable<ApiPokemon | undefined> {
     let url = this.pokemonUrl + '/' + name;
@@ -34,20 +38,26 @@ export class PokemonApiService {
   }
 
   getApiPokemonList(): Observable<ApiPokemon[]> {
-    let requests: Observable<ApiPokemon>[] = [];
-    for (let i = 1; i <= 30; i++) {
-      let url = this.pokemonUrl + '/' + i;
-      requests.push(this.httpClient.get<ApiPokemon>(url));
-    }
-    return forkJoin(requests).pipe(
-      map((results) => {
-        console.log(results);
-        return results as ApiPokemon[];
-      }),
-      catchError(this.handleError)
-    );
-  }
+    if (!this.apiPokemon$) {
+      let requests: Observable<ApiPokemon>[] = [];
+      for (let i = 1; i <= 1008; i++) {
+        let url = this.pokemonUrl + '/' + i;
+        requests.push(this.httpClient.get<ApiPokemon>(url));
+      }
+      this.apiPokemon$ = forkJoin(requests).pipe(
+        map((results) => {
+          console.log(results);
+          return results as ApiPokemon[];
+        }),
+        shareReplay(1),
+        catchError(this.handleError)
+      );
 
+      // Resets the cache after 1 hour
+      timer(3600000).subscribe(() => (this.apiPokemon$ = null));
+    }
+    return this.apiPokemon$;
+  }
   private handleError(err: HttpErrorResponse) {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {

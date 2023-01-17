@@ -102,15 +102,6 @@ export class PokemonListComponent implements OnInit, OnDestroy {
       error: (err) => console.log(err),
     });
 
-    // this.saveToJsonFile();
-
-    // this.apiSub = this.pokemonApiService.getApiPokemonList().subscribe({
-    //   next: (pokemon) => {
-    //     this.apiPokemon = pokemon;
-    //   },
-    //   error: (err) => (this.errorMessage = err),
-    // });
-
     console.log('API POKEMON ARE: ' + this.apiPokemon);
   }
 
