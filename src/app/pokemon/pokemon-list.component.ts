@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { PokemonServiceService } from '../services/pokemon-service.service';
 import { PokemonApiService } from '../services/pokemon-api.service';
 import { ApiPokemon } from './IApiPokemon';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'pokemon-list',
@@ -67,15 +68,21 @@ export class PokemonListComponent implements OnInit, OnDestroy {
 
   filterByType(filterBy: string) {
     filterBy = filterBy.toLocaleLowerCase();
-    this.filteredPokemon = this.pokemon.filter((pokemon: Pokemon) =>
-      pokemon.Types.map((element) => element.toLocaleLowerCase()).includes(
-        filterBy
-      )
+    this.filteredApiPokemon = this.apiPokemon.filter((pokemon: ApiPokemon) =>
+      pokemon.types
+        .map((element) => element.type.name.toLocaleLowerCase())
+        .includes(filterBy)
     );
   }
 
   addToTeam(pokemonName: string) {
     console.log(`added ${pokemonName} to team!`);
+  }
+
+  saveToJsonFile() {
+    const jsonData = JSON.stringify(this.apiPokemon);
+    const blob = new Blob([jsonData], { type: 'application/json' });
+    saveAs(blob, 'apiPokemon.json');
   }
 
   ngOnInit(): void {
@@ -88,11 +95,21 @@ export class PokemonListComponent implements OnInit, OnDestroy {
     });
 
     this.apiSub = this.pokemonApiService.getApiPokemonList().subscribe({
-      next: (pokemon) => {
-        this.apiPokemon = pokemon;
+      next: (data) => {
+        this.apiPokemon = data;
+        this.filteredApiPokemon = data;
       },
-      error: (err) => (this.errorMessage = err),
+      error: (err) => console.log(err),
     });
+
+    // this.saveToJsonFile();
+
+    // this.apiSub = this.pokemonApiService.getApiPokemonList().subscribe({
+    //   next: (pokemon) => {
+    //     this.apiPokemon = pokemon;
+    //   },
+    //   error: (err) => (this.errorMessage = err),
+    // });
 
     console.log('API POKEMON ARE: ' + this.apiPokemon);
   }

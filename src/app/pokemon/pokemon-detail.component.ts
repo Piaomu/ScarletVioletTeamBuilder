@@ -39,6 +39,7 @@ export class PokemonDetailComponent implements OnInit {
       error: (err) => (this.errorMessage = err),
     });
   }
+
   addToTeam(pokemonName: string) {
     console.log(`added ${pokemonName} to team!`);
   }

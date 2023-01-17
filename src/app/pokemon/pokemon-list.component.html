@@ -169,8 +169,10 @@
   >
     <thead>
       <tr>
+        <th></th>
         <th>Name</th>
-        <th>Types</th>
+        <th>Type 1</th>
+        <th>Type 2</th>
         <th>Ability 1</th>
         <th>Ability 2</th>
         <th>Hidden Ability</th>
@@ -188,11 +190,88 @@
         [routerLink]="['/pokemon', onePokemon.name]"
         *ngFor="let onePokemon of filteredApiPokemon"
       >
-        <td scope="row">{{ onePokemon.name }}</td>
-        <td scope="row">{{ onePokemon.types[0] }} {{ onePokemon.types[1] }}</td>
-        <td scope="row">{{ onePokemon.abilities[0].ability }}</td>
-        <td scope="row">{{ onePokemon.abilities[1].ability }}</td>
-        <td scope="row">{{ onePokemon.abilities[2].ability }}</td>
+        <ng-container>
+          <td scope="row">
+            <img
+              style="max-height: 3.5rem; max-width: 3.5rem"
+              [src]="onePokemon?.sprites?.other?.['official-artwork']?.front_default"
+            />
+          </td>
+        </ng-container>
+        <ng-container>
+          <td scope="row">{{ onePokemon.name }}</td>
+        </ng-container>
+        <ng-container *ngIf="onePokemon.types[0]">
+          <td scope="row">
+            {{ onePokemon.types[0].type.name }}
+          </td>
+        </ng-container>
+        <ng-container *ngIf="onePokemon.types[1]">
+          <td scope="row">
+            {{ onePokemon.types[1].type.name }}
+          </td>
+        </ng-container>
+        <ng-container *ngIf="!onePokemon.types[1]">
+          <td scope="row"></td>
+        </ng-container>
+        <ng-container *ngIf="onePokemon.abilities[0]">
+          <td scope="row">
+            {{ onePokemon.abilities[0].ability.name }}
+          </td>
+        </ng-container>
+        <ng-container *ngIf="onePokemon.abilities[1]">
+          <td scope="row">
+            {{ onePokemon.abilities[1].ability.name }}
+          </td>
+        </ng-container>
+        <ng-container *ngIf="!onePokemon.abilities[1]">
+          <td scope="row"></td>
+        </ng-container>
+        <ng-container *ngIf="onePokemon.abilities[2]">
+          <td scope="row">
+            {{ onePokemon.abilities[2].ability.name }}
+          </td>
+        </ng-container>
+        <ng-container *ngIf="!onePokemon.abilities[2]">
+          <td scope="row"></td>
+        </ng-container>
+
+        <ng-container *ngIf="onePokemon.stats[0]">
+          <td scope="row">
+            {{ onePokemon.stats[0].base_stat }}
+          </td>
+        </ng-container>
+        <ng-container *ngIf="onePokemon.stats[1]">
+          <td scope="row">
+            {{ onePokemon.stats[1].base_stat }}
+          </td>
+        </ng-container>
+        <ng-container *ngIf="onePokemon.stats[2]">
+          <td scope="row">
+            {{ onePokemon.stats[2].base_stat }}
+          </td>
+        </ng-container>
+        <ng-container *ngIf="onePokemon.stats[3]">
+          <td scope="row">
+            {{ onePokemon.stats[3].base_stat }}
+          </td>
+        </ng-container>
+        <ng-container *ngIf="onePokemon.stats[4]">
+          <td scope="row">
+            {{ onePokemon.stats[4].base_stat }}
+          </td>
+        </ng-container>
+        <ng-container *ngIf="onePokemon.stats[5]">
+          <td scope="row">
+            {{ onePokemon.stats[5].base_stat }}
+          </td>
+        </ng-container>
+        <ng-container *ngIf="onePokemon.stats[6]">
+          <td scope="row">
+            {{ onePokemon.stats[6].base_stat }}
+          </td>
+        </ng-container>
+
         <!-- <td scope="row">{{ onePokemon.Stats.Hp }}</td>
         <td scope="row">{{ onePokemon.Stats.Atk }}</td>
         <td scope="row">{{ onePokemon.Stats.Def }}</td>
@@ -205,18 +284,30 @@
   </table>
 </div>
 <div class="d-lg-none">
-  <div class="card-deck" *ngFor="let onePokemon of filteredPokemon">
+  <div class="card-deck" *ngFor="let onePokemon of filteredApiPokemon">
     <div
-      [routerLink]="['/pokemon', onePokemon.Name]"
+      [routerLink]="['/pokemon', onePokemon.name]"
       class="card bg-dark"
       style="margin-top: 0.25em; margin-bottom: 0.25em; height: 20em"
     >
-      <img class="card-img-top card-img-overlay" src="" />
+      <img
+        class="card-img-top card-img-overlay"
+        [src]="onePokemon?.sprites?.other?.['official-artwork']?.front_default"
+      />
       <div class="card-body">
-        <h1 class="card-title">{{ onePokemon.Name }}</h1>
-        <p class="card-text">{{ onePokemon.Abilities[0] }}</p>
-        <p class="card-text">{{ onePokemon.Abilities[1] }}</p>
-        <button class="btn btn-secondary" (click)="addToTeam(onePokemon.Name)">
+        <h1 class="card-title">{{ onePokemon.name }}</h1>
+        <div></div>
+        <p *ngIf="onePokemon.abilities[0]" class="card-text">
+          {{ onePokemon.abilities[0].ability.name }}
+        </p>
+        <p *ngIf="onePokemon.abilities[1]" class="card-text">
+          {{ onePokemon.abilities[1].ability.name }}
+        </p>
+        <p *ngIf="onePokemon.abilities[2]" class="card-text">
+          {{ onePokemon.abilities[2].ability.name }}
+        </p>
+
+        <button class="btn btn-secondary" (click)="addToTeam(onePokemon.name)">
           Add to Team
         </button>
       </div>
