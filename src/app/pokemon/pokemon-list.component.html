@@ -300,10 +300,13 @@
     >
       <img
         class="card-img-top card-img-overlay"
+        style="margin-left: 4em"
         [src]="onePokemon?.sprites?.other?.['official-artwork']?.front_default"
       />
       <div class="card-body">
-        <h1 class="card-title">{{ onePokemon.name }}</h1>
+        <div class="btn">
+          <h1 class="card-title">{{ onePokemon.name }}</h1>
+        </div>
         <div></div>
         <p *ngIf="onePokemon.abilities[0]" class="card-text">
           {{ onePokemon.abilities[0].ability.name }}
