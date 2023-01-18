@@ -42,13 +42,17 @@ export class PokemonApiService {
       let requests: Observable<ApiPokemon>[] = [];
       for (let i = 1; i <= 1008; i++) {
         let url = this.pokemonUrl + '/' + i;
+
+        // Create an array of requests, one for each Pokemon in the dex
         requests.push(this.httpClient.get<ApiPokemon>(url));
       }
+      // Perform all requests simultaneously and add the ApiPokemon from each to an array
       this.apiPokemon$ = forkJoin(requests).pipe(
         map((results) => {
           console.log(results);
           return results as ApiPokemon[];
         }),
+        // cache the results of hella requests
         shareReplay(1),
         catchError(this.handleError)
       );

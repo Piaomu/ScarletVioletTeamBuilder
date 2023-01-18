@@ -134,6 +134,18 @@ export class UtilitiesService {
     }
   }
 
+  getTypeTextColor(backgroundColor: string): string {
+    // Extract the red, green and blue values from the background color
+    const hex = backgroundColor.replace(/^#/, '');
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    // Calculate the lightness value of the background color
+    const lightness = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    // If the lightness value is greater than 0.5, return a dark color, else return a light color
+    return lightness > 0.5 ? 'hsl(0, 0%, 20%)' : 'hsl(0, 0%, 80%)';
+  }
+
   getTypeIcon(types: string[] | undefined): string[] {
     let typeIcons: string[] = [];
     if (types != undefined) {
