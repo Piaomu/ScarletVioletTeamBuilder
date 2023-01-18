@@ -21,7 +21,7 @@ export class PokemonDetailComponent implements OnInit {
   ) {}
   public pageTitle = 'Pokemon Details';
   pokemon: Pokemon | undefined;
-  apiPokemon: ApiPokemon | undefined;
+  apiPokemon!: ApiPokemon | undefined;
   errorMessage: string = '';
   apiErrorMessage: string = '';
   typeIcons: string[] = [];
@@ -31,6 +31,18 @@ export class PokemonDetailComponent implements OnInit {
       next: (pokemon) => (this.pokemon = pokemon),
       error: (err) => (this.errorMessage = err),
     });
+  }
+
+  getColor(type: string) {
+    let color = this.utilitiesService.getColorByType(type);
+
+    return color;
+  }
+
+  getTypeTextColor(inputColor: string) {
+    let outputColor = this.utilitiesService.getTypeTextColor(inputColor);
+
+    return outputColor;
   }
 
   getApiPokemon(name: string): void {

@@ -1,15 +1,21 @@
 <div class="card bg-dark align-items-center rounded p-4">
   <hr />
-  <h1>{{ pokemon?.Name }}</h1>
+  <h1>{{ apiPokemon?.name }}</h1>
 
-  <div class="">
-    <h2>{{ pokemon?.Types }}</h2>
-  </div>
-  <div class="">
-    <div class="badge" *ngFor="let ability of pokemon?.Abilities">
-      <span class="">{{ ability }}</span>
+  <ng-container *ngIf="apiPokemon?.types">
+    <div class="type-container">
+      <span
+        class="type-span"
+        *ngFor="let type of apiPokemon?.types"
+        [ngStyle]="{
+          color: getTypeTextColor(getColor(type.type.name)),
+          'background-color': getColor(type.type.name)
+        }"
+      >
+        {{ type.type.name }}
+      </span>
     </div>
-  </div>
+  </ng-container>
 
   <img
     class="card-image-top"
@@ -17,9 +23,6 @@
     style="max-height: 40%; max-width: 40%"
     alt=""
   />
-  <div *ngFor="let typeIcon of typeIcons">
-    <img [src]="typeIcon" />
-  </div>
 
   <table class="table table-dark table-border">
     <thead>
