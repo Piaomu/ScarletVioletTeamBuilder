@@ -104,7 +104,7 @@ export class UtilitiesService {
       case 'flying':
         return '#92aade';
       case 'normal':
-        return 'beige';
+        return '#f5f5dc';
       case 'electric':
         return '#f3d23b';
       case 'ice':
