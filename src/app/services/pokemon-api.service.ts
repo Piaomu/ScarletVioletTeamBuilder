@@ -11,6 +11,7 @@ import {
   timer,
 } from 'rxjs';
 import { ApiPokemon } from '../pokemon/IApiPokemon';
+import { UtilitiesService } from './utilities.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,10 @@ export class PokemonApiService {
   private pokemonUrl = 'https://pokeapi.co/api/v2/pokemon';
   private apiPokemon$!: Observable<ApiPokemon[]> | null;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private utilitiesService: UtilitiesService
+  ) {}
 
   getApiPokemonByName(name: string): Observable<ApiPokemon | undefined> {
     let url = this.pokemonUrl + '/' + name;
@@ -49,6 +53,19 @@ export class PokemonApiService {
       // Perform all requests simultaneously and add the ApiPokemon from each to an array
       this.apiPokemon$ = forkJoin(requests).pipe(
         map((results) => {
+          results.forEach((result) => {
+            result.name = this.utilitiesService.toProperCase(result.name);
+            result.abilities.forEach((ability) => {
+              ability.ability.name = this.utilitiesService.toProperCase(
+                ability.ability.name
+              );
+            });
+            result.types.forEach((type) => {
+              type.type.name = this.utilitiesService.toProperCase(
+                type.type.name
+              );
+            });
+          });
           console.log(results);
           return results as ApiPokemon[];
         }),

@@ -22,6 +22,7 @@ export class PokemonDetailComponent implements OnInit {
   public pageTitle = 'Pokemon Details';
   pokemon: Pokemon | undefined;
   apiPokemon!: ApiPokemon | undefined;
+  total!: number | undefined;
   errorMessage: string = '';
   apiErrorMessage: string = '';
   typeIcons: string[] = [];
@@ -63,6 +64,7 @@ export class PokemonDetailComponent implements OnInit {
       this.getPokemon(name);
       this.getApiPokemon(lowerName);
     }
+
     let types: string[] | undefined = this.pokemon?.Types;
 
     const fire: string[] = ['Fire', 'Water', 'Grass'];

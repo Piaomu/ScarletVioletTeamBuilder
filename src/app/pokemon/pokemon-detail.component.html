@@ -38,16 +38,14 @@
     </thead>
     <tbody>
       <tr>
-        <td scope="row">{{ pokemon?.Stats?.Hp }}</td>
-        <td>{{ pokemon?.Stats?.Atk }}</td>
-        <td>{{ pokemon?.Stats?.Def }}</td>
-        <td>{{ pokemon?.Stats?.SpAtk }}</td>
-        <td>{{ pokemon?.Stats?.SpDef }}</td>
-        <td>{{ pokemon?.Stats?.Spd }}</td>
-        <td>{{ pokemon?.Stats?.Total }}</td>
+        <ng-container *ngFor="let stat of apiPokemon?.stats">
+          <td>{{ stat.base_stat }}</td>
+        </ng-container>
+        <td>{{ total }}</td>
       </tr>
     </tbody>
   </table>
+
   <div class="row">
     <!-- TM Moves -->
     <div class="col">

@@ -11,11 +11,10 @@ export class UtilitiesService {
   toProperCase(input: string): string {
     return input
       .toLowerCase()
-      .split(' ')
+      .split(/[\s-]/)
       .map((word) => word[0].toLocaleUpperCase() + word.slice(1))
       .join(' ');
   }
-
   getPokepaste(teamPokemon: TeamPokemon): string {
     let pokepaste = '';
 
@@ -92,7 +91,7 @@ export class UtilitiesService {
   }
 
   getColorByType(type: string): string {
-    switch (type) {
+    switch (type.toLowerCase()) {
       case 'grass':
         return '#63bb5b';
       case 'poison':
