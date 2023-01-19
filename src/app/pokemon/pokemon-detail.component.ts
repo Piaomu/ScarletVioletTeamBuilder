@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PokemonMove } from 'pokenode-ts';
+import { Observable } from 'rxjs';
+import { Move } from '../moves/Imove';
 import { PokemonApiService } from '../services/pokemon-api.service';
 import { PokemonServiceService } from '../services/pokemon-service.service';
 import { UtilitiesService } from '../services/utilities.service';
@@ -20,8 +23,10 @@ export class PokemonDetailComponent implements OnInit {
     private utilitiesService: UtilitiesService
   ) {}
   public pageTitle = 'Pokemon Details';
+  isLoading: boolean = true;
   pokemon: Pokemon | undefined;
   apiPokemon!: ApiPokemon | undefined;
+  apiPokemonMoves: Move[] = [];
   total!: number | undefined;
   errorMessage: string = '';
   apiErrorMessage: string = '';
@@ -46,16 +51,45 @@ export class PokemonDetailComponent implements OnInit {
     return outputColor;
   }
 
+  getMoveData() {
+    if (this.apiPokemonMoves.length === 0) {
+      this.apiPokemon?.moves.forEach((move) => {
+        this.pokemonApiService
+          .getApiPokemonMoveProperties(move.move.url)
+          .subscribe({
+            next: (data: Move | undefined) => {
+              if (typeof data === 'object' && data !== null) {
+                if (
+                  data.hasOwnProperty('name') &&
+                  data.hasOwnProperty('accuracy') &&
+                  data.hasOwnProperty('power')
+                ) {
+                  this.apiPokemonMoves.push(data);
+                  console.log('API POKEMON MOVES: ' + this.apiPokemonMoves);
+                }
+              }
+            },
+            error: (error) => console.error(error),
+          });
+      });
+    }
+  }
+
   getApiPokemon(name: string): void {
     this.pokemonApiService.getApiPokemonByName(name).subscribe({
-      next: (pokemon) => (this.apiPokemon = pokemon),
-      error: (err) => (this.errorMessage = err),
+      next: (pokemon) => (
+        (this.apiPokemon = pokemon), (this.isLoading = false)
+      ),
+      error: (err) => ((this.errorMessage = err), (this.isLoading = false)),
     });
   }
 
   addToTeam(pokemonName: string) {
     console.log(`added ${pokemonName} to team!`);
   }
+
+  hide() {}
+
   ngOnInit(): void {
     const name = this.route.snapshot.paramMap.get('name');
     const lowerName: string =

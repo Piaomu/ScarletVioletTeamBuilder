@@ -10,6 +10,7 @@ import {
   throwError,
   timer,
 } from 'rxjs';
+import { Move } from '../moves/Imove';
 import { ApiPokemon } from '../pokemon/IApiPokemon';
 import { UtilitiesService } from './utilities.service';
 
@@ -41,6 +42,11 @@ export class PokemonApiService {
     );
   }
 
+  getApiPokemonMoveProperties(moveUrl: string): Observable<Move | undefined> {
+    console.log('Attempting http request for: ' + moveUrl);
+    return this.httpClient.get<Move>(moveUrl);
+  }
+
   getApiPokemonList(): Observable<ApiPokemon[]> {
     if (!this.apiPokemon$) {
       let requests: Observable<ApiPokemon>[] = [];
@@ -63,6 +69,11 @@ export class PokemonApiService {
             result.types.forEach((type) => {
               type.type.name = this.utilitiesService.toProperCase(
                 type.type.name
+              );
+            });
+            result.moves.forEach((move) => {
+              move.move.name = this.utilitiesService.toProperCase(
+                move.move.name
               );
             });
           });

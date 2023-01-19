@@ -99,7 +99,7 @@ export class UtilitiesService {
       case 'fire':
         return '#ff9c54';
       case 'water':
-        return '#5a8ea1';
+        return '#4d90d5';
       case 'flying':
         return '#92aade';
       case 'normal':

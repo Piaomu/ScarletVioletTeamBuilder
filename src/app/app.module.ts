@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TeamBuilderComponent } from './pokemon/team-builder.component';
 import { PokeballComponent } from './shared/pokeball.component';
 import { MainClient } from 'pokenode-ts';
+import { PokemonDetailPlaceholderComponent } from './placeholders/pokemon-detail-placeholder.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { MainClient } from 'pokenode-ts';
     PokemonDetailComponent,
     TeamBuilderComponent,
     PokeballComponent,
+    PokemonDetailPlaceholderComponent,
   ],
   imports: [
     BrowserModule,

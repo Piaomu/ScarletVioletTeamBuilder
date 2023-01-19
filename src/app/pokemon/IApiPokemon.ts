@@ -1,4 +1,5 @@
 import {
+  Effect,
   Name,
   NamedAPIResource,
   VersionEncounterDetail,
@@ -178,6 +179,13 @@ export interface PokemonFormSprites {
   back_default: string;
   /** The shiny depiction of this Pokémon form from the back in battle */
   back_shiny: string;
+}
+
+export interface AbilityEffectChange {
+  /** The previous effect of this ability listed in different languages */
+  effect_entries: Effect[];
+  /** The version group in which the previous effect of this ability originated */
+  version_group: NamedAPIResource;
 }
 
 export interface Ability {

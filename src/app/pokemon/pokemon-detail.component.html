@@ -1,77 +1,107 @@
-<div class="card bg-dark align-items-center rounded p-4">
-  <hr />
-  <h1>{{ apiPokemon?.name }}</h1>
+<pokemon-detail-placeholder
+  *ngIf="isLoading; else dataBlock"
+></pokemon-detail-placeholder>
+<ng-template #dataBlock>
+  <div class="card bg-dark align-items-center rounded p-4">
+    <hr />
+    <h1>{{ apiPokemon?.name }}</h1>
 
-  <ng-container *ngIf="apiPokemon?.types">
-    <div class="type-container">
-      <span
-        class="type-span"
-        *ngFor="let type of apiPokemon?.types"
-        [ngStyle]="{
-          color: getTypeTextColor(getColor(type.type.name)),
-          'background-color': getColor(type.type.name)
-        }"
-      >
-        {{ type.type.name }}
-      </span>
-    </div>
-  </ng-container>
-
-  <img
-    class="card-image-top"
-    [src]="apiPokemon?.sprites?.other?.['official-artwork']?.front_default"
-    style="max-height: 40%; max-width: 40%"
-    alt=""
-  />
-
-  <table class="table table-dark table-border">
-    <thead>
-      <tr>
-        <th>HP</th>
-        <th>ATK</th>
-        <th>DEF</th>
-        <th>SPATK</th>
-        <th>SPDEF</th>
-        <th>SPD</th>
-        <th>TOTAL</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <ng-container *ngFor="let stat of apiPokemon?.stats">
-          <td>{{ stat.base_stat }}</td>
-        </ng-container>
-        <td>{{ total }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="row">
-    <!-- TM Moves -->
-    <div class="col">
-      <br />
-      <div ngbDropdown>
-        <button class="btn btn-primary" id="gfg" ngbDropdownToggle>TMs</button>
-        <div ngbDropdownMenu="gfg">
-          <a *ngFor="let move of pokemon?.Moves?.TmMoves" ngbDropdownItem>{{
-            move
-          }}</a>
-        </div>
+    <ng-container *ngIf="apiPokemon?.types">
+      <div class="type-container">
+        <span
+          class="type-span"
+          *ngFor="let type of apiPokemon?.types"
+          [ngStyle]="{
+            color: getTypeTextColor(getColor(type.type.name)),
+            'background-color': getColor(type.type.name)
+          }"
+        >
+          {{ type.type.name }}
+        </span>
       </div>
+    </ng-container>
+
+    <img
+      class="card-image-top"
+      [src]="apiPokemon?.sprites?.other?.['official-artwork']?.front_default"
+      style="max-height: 40%; max-width: 40%"
+      alt=""
+    />
+    <div>
+      <table class="table table-dark table-border">
+        <thead>
+          <tr>
+            <th>HP</th>
+            <th>ATK</th>
+            <th>DEF</th>
+            <th>SPATK</th>
+            <th>SPDEF</th>
+            <th>SPD</th>
+            <th>TOTAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <ng-container *ngFor="let stat of apiPokemon?.stats">
+              <td>{{ stat.base_stat }}</td>
+            </ng-container>
+            <td>{{ total }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="col">
-      <br />
-      <!-- Egg Moves -->
-      <div ngbDropdown *ngIf="pokemon?.Moves?.EggMoves?.length">
-        <button class="btn btn-secondary" id="gfg" ngbDropdownToggle>
-          Egg Moves
-        </button>
-        <div ngbDropdownMenu="gfg">
-          <a *ngFor="let move of pokemon?.Moves?.EggMoves" ngbDropdownItem>{{
-            move
-          }}</a>
+
+    <div class="row">
+      <div class="accordion bg-dark" id="accordionExample">
+        <div class="accordion-item bg-dark">
+          <h2 class="accordion-header" id="headingOne">
+            <button
+              (click)="getMoveData()"
+              class="accordion-button bg-secondary"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapseOne"
+              aria-expanded="true"
+              aria-controls="collapseOne"
+            >
+              Moves
+            </button>
+          </h2>
+          <div
+            id="collapseOne"
+            class="accordion-collapse collapse bg-dark"
+            aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body bg-dark" style="color: aliceblue">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Move</th>
+                    <th>Type</th>
+                    <th>Category</th>
+                    <th>Power</th>
+                    <th>Accuracy</th>
+                    <th>PP</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let move of apiPokemonMoves">
+                    <td>{{ move?.name }}</td>
+                    <td>{{ move?.type?.name }}</td>
+                    <td>{{ move?.damage_class?.name }}</td>
+                    <td>{{ move?.power }}</td>
+                    <td>{{ move?.accuracy }}</td>
+                    <td>{{ move?.pp }}</td>
+
+                    <td>{{ move?.meta?.category?.name }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</ng-template>

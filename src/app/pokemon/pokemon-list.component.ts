@@ -20,6 +20,7 @@ export class PokemonListComponent implements OnInit, OnDestroy {
   ) {}
 
   pageTitle = 'All Pokemon';
+  isLoading: boolean = true;
   iconHeight = 50;
   iconWidth = 50;
   pokemon: Pokemon[] = [];
@@ -98,8 +99,9 @@ export class PokemonListComponent implements OnInit, OnDestroy {
       next: (pokemon) => {
         this.pokemon = pokemon;
         this.filteredPokemon = pokemon;
+        this.isLoading = false;
       },
-      error: (err) => (this.errorMessage = err),
+      error: (err) => ((this.errorMessage = err), (this.isLoading = false)),
     });
 
     this.apiSub = this.pokemonApiService.getApiPokemonList().subscribe({
