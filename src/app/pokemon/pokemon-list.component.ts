@@ -99,7 +99,6 @@ export class PokemonListComponent implements OnInit, OnDestroy {
       next: (pokemon) => {
         this.pokemon = pokemon;
         this.filteredPokemon = pokemon;
-        this.isLoading = false;
       },
       error: (err) => ((this.errorMessage = err), (this.isLoading = false)),
     });
@@ -108,6 +107,7 @@ export class PokemonListComponent implements OnInit, OnDestroy {
       next: (data) => {
         this.apiPokemon = data;
         this.filteredApiPokemon = data;
+        this.isLoading = false;
       },
       error: (err) => console.log(err),
     });
