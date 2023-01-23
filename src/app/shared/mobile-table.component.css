@@ -1,0 +1,30 @@
+th, td {background: #eee; padding: 8px}
+
+@media screen and (max-width: 600px) {
+  table[mobileTable] {
+    width: 100%;
+  }
+
+  table[mobileTable] thead {
+    display: none;
+  }
+
+  table[mobileTable] tr, table[mobileTable] td {
+    border-bottom: 1px solid #ddd;
+  }
+
+  table[mobileTable] tr {
+    margin-bottom: 8px;
+  }
+
+  table[mobileTable] td {
+    display: flex;
+  }
+  
+  table[mobileTable] td::before {
+    content: attr(label);
+    font-weight: bold;
+    width: 120px;
+    min-width: 120px;
+  }
+}

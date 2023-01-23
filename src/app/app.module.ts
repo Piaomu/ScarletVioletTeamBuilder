@@ -11,6 +11,7 @@ import { TeamBuilderComponent } from './pokemon/team-builder.component';
 import { PokeballComponent } from './shared/pokeball.component';
 import { MainClient } from 'pokenode-ts';
 import { PokemonDetailPlaceholderComponent } from './placeholders/pokemon-detail-placeholder.component';
+import { MobileTableComponent } from './shared/mobile-table.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { PokemonDetailPlaceholderComponent } from './placeholders/pokemon-detail
     TeamBuilderComponent,
     PokeballComponent,
     PokemonDetailPlaceholderComponent,
+    MobileTableComponent,
   ],
   imports: [
     BrowserModule,

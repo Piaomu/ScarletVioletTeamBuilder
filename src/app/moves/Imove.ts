@@ -8,6 +8,8 @@ import {
 } from '../pokemon/INamedApiResource';
 
 export interface Move {
+  /** The image url for this resource added after the api call */
+  imgUrl: string;
   /** The identifier for this resource */
   id: number;
   /** The name for this resource */

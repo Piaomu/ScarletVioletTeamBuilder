@@ -64,6 +64,11 @@ export class PokemonDetailComponent implements OnInit {
                   data.hasOwnProperty('accuracy') &&
                   data.hasOwnProperty('power')
                 ) {
+                  const propertyTypeName = this.utilitiesService.toProperCase(
+                    data.type.name
+                  );
+                  data.imgUrl =
+                    'Pokemon_Type_Icon_' + propertyTypeName + '.png';
                   this.apiPokemonMoves.push(data);
                   console.log('API POKEMON MOVES: ' + this.apiPokemonMoves);
                 }

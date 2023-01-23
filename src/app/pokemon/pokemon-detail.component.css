@@ -9,3 +9,61 @@
     border-radius: 4px;
     background-color: #f2f2f2;
 }
+
+.card {
+    border-radius: 5px;
+    margin-bottom: .3rem;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+
+.card .card-block {
+    padding: .5rem;
+}
+
+.card-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 7px;
+  padding: 1rem;
+  margin-top: 2rem;
+  background-color: rgb(69, 72, 76);
+  max-width:45%;
+  float: right;
+}
+
+
+.move-type {
+  max-width: 2.5rem;
+  max-height: 2.5rem;
+}
+
+@media screen and (max-width: 600px) {
+  table[moveTable] {
+    width: 100%;
+  }
+
+  table[moveTable] thead {
+    display: none;
+  }
+
+  table[moveTable] tr, table[moveTable] td {
+    border-bottom: 1px solid #ddd;
+  }
+
+  table[moveTable] tr {
+    margin-bottom: 8px;
+  }
+
+  table[moveTable] td {
+    display: flex;
+  }
+  
+  table[moveTable] td::before {
+    content: attr(label);
+    font-weight: bold;
+    width: 120px;
+    min-width: 120px;
+  }
+}
