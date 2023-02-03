@@ -39,6 +39,12 @@
   max-height: 2.5rem;
 }
 
+.hidden-ability{
+  font-style: italic;
+  color: violet;
+  background-color: aqua;
+}
+
 @media screen and (max-width: 600px) {
   table[moveTable] {
     width: 100%;

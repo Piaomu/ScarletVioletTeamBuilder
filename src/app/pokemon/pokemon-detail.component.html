@@ -51,49 +51,30 @@
       </table>
     </div>
 
-    <!-- <table mobileTable>
-      <thead>
-        <tr>
-          <th>Account</th>
-          <th>Due Date</th>
-          <th>Amount</th>
-          <th>Period</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Visa - 3412</td>
-          <td>04/01/2016</td>
-          <td>$1,190</td>
-          <td>03/01/2016 - 03/31/2016</td>
-        </tr>
-        <tr>
-          <td>Visa - 6076</td>
-          <td>03/01/2016</td>
-          <td>$2,443</td>
-          <td>02/01/2016 - 02/29/2016</td>
-        </tr>
-        <tr>
-          <td>Corporate AMEX</td>
-          <td>03/01/2016</td>
-          <td>$1,181</td>
-          <td>02/01/2016 - 02/29/2016</td>
-        </tr>
-        <tr>
-          <td>Visa - 3412</td>
-          <td>02/01/2016</td>
-          <td>$842</td>
-          <td>01/01/2016 - 01/31/2016</td>
-        </tr>
-      </tbody>
-    </table>
- -->
-
     <!-- Moves -->
     <div class="row">
       <div class="hstack gap-2">
-        <button class="btn btn-primary" (click)="getMoveData()">Moves</button>
-        <button class="btn btn-outline-primary">Boobs</button>
+        <button
+          class="btn btn-primary"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseMoves"
+          aria-expanded="false"
+          aria-controls="#collapseMoves"
+          (click)="getMoveData()"
+        >
+          Moves
+        </button>
+        <button
+          class="btn btn-outline-primary"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseDetails"
+          aria-expanded="false"
+          aria-controls="#collapseDetails"
+        >
+          Details
+        </button>
         <div class="vr"></div>
         <input
           type="text"
@@ -103,91 +84,109 @@
       </div>
 
       <!--Visible on tablet and larger screens-->
-      <div class="table-responsive d-none d-md-block">
-        <table
-          class="table table-responsive table-hover table-dark table-striped table-bordered"
-        >
-          <thead>
-            <tr>
-              <th>Move</th>
-              <th>Type</th>
-              <th>Category</th>
-              <th>Power</th>
-              <th>Accuracy</th>
-              <th>PP</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let move of apiPokemonMoves">
-              <td>{{ move?.name }}</td>
-              <td>{{ move?.type?.name }}</td>
-              <td>{{ move?.damage_class?.name }}</td>
-              <td>{{ move?.power }}</td>
-              <td>{{ move?.accuracy }}</td>
-              <td>{{ move?.pp }}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="collapse" id="collapseMoves">
+        <div class="table-responsive d-none d-md-block">
+          <table
+            class="table table-responsive table-hover table-dark table-striped table-bordered"
+          >
+            <thead>
+              <tr>
+                <th>Move</th>
+                <th>Type</th>
+                <th>Category</th>
+                <th>Power</th>
+                <th>Accuracy</th>
+                <th>PP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let move of apiPokemonMoves">
+                <td>{{ move?.name }}</td>
+                <td>{{ move?.type?.name }}</td>
+                <td>{{ move?.damage_class?.name }}</td>
+                <td>{{ move?.power }}</td>
+                <td>{{ move?.accuracy }}</td>
+                <td>{{ move?.pp }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- Visible on smaller than tablet sceens -->
-      <!-- <div
-        *ngFor="let move of apiPokemonMoves"
-        class="card bg-dark d-block d-md-none"
-      >
-        <div class="card-body">
-          <h3 class="card-title">{{ move?.name }}</h3>
-          <div class="card-text">
-            <div class="badge bg-secondary">Type: {{ move?.type?.name }}</div>
-            <div class="badge bg-secondary">
-              Category: {{ move?.damage_class?.name }}
-            </div>
-            <div class="badge bg-secondary">Power: {{ move?.power }}</div>
-            <div class="badge bg-secondary">Accuracy: {{ move?.accuracy }}</div>
-            <div class="badge bg-secondary">PP: {{ move?.pp }}</div>
-          </div>
-        </div>
-      </div> -->
-
-      <div class="container">
-        <div class="row">
-          <div *ngFor="let move of apiPokemonMoves" class="col-md-4 col-xl-3">
-            <div class="card bg-dark d-block d-md-none">
-              <div class="card-block">
-                <h6>
-                  <em
-                    ><span
-                      class="badge"
-                      [ngClass]="{
-                        'bg-danger': move?.damage_class?.name === 'physical',
-                        'bg-secondary': move?.damage_class?.name === 'special',
-                        'bg-primary': move?.damage_class?.name === 'status'
-                      }"
-                      >{{ move?.damage_class?.name }}</span
-                    ></em
-                  >
-                </h6>
-                <h2 class="text-right">
-                  <img
-                    class="move-type"
-                    [src]="'assets/TypeIcons/' + move.imgUrl"
-                  /><span> {{ move?.name }}</span>
-                </h2>
-                <p *ngIf="move?.power">
-                  Power: {{ move?.power }}<span class="f-right"></span>
-                </p>
-                <p>PP: {{ move?.pp }}</p>
-                <p>Accuracy: {{ move?.accuracy || "--" }}</p>
-                <div class="card-right">
-                  <h6>Effect</h6>
-                  <p>
-                    Here is where the effect of the move goes once I figure out
-                    how to do that.
+      <div class="collapse" id="collapseMoves">
+        <div class="container">
+          <div class="row">
+            <div *ngFor="let move of apiPokemonMoves" class="col-md-4 col-xl-3">
+              <div class="card bg-dark d-block d-md-none">
+                <div class="card-block">
+                  <h6>
+                    <em
+                      ><span
+                        class="badge"
+                        [ngClass]="{
+                          'bg-danger': move?.damage_class?.name === 'physical',
+                          'bg-secondary':
+                            move?.damage_class?.name === 'special',
+                          'bg-primary': move?.damage_class?.name === 'status'
+                        }"
+                        >{{ move?.damage_class?.name }}</span
+                      ></em
+                    >
+                  </h6>
+                  <h5 class="text-right">
+                    <img
+                      class="move-type"
+                      [src]="'assets/TypeIcons/' + move.imgUrl"
+                    /><span> {{ move?.name }}</span>
+                  </h5>
+                  <p *ngIf="move?.power">
+                    Power: {{ move?.power }}<span class="f-right"></span>
                   </p>
+                  <p>PP: {{ move?.pp }}</p>
+                  <p>Accuracy: {{ move?.accuracy || "--" }}</p>
+                  <div class="card-right">
+                    <h6>Effect</h6>
+                    <p>
+                      Here is where the effect of the move goes once I figure
+                      out how to do that.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- Details -->
+      <div class="card mt-3 collapse" id="collapseDetails">
+        <div class="card-body border-dark">
+          <h5 class="card-title">Details</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              Height: {{ apiPokemon?.height }} | Weight:
+              {{ apiPokemon?.weight }}
+            </li>
+            <li class="list-group-item">
+              Base Exp: {{ apiPokemon?.base_experience }}
+            </li>
+            <div class="card">
+              <li class="list-group-item bg-secondary text-light">
+                Abilities:
+              </li>
+              <div *ngFor="let ability of apiPokemon?.abilities">
+                <li class="list-group-item text-light bg-secondary">
+                  {{ ability.ability.name }}
+                  <span
+                    class="hidden-ability badge rounded-pill"
+                    *ngIf="ability.is_hidden"
+                    >hidden</span
+                  >
+                </li>
+              </div>
+            </div>
+          </ul>
         </div>
       </div>
       <!-- <div class="accordion bg-dark" id="accordionExample">

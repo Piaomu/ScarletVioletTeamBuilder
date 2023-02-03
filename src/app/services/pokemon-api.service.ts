@@ -12,13 +12,16 @@ import {
 } from 'rxjs';
 import { Move } from '../moves/Imove';
 import { ApiPokemon } from '../pokemon/IApiPokemon';
+import { PokemonSpecies } from '../pokemon/IApiPokemonSpecies';
 import { UtilitiesService } from './utilities.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PokemonApiService {
-  private pokemonUrl = 'https://pokeapi.co/api/v2/pokemon';
+  private baseUrl = 'https://pokeapi.co/api/v2/';
+  private pokemonUrl = this.baseUrl + 'pokemon';
+  private pokemonSpeciesUrl = this.baseUrl + 'pokemon-species';
   private apiPokemon$!: Observable<ApiPokemon[]> | null;
 
   constructor(
@@ -26,6 +29,7 @@ export class PokemonApiService {
     private utilitiesService: UtilitiesService
   ) {}
 
+  // Pokemon Methods
   getApiPokemonByName(name: string): Observable<ApiPokemon | undefined> {
     let url = this.pokemonUrl + '/' + name;
     return this.httpClient.get<ApiPokemon>(url).pipe(
@@ -90,6 +94,10 @@ export class PokemonApiService {
     }
     return this.apiPokemon$;
   }
+
+  // Pokemon Species methods
+  // getPokemonSpeciesByName(name: string): Observable<PokemonSpecies | undefined>{}
+
   private handleError(err: HttpErrorResponse) {
     let errorMessage = '';
     if (err.error instanceof ErrorEvent) {
