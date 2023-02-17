@@ -105,9 +105,6 @@ export class PokemonDetailComponent implements OnInit {
     }
 
     let types: string[] | undefined = this.pokemon?.Types;
-
-    const fire: string[] = ['Fire', 'Water', 'Grass'];
-
     this.typeIcons = this.utilitiesService.getTypeIcon(types);
   }
 }

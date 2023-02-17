@@ -100,7 +100,10 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let move of apiPokemonMoves">
+              <tr
+                [routerLink]="['/moves', move.name]"
+                *ngFor="let move of apiPokemonMoves"
+              >
                 <td>{{ move?.name }}</td>
                 <td>{{ move?.type?.name }}</td>
                 <td>{{ move?.damage_class?.name }}</td>

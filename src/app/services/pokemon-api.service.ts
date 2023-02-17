@@ -38,6 +38,16 @@ export class PokemonApiService {
     );
   }
 
+  getApiPokemonSpeciesByName(
+    name: string
+  ): Observable<PokemonSpecies | undefined> {
+    let url = this.pokemonSpeciesUrl + '/' + name;
+    return this.httpClient.get<PokemonSpecies>(url).pipe(
+      tap((data) => console.log('PokemonSpecies', JSON.stringify(data))),
+      catchError(this.handleError)
+    );
+  }
+
   getApiPokemonByNumber(number: number): Observable<ApiPokemon | undefined> {
     let url = this.pokemonUrl + '/' + number;
     return this.httpClient.get<ApiPokemon>(url).pipe(
