@@ -13,6 +13,7 @@ import { MainClient } from 'pokenode-ts';
 import { PokemonDetailPlaceholderComponent } from './placeholders/pokemon-detail-placeholder.component';
 import { MobileTableComponent } from './shared/mobile-table.component';
 import { MoveDetailComponent } from './moves/move-detail.component';
+import { CollectionComponent } from './tcg/collection.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MoveDetailComponent } from './moves/move-detail.component';
     PokemonDetailPlaceholderComponent,
     MobileTableComponent,
     MoveDetailComponent,
+    CollectionComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +36,7 @@ import { MoveDetailComponent } from './moves/move-detail.component';
       { path: 'pokemon', component: PokemonListComponent },
       { path: 'pokemon/:name', component: PokemonDetailComponent },
       { path: 'team-builder', component: TeamBuilderComponent },
+      { path: 'tcg', component: CollectionComponent },
       { path: 'moves/:name', component: MoveDetailComponent },
       { path: '', redirectTo: 'pokemon', pathMatch: 'full' },
     ]),
