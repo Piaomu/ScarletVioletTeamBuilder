@@ -5,8 +5,8 @@ export class Meta {
    * @deprecated `allTypes` is renamed to `getAllTypes` in version 2. See the **[migration guide](https://github.com/acupoftee/pokemon-tcg-sdk-typescript/blob/master/MIGRATING.md)** for more info.
    */
   static async allTypes(): Promise<string[]> {
-    const resposne = await Client.get('types');
-    return resposne;
+    const response = await Client.get('types');
+    return response;
   }
 
   /**
