@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Card } from '../cardClasses/card';
 
 @Component({
   selector: 'collection',
@@ -8,5 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class CollectionComponent implements OnInit {
   constructor() {}
 
-  ngOnInit(): void {}
+  myCard!: Card;
+
+  async ngOnInit() {
+    this.myCard = await Card.find('xy1-1');
+    console.log('your card is ' + this.myCard.name);
+  }
 }
