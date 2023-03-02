@@ -15,6 +15,7 @@ import { QueryBuilder } from '../services/queryBuilder';
 export class Card implements ICard {
   id!: string;
   name!: string;
+  numberOfCopies: number = 0;
   supertype!: string;
   subtypes!: string[];
   hp?: string;
