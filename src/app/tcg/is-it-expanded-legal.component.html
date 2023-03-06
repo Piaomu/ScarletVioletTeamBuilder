@@ -45,12 +45,14 @@
             <form class="form-floating">
               <input
                 class="form-control bg-secondary"
-                id="floatingInputValue"
+                id="myCardForm"
                 type="text"
                 placeholder="my card"
+                [formControl]="queryFormControl"
                 style="color: var(--primary)"
+                (focusOut)="getCardsByQuery()"
               />
-              <label for="floatingInputValue">my card</label>
+              <label for="myCardForm">my card</label>
             </form>
           </div>
           <!-- gap 3 -->
@@ -64,7 +66,14 @@
       <!-- ./col -->
     </div>
     <!-- ./row -->
-    <div class="row"></div>
+    <div class="row">
+      <div class="col">
+        <h1>Which one?</h1>
+        <div *ngFor="let card of queryCards">
+          <div class="card">{{ card.name }}</div>
+        </div>
+      </div>
+    </div>
   </div>
   <!-- ./container-fluid -->
 </ng-template>

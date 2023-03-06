@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Card } from '../cardClasses/card';
+import { IQuery } from '../cardInterfaces/query';
 
 @Component({
   selector: 'is-it-expanded-legal',
@@ -13,9 +15,18 @@ export class IsItExpandedLegalComponent implements OnInit {
   isLoading: boolean = false;
   legalityMessage!: string | null;
   legal!: boolean;
+  // queryString: string = '';
   queryCards: Card[] = [];
   myCard!: Card | undefined;
+  queryFormControl = new FormControl();
 
+  async getCardsByQuery() {
+    const query: IQuery[] = [
+      { name: 'q', value: 'name:' + this.queryFormControl.value },
+    ];
+    this.queryCards = await Card.where(query);
+    console.log('Searching for: ' + query.at(0)?.name + query.at(0)?.value);
+  }
   getLegalityMessage() {}
 
   getLegality() {}
