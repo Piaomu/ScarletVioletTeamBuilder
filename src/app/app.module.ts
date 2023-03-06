@@ -14,6 +14,7 @@ import { PokemonDetailPlaceholderComponent } from './placeholders/pokemon-detail
 import { MobileTableComponent } from './shared/mobile-table.component';
 import { MoveDetailComponent } from './moves/move-detail.component';
 import { CollectionComponent } from './tcg/collection.component';
+import { IsItExpandedLegalComponent } from './tcg/is-it-expanded-legal.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { CollectionComponent } from './tcg/collection.component';
     MobileTableComponent,
     MoveDetailComponent,
     CollectionComponent,
+    IsItExpandedLegalComponent,
   ],
   imports: [
     BrowserModule,
