@@ -39,6 +39,7 @@ import { IsItExpandedLegalComponent } from './tcg/is-it-expanded-legal.component
       { path: 'pokemon/:name', component: PokemonDetailComponent },
       { path: 'team-builder', component: TeamBuilderComponent },
       { path: 'tcg', component: CollectionComponent },
+      { path: 'expanded-legal', component: IsItExpandedLegalComponent },
       { path: 'moves/:name', component: MoveDetailComponent },
       { path: '', redirectTo: 'pokemon', pathMatch: 'full' },
     ]),
