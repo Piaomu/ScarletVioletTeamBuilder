@@ -63,6 +63,7 @@
     <div class="col">
       <div *ngIf="queryExecuted">
         <h1>Which One?</h1>
+        <h4>(Click for more details)</h4>
         <hr />
       </div>
 
@@ -85,7 +86,7 @@
             [src]="card.images.small"
             [alt]="card.name"
             data-bs-toggle="tooltip"
-            [title]="card.set.name"
+            [title]="card.set.series + ': ' + card.set.name"
             (mouseenter)="getLegality(card)"
             (mouseleave)="removeLegality(card)"
             [ngClass]="{
