@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 import { Card } from '../cardClasses/card';
 import { IQuery } from '../cardInterfaces/query';
 
@@ -13,23 +14,30 @@ export class IsItExpandedLegalComponent implements OnInit {
 
   pageTitle: string = 'Is my card legal in Expanded on Pokemon TCG Live?';
   isLoading: boolean = false;
+  queryExecuted: boolean = false;
   legalityMessage!: string | null;
   legal!: boolean;
-  // queryString: string = '';
   queryCards: Card[] = [];
   myCard!: Card | undefined;
   queryFormControl = new FormControl();
 
   async getCardsByQuery() {
+    this.isLoading = true;
     const query: IQuery[] = [
       { name: 'q', value: 'name:' + this.queryFormControl.value },
     ];
     this.queryCards = await Card.where(query);
+    this.isLoading = false;
+    this.queryExecuted = true;
     console.log('Searching for: ' + query.at(0)?.name + query.at(0)?.value);
   }
   getLegalityMessage() {}
 
   getLegality() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.queryFormControl.valueChanges.pipe(debounceTime(500)).subscribe(() => {
+      this.getCardsByQuery();
+    });
+  }
 }
