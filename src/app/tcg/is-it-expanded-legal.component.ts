@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 import { Card } from '../cardClasses/card';
+import { Legality } from '../cardInterfaces/legality';
 import { IQuery } from '../cardInterfaces/query';
+
+// needed to initialize tooltips
+declare var bootstrap: any;
 
 @Component({
   selector: 'is-it-expanded-legal',
@@ -17,12 +21,14 @@ export class IsItExpandedLegalComponent implements OnInit {
   queryExecuted: boolean = false;
   legalityMessage!: string | null;
   legal!: boolean;
+  legality!: string;
   queryCards: Card[] = [];
   myCard!: Card | undefined;
   queryFormControl = new FormControl();
 
   async getCardsByQuery() {
     this.isLoading = true;
+    this.queryExecuted = false;
     const query: IQuery[] = [
       { name: 'q', value: 'name:' + this.queryFormControl.value },
     ];
@@ -33,11 +39,38 @@ export class IsItExpandedLegalComponent implements OnInit {
   }
   getLegalityMessage() {}
 
-  getLegality() {}
+  getLegality(card: Card) {
+    console.log('Card: ' + card.name);
+    if (card.legalities.expanded !== Legality.LEGAL) {
+      card.tcgLiveLegality = 'Banned';
+      console.log('Legality for' + card.name + ': ' + card.tcgLiveLegality);
+    } else if (
+      card.legalities.expanded === Legality.LEGAL &&
+      (card.set.series === 'XY' || card.set.series === 'BW')
+    ) {
+      card.tcgLiveLegality = 'Banned';
+      console.log('Legality for' + card.name + ': ' + card.tcgLiveLegality);
+    } else {
+      card.tcgLiveLegality = 'Legal';
+      console.log('Legality for' + card.name + ': ' + card.tcgLiveLegality);
+    }
+  }
+
+  removeLegality(card: Card) {
+    card.tcgLiveLegality = '';
+  }
 
   ngOnInit(): void {
     this.queryFormControl.valueChanges.pipe(debounceTime(500)).subscribe(() => {
       this.getCardsByQuery();
+    });
+
+    //initialize tooltips
+    var tooltipTriggerList = [].slice.call(
+      document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
     });
   }
 }

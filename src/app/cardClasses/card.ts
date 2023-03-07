@@ -41,6 +41,7 @@ export class Card implements ICard {
   images!: ICardImage;
   tcgplayer?: ITCGPlayer;
   cardmarket?: ICardmarket;
+  tcgLiveLegality?: string;
 
   resource(): string {
     return 'cards';

@@ -31,9 +31,9 @@
 
   <div class="row">
     <div class="col">
-      <div class="hstack gap-3">
+      <div class="hstack gap-3" style="margin-bottom: 2rem; margin-top: 2rem">
         <!-- gap 1 -->
-        <div class=""><h3>Is</h3></div>
+        <div><h3>Is</h3></div>
         <!-- gap 2 -->
         <div>
           <form class="form-floating">
@@ -61,7 +61,11 @@
   <!-- ./row -->
   <div class="row">
     <div class="col">
-      <h1 *ngIf="queryExecuted">Which one?</h1>
+      <div *ngIf="queryExecuted">
+        <h1>Which One?</h1>
+        <hr />
+      </div>
+
       <div
         *ngIf="isLoading; else dataBlock"
         class="d-flex justify-content-center"
@@ -75,11 +79,21 @@
         </div>
       </div>
       <ng-template #dataBlock>
-        <img
-          *ngFor="let card of queryCards"
-          [src]="card.images.small"
-          [alt]="card.name"
-        />
+        <div class="image-container">
+          <img
+            *ngFor="let card of queryCards"
+            [src]="card.images.small"
+            [alt]="card.name"
+            data-bs-toggle="tooltip"
+            [title]="card.set.name"
+            (mouseenter)="getLegality(card)"
+            (mouseleave)="removeLegality(card)"
+            [ngClass]="{
+              'glow-green': card.tcgLiveLegality === 'Legal',
+              'glow-red': card.tcgLiveLegality === 'Banned'
+            }"
+          />
+        </div>
       </ng-template>
     </div>
   </div>
