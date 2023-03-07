@@ -30,7 +30,7 @@ export class IsItExpandedLegalComponent implements OnInit {
     this.isLoading = true;
     this.queryExecuted = false;
     const query: IQuery[] = [
-      { name: 'q', value: 'name:' + this.queryFormControl.value },
+      { name: 'q', value: `name:"${this.queryFormControl.value}"` },
     ];
     this.queryCards = await Card.where(query);
     this.isLoading = false;
@@ -46,7 +46,7 @@ export class IsItExpandedLegalComponent implements OnInit {
       console.log('Legality for' + card.name + ': ' + card.tcgLiveLegality);
     } else if (
       card.legalities.expanded === Legality.LEGAL &&
-      (card.set.series === 'XY' || card.set.series === 'BW')
+      (card.set.series === 'XY' || card.set.series === 'Black & White')
     ) {
       card.tcgLiveLegality = 'Banned';
       console.log('Legality for' + card.name + ': ' + card.tcgLiveLegality);
